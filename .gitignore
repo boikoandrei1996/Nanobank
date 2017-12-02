@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Nanobank.API/Web.Release.config
+/Nanobank.API/Web.Debug.config
+/Nanobank.API/App_Data/Nanobank

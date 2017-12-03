@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="DAL\Interface\IAuthRepository.cs" />
+    <Compile Include="DAL\Models\RoleTypes.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />

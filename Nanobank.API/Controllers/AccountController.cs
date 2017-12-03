@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 using Nanobank.API.Models.ViewModels;
 
 namespace Nanobank.API.Controllers
 {
   [RoutePrefix("api/Account")]
+  [Authorize]
   public class AccountController : ApiController
   {
     private readonly IAuthRepository _repo;
@@ -22,7 +24,7 @@ namespace Nanobank.API.Controllers
     }
 
     // GET api/Account/All
-    //[Authorize]
+    [Authorize(Roles = RoleTypes.Admin)]
     [HttpGet]
     [Route("All")]
     public async Task<IHttpActionResult> Index()
@@ -30,6 +32,20 @@ namespace Nanobank.API.Controllers
       IList<UserViewModel> users = await _repo.GetUsers();
 
       return Ok(users);
+    }
+
+    // GET api/Account/{userName}
+    [HttpGet]
+    [Route("{userName}")]
+    public async Task<IHttpActionResult> Index(string userName)
+    {
+      UserViewModel user = await _repo.GetUser(userName);
+      if (user == null)
+      {
+        return BadRequest($"Can not find user by username: '{userName}'");
+      }
+
+      return Ok(user);
     }
 
     // POST api/Account/Register

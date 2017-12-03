@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
 using Nanobank.API.DAL.Interface;
 
@@ -32,9 +34,10 @@ namespace Nanobank.API.Infrastructure.Providers
         return;
       }
 
-      var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-      identity.AddClaim(new Claim("sub", context.UserName));
-      identity.AddClaim(new Claim("role", "user"));
+      // var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+      // identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+      // identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+      var identity = await _authRepo.CreateClaimsIdentity(user, DefaultAuthenticationTypes.ExternalBearer);
 
       context.Validated(identity);
     }

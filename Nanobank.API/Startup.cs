@@ -21,7 +21,15 @@ namespace Nanobank.API
       WebApiConfig.Register(config);
       
       config.DependencyResolver = new UnityResolver(UnityConfig.Container);
-      
+
+      // https://metanit.com/sharp/aspnet_webapi/5.1.php
+      // Класс HostAuthenticationFilter подключает аутентификацию токенов, 
+      // а метод SuppressDefaultHostAuthentication() указывает Web API игнорировать любую аутентификацию, 
+      // которая происходит до того, как обработка запроса достигнет конвейера Web API. 
+      // Это позволяет отключить атуентификацию на основе кук, и тем самым защитить приложение от CSRF-атак.
+      config.SuppressDefaultHostAuthentication();
+      config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
       app.UseWebApi(config);
       app.UseCors(CorsOptions.AllowAll);
     }

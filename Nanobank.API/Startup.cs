@@ -3,6 +3,7 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
+using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Providers;
 using Owin;
@@ -32,6 +33,12 @@ namespace Nanobank.API
 
       app.UseWebApi(config);
       app.UseCors(CorsOptions.AllowAll);
+
+      // Start Init DB
+      using (var context = ApplicationContext.Create())
+      {
+        context.Database.Initialize(false);
+      }
     }
 
     public void ConfigureOAuth(IAppBuilder app)

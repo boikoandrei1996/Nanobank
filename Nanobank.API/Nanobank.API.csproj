@@ -165,19 +165,26 @@
     <Compile Include="App_Start\Unity\UnityConfig.cs" />
     <Compile Include="App_Start\Unity\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="DAL\Interface\IAuthRepository.cs" />
+    <Compile Include="DAL\Models\CreditCard.cs" />
     <Compile Include="DAL\Models\RoleTypes.cs" />
+    <Compile Include="DAL\Models\UserInfo.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationRoleManager.cs" />
-    <Compile Include="Infrastructure\Identity\ApplicationUser.cs" />
+    <Compile Include="DAL\Models\ApplicationUser.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.cs" />
+    <Compile Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.Designer.cs">
+      <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -205,6 +212,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712082010334_InitialCreate.resx">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.resx">
+      <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

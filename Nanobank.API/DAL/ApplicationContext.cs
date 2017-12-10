@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
 using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.DAL.Models;
 using Microsoft.AspNet.Identity;
@@ -22,18 +22,43 @@ namespace Nanobank.API.DAL
     public ApplicationContext() : base("ApplicationContext")
     {
     }
+
+    public static ApplicationContext Create()
+    {
+      return new ApplicationContext();
+    }
+
+    public virtual DbSet<CreditCard> Cards { get; set; }
   }
 
   public class DbInitializer :
-    //DropCreateDatabaseAlways<ApplicationContext>
-    CreateDatabaseIfNotExists<ApplicationContext>
+    DropCreateDatabaseAlways<ApplicationContext>
+    //CreateDatabaseIfNotExists<ApplicationContext>
   {
     protected override void Seed(ApplicationContext context)
     {
       base.Seed(context);
 
+      CreateCreditCards(context);
       CreateRoles(ApplicationRoleManager.Create(context));
       CreateUsers(ApplicationUserManager.Create(context));
+    }
+    
+
+    private void CreateCreditCards(ApplicationContext context)
+    {
+      var cards = new List<CreditCard>();
+      for(int i = 1; i <= 10; i++)
+      {
+        cards.Add(new CreditCard
+        {
+          CardNumber = $"{i.ToString("D4")}{i.ToString("D4")}{i.ToString("D4")}{i.ToString("D4")}",
+          Balance = i * 100
+        });
+      }
+
+      context.Cards.AddRange(cards);
+      context.SaveChanges();
     }
 
     private void CreateRoles(ApplicationRoleManager manager)
@@ -55,16 +80,36 @@ namespace Nanobank.API.DAL
         new
         {
           UserName = "admin",
-          Email = "admin@mail.ru",
           Password = "admin123",
-          Roles = new [] { RoleTypes.Admin, RoleTypes.User }
+          Roles = new [] { RoleTypes.Admin, RoleTypes.User },
+          Email = "admin@mail.ru",
+          PhoneNumber = "375291234567",
+          FirstName = "adminFN",
+          LastName = "adminLN",
+          Patronymic = "adminPatr",
+          CardNumber = $"{1.ToString("D4")}{1.ToString("D4")}{1.ToString("D4")}{1.ToString("D4")}",
+          CardOwnerFullName = "adminFN adminLN",
+          CardDateOfExpire = DateTime.Now.AddMonths(1),
+          CardCVV2Key = "123",
+          PassportImage = new byte[0],
+          ImageMimeType = "png"
         },
         new
         {
           UserName = "user1",
-          Email = "user1@mail.ru",
           Password = "user123",
-          Roles = new [] { RoleTypes.User }
+          Roles = new [] { RoleTypes.User },
+          Email = "user1@mail.ru",
+          PhoneNumber = "375291234567",
+          FirstName = "user1FN",
+          LastName = "user1LN",
+          Patronymic = "user1Patr",
+          CardNumber = $"{2.ToString("D4")}{2.ToString("D4")}{2.ToString("D4")}{2.ToString("D4")}",
+          CardOwnerFullName = "user1FN user1LN",
+          CardDateOfExpire = DateTime.Now.AddMonths(1),
+          CardCVV2Key = "123",
+          PassportImage = new byte[0],
+          ImageMimeType = "png"
         },
       };
 
@@ -73,7 +118,21 @@ namespace Nanobank.API.DAL
         var newUser = new ApplicationUser 
         {
           UserName = user.UserName,
-          Email = user.Email
+          Email = user.Email,
+          PhoneNumber = user.PhoneNumber,
+          UserInfo = new UserInfo
+          {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Patronymic = user.Patronymic,
+            CardNumber = user.CardNumber,
+            CardOwnerFullName = user.CardOwnerFullName,
+            CardDateOfExpire = user.CardDateOfExpire,
+            CardCVV2Key = user.CardCVV2Key,
+            PassportImage = user.PassportImage,
+            ImageMimeType = user.ImageMimeType
+          },
+          IsApproved = user.UserName == "admin" ? true : false
         };
 
         IdentityResult result = manager.Create(newUser, user.Password);

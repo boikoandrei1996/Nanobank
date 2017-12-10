@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.DAL;
+using Nanobank.API.DAL.Models;
 
 namespace Nanobank.API.Infrastructure.Identity
 {

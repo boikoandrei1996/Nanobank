@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.Models;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Identity;
@@ -32,12 +31,7 @@ namespace Nanobank.API.DAL
 
       foreach (var user in _userManager.Users.ToList())
       {
-        resultUsers.Add(new UserViewModel
-        {
-          UserName = user.UserName,
-          Email = user.Email,
-          Roles = await _userManager.GetRolesAsync(user.Id)
-        });
+        resultUsers.Add(await MapUserAsync(user));
       }
 
       return resultUsers;
@@ -51,12 +45,7 @@ namespace Nanobank.API.DAL
         return null;
       }
 
-      return new UserViewModel
-      {
-        UserName = user.UserName,
-        Email = user.Email,
-        Roles = await _userManager.GetRolesAsync(user.Id)
-      };
+      return await MapUserAsync(user);
     }
 
     public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -106,6 +95,23 @@ namespace Nanobank.API.DAL
     {
       _userManager.Dispose();
       _roleManager.Dispose();
+    }
+
+    private async Task<UserViewModel> MapUserAsync(ApplicationUser user)
+    {
+      return new UserViewModel
+      {
+        UserName = user.UserName,
+        Email = user.Email,
+        PhoneNumber = user.PhoneNumber,
+        FirstName = user.UserInfo.FirstName,
+        LastName = user.UserInfo.LastName,
+        Patronymic = user.UserInfo.Patronymic,
+        IsApproved = user.IsApproved,
+        RatingPositive = user.UserInfo.RatingPositive,
+        RatingNegative = user.UserInfo.RatingNegative,
+        Roles = await _userManager.GetRolesAsync(user.Id)
+      };
     }
   }
 }

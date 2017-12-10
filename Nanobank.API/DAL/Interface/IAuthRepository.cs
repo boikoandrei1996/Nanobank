@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Nanobank.API.Infrastructure.Identity;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 using Nanobank.API.Models.ViewModels;
 

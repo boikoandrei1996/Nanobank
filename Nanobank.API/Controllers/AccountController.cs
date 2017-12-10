@@ -27,7 +27,7 @@ namespace Nanobank.API.Controllers
     [Authorize(Roles = RoleTypes.Admin)]
     [HttpGet]
     [Route("All")]
-    public async Task<IHttpActionResult> Index()
+    public async Task<IHttpActionResult> All()
     {
       IList<UserViewModel> users = await _repo.GetUsers();
 

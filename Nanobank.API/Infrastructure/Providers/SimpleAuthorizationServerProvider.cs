@@ -34,6 +34,12 @@ namespace Nanobank.API.Infrastructure.Providers
         return;
       }
 
+      if (!user.IsApproved)
+      {
+        context.SetError("invalid_access", "The user is not approved by administrator.");
+        return;
+      }
+
       // var identity = new ClaimsIdentity(context.Options.AuthenticationType);
       // identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
       // identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));

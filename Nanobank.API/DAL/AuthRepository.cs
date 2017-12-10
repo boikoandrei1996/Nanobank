@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.Models;
 using Nanobank.API.DAL.Interface;
-using Nanobank.API.Infrastructure.Identity;
-using Nanobank.API.Models.ViewModels;
 using Nanobank.API.DAL.Models;
-using System.Security.Claims;
+using Nanobank.API.Infrastructure.Identity;
+using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL
 {
@@ -25,9 +24,9 @@ namespace Nanobank.API.DAL
       _roleManager = roleManager;
     }
 
-    public async Task<IList<UserViewModel>> GetUsers()
+    public async Task<IList<UserResponseViewModel>> GetUsers()
     {
-      var resultUsers = new List<UserViewModel>();
+      var resultUsers = new List<UserResponseViewModel>();
 
       foreach (var user in _userManager.Users.ToList())
       {
@@ -37,7 +36,7 @@ namespace Nanobank.API.DAL
       return resultUsers;
     }
 
-    public async Task<UserViewModel> GetUser(string userName)
+    public async Task<UserResponseViewModel> GetUser(string userName)
     {
       var user = await _userManager.FindByNameAsync(userName);
       if (user == null)
@@ -48,12 +47,9 @@ namespace Nanobank.API.DAL
       return await MapUserAsync(user);
     }
 
-    public async Task<IdentityResult> RegisterUser(UserModel userModel)
+    public async Task<IdentityResult> RegisterUser(UserRequestViewModel userModel)
     {
-      var user = new ApplicationUser
-      {
-        UserName = userModel.UserName
-      };
+      var user = MapUser(userModel);
 
       var result = await _userManager.CreateAsync(user, userModel.Password);
       if (!result.Succeeded)
@@ -97,9 +93,9 @@ namespace Nanobank.API.DAL
       _roleManager.Dispose();
     }
 
-    private async Task<UserViewModel> MapUserAsync(ApplicationUser user)
+    private async Task<UserResponseViewModel> MapUserAsync(ApplicationUser user)
     {
-      return new UserViewModel
+      return new UserResponseViewModel
       {
         UserName = user.UserName,
         Email = user.Email,
@@ -111,6 +107,29 @@ namespace Nanobank.API.DAL
         RatingPositive = user.UserInfo.RatingPositive,
         RatingNegative = user.UserInfo.RatingNegative,
         Roles = await _userManager.GetRolesAsync(user.Id)
+      };
+    }
+
+    private ApplicationUser MapUser(UserRequestViewModel user)
+    {
+      return new ApplicationUser
+      {
+        UserName = user.UserName,
+        Email = user.Email,
+        PhoneNumber = user.PhoneNumber,
+        IsApproved = false,
+        UserInfo = new UserInfo
+        {
+          FirstName = user.FirstName,
+          LastName = user.LastName,
+          Patronymic = user.Patronymic,
+          CardNumber = user.CardNumber,
+          CardOwnerFullName = user.CardOwnerFullName,
+          CardDateOfExpire = user.CardDateOfExpire.Date,
+          CardCVV2Key = user.CardCVV2Key,
+          PassportImage = new byte[0], //userModel.PassportImage,
+          ImageMimeType = "png" //userModel.ImageMimeType
+        }
       };
     }
   }

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Nanobank.API.DAL.Interface;
-using Nanobank.API.Models.ViewModels;
+using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
 
-  [RoutePrefix("api/User")]
+  [RoutePrefix("api/user")]
+  //[Authorize]
   public class UserController : ApiController
   {
     private readonly IAuthRepository _repo;
@@ -21,14 +18,39 @@ namespace Nanobank.API.Controllers
       _repo = repo;
     }
 
-    // GET api/User/All
+    // GET api/user/all
     [HttpGet]
-    [Route("All")]
+    [Route("all")]
+    // [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> All()
     {
-      IList<UserViewModel> users = await _repo.GetUsers();
+      IList<UserResponseViewModel> users = await _repo.GetUsers();
 
       return Ok(users);
+    }
+
+    // GET api/user/{userName}
+    [HttpGet]
+    [Route("{userName}")]
+    public async Task<IHttpActionResult> Get(string userName)
+    {
+      UserResponseViewModel user = await _repo.GetUser(userName);
+      if (user == null)
+      {
+        return BadRequest($"Can not find user by username: '{userName}'");
+      }
+
+      return Ok(user);
+    }
+    
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing)
+      {
+        _repo.Dispose();
+      }
+
+      base.Dispose(disposing);
     }
   }
 }

@@ -32,8 +32,8 @@ namespace Nanobank.API.DAL
   }
 
   public class DbInitializer :
-    DropCreateDatabaseAlways<ApplicationContext>
-    //CreateDatabaseIfNotExists<ApplicationContext>
+    //DropCreateDatabaseAlways<ApplicationContext>
+    CreateDatabaseIfNotExists<ApplicationContext>
   {
     protected override void Seed(ApplicationContext context)
     {

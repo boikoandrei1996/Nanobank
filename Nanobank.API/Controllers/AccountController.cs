@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
-using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
-using Nanobank.API.Models.ViewModels;
 
 namespace Nanobank.API.Controllers
 {
-  [RoutePrefix("api/Account")]
-  [Authorize]
+  [RoutePrefix("api/account")]
   public class AccountController : ApiController
   {
     private readonly IAuthRepository _repo;
@@ -23,36 +16,10 @@ namespace Nanobank.API.Controllers
       _repo = repo;
     }
 
-    // GET api/Account/All
-    [Authorize(Roles = RoleTypes.Admin)]
-    [HttpGet]
-    [Route("All")]
-    public async Task<IHttpActionResult> All()
-    {
-      IList<UserViewModel> users = await _repo.GetUsers();
-
-      return Ok(users);
-    }
-
-    // GET api/Account/{userName}
-    [HttpGet]
-    [Route("{userName}")]
-    public async Task<IHttpActionResult> Index(string userName)
-    {
-      UserViewModel user = await _repo.GetUser(userName);
-      if (user == null)
-      {
-        return BadRequest($"Can not find user by username: '{userName}'");
-      }
-
-      return Ok(user);
-    }
-
-    // POST api/Account/Register
-    [AllowAnonymous]
+    // POST api/account/register
     [HttpPost]
-    [Route("Register")]
-    public async Task<IHttpActionResult> Register(UserModel userModel)
+    [Route("register")]
+    public async Task<IHttpActionResult> Register(UserRequestViewModel userModel)
     {
       if (!ModelState.IsValid)
       {

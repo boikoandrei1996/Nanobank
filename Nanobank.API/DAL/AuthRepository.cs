@@ -61,7 +61,7 @@ namespace Nanobank.API.DAL
 
     public async Task<IdentityResult> RegisterUser(UserModel userModel)
     {
-      IdentityUser user = new IdentityUser
+      var user = new ApplicationUser
       {
         UserName = userModel.UserName
       };
@@ -88,14 +88,14 @@ namespace Nanobank.API.DAL
       return result;
     }
 
-    public async Task<IdentityUser> FindUser(string userName, string password)
+    public async Task<ApplicationUser> FindUser(string userName, string password)
     {
-      IdentityUser user = await _userManager.FindAsync(userName, password);
+      ApplicationUser user = await _userManager.FindAsync(userName, password);
 
       return user;
     }
 
-    public async Task<ClaimsIdentity> CreateClaimsIdentity(IdentityUser user, string authenticationType)
+    public async Task<ClaimsIdentity> CreateClaimsIdentity(ApplicationUser user, string authenticationType)
     {
       ClaimsIdentity identity = await _userManager.CreateIdentityAsync(user, authenticationType);
 

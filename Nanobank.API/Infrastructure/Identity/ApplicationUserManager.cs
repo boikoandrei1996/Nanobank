@@ -4,9 +4,9 @@ using Nanobank.API.DAL;
 
 namespace Nanobank.API.Infrastructure.Identity
 {
-  public class ApplicationUserManager : UserManager<IdentityUser>
+  public class ApplicationUserManager : UserManager<ApplicationUser>
   {
-    public ApplicationUserManager(IUserStore<IdentityUser> store)
+    public ApplicationUserManager(IUserStore<ApplicationUser> store)
       : base(store)
     {
     }
@@ -14,9 +14,9 @@ namespace Nanobank.API.Infrastructure.Identity
     public static ApplicationUserManager Create(ApplicationContext context)
     {
       var manager = new ApplicationUserManager(
-        new UserStore<IdentityUser>(context));
+        new UserStore<ApplicationUser>(context));
 
-      /*manager.UserValidator = new UserValidator<IdentityUser>(manager)
+      /*manager.UserValidator = new UserValidator<ApplicationUser>(manager)
       {
         AllowOnlyAlphanumericUserNames = false,
         RequireUniqueEmail = true

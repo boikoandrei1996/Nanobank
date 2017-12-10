@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Nanobank.API.DAL
 {
-  public class ApplicationContext : IdentityDbContext<IdentityUser>
+  public class ApplicationContext : IdentityDbContext<ApplicationUser>
   {
     static ApplicationContext()
     {
@@ -70,7 +70,7 @@ namespace Nanobank.API.DAL
 
       foreach (var user in users)
       {
-        var newUser = new IdentityUser 
+        var newUser = new ApplicationUser 
         {
           UserName = user.UserName,
           Email = user.Email
@@ -85,7 +85,7 @@ namespace Nanobank.API.DAL
         result = manager.AddToRoles(newUser.Id, user.Roles);
         if (!result.Succeeded)
         {
-          throw new InvalidOperationException($"Can not add roles '{String.Join("; ", user.Roles)}' for user '{user.UserName}'");
+          throw new InvalidOperationException($"Can not add roles '{string.Join("; ", user.Roles)}' for user '{user.UserName}'");
         }
       }
     }

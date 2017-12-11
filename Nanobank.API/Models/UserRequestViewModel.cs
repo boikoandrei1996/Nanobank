@@ -43,8 +43,10 @@ namespace Nanobank.API.Models
     public string CardNumber { get; set; }
 
     [Required]
-    [DataType(DataType.Date)]
-    public DateTime CardDateOfExpire { get; set; }
+    [RegularExpression(
+      @"((0[1-9])|(1[0-2]))/(\d\d)",
+      ErrorMessage = "Date format is incorrect. You should use format 'mm/yy'")]
+    public string CardDateOfExpire { get; set; }
 
     [Required]
     [MaxLength(255)]

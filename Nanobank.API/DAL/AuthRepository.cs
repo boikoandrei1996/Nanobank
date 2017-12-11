@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -125,7 +126,7 @@ namespace Nanobank.API.DAL
           Patronymic = user.Patronymic,
           CardNumber = user.CardNumber,
           CardOwnerFullName = user.CardOwnerFullName,
-          CardDateOfExpire = user.CardDateOfExpire.Date,
+          CardDateOfExpire = DateTime.ParseExact(user.CardDateOfExpire, "MM/yy", CultureInfo.InvariantCulture).Date,
           CardCVV2Key = user.CardCVV2Key,
           PassportImage = new byte[0], //userModel.PassportImage,
           ImageMimeType = "png" //userModel.ImageMimeType

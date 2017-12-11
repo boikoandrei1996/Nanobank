@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Providers;
+using Nanobank.API.Migrations;
 using Owin;
 using Unity;
 
@@ -34,14 +35,9 @@ namespace Nanobank.API
 
       app.UseWebApi(config);
       app.UseCors(CorsOptions.AllowAll);
-
-      // Start Init DB
-      using (var context = ApplicationContext.Create())
-      {
-        context.Database.Initialize(false);
-      }
-      /*var migrator = new DbMigrator(new Migrations.Configuration());
-      migrator.Update();*/
+      
+      var migrator = new DbMigrator(new Configuration());
+      migrator.Update();
     }
 
     public void ConfigureOAuth(IAppBuilder app)

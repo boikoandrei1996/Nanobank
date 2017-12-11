@@ -19,7 +19,7 @@ namespace Nanobank.API.DAL
       Database.SetInitializer(new DbInitializer());
     }
 
-    public ApplicationContext() : base("ApplicationContext")
+    public ApplicationContext() : base("ApplicationContext", throwIfV1Schema: false)
     {
     }
 
@@ -32,9 +32,16 @@ namespace Nanobank.API.DAL
   }
 
   public class DbInitializer :
-    //DropCreateDatabaseAlways<ApplicationContext>
-    CreateDatabaseIfNotExists<ApplicationContext>
+    DropCreateDatabaseAlways<ApplicationContext>
+    //CreateDatabaseIfNotExists<ApplicationContext>
   {
+    internal void InternalSeed(ApplicationContext context)
+    {
+      CreateCreditCards(context);
+      CreateRoles(ApplicationRoleManager.Create(context));
+      CreateUsers(ApplicationUserManager.Create(context));
+    }
+
     protected override void Seed(ApplicationContext context)
     {
       base.Seed(context);
@@ -43,7 +50,6 @@ namespace Nanobank.API.DAL
       CreateRoles(ApplicationRoleManager.Create(context));
       CreateUsers(ApplicationUserManager.Create(context));
     }
-    
 
     private void CreateCreditCards(ApplicationContext context)
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Migrations;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
@@ -39,6 +40,8 @@ namespace Nanobank.API
       {
         context.Database.Initialize(false);
       }
+      /*var migrator = new DbMigrator(new Migrations.Configuration());
+      migrator.Update();*/
     }
 
     public void ConfigureOAuth(IAppBuilder app)

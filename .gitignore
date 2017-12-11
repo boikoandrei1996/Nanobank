@@ -243,3 +243,4 @@ ModelManifest.xml
 /Nanobank.API/Web.Release.config
 /Nanobank.API/Web.Debug.config
 /Nanobank.API/App_Data/Nanobank
+/Nanobank.API/Properties/PublishProfiles/Nanobank - Web Deploy.pubxml

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -16,16 +14,13 @@ namespace Nanobank.API.DAL
 {
   public class AuthRepository : IAuthRepository
   {
-    private readonly ApplicationContext _context;
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
 
     public AuthRepository(
-      ApplicationContext context,
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager)
     {
-      _context = context;
       _userManager = userManager;
       _roleManager = roleManager;
     }

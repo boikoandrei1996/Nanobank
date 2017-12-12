@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -14,22 +16,31 @@ namespace Nanobank.API.DAL
 {
   public class AuthRepository : IAuthRepository
   {
+    private readonly ApplicationContext _context;
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
 
     public AuthRepository(
+      ApplicationContext context,
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager)
     {
+      _context = context;
       _userManager = userManager;
       _roleManager = roleManager;
     }
 
-    public async Task<IList<UserResponseViewModel>> GetUsers()
+    public async Task<IList<UserResponseViewModel>> GetUsers(Func<ApplicationUser, bool> predicate = null)
     {
       var resultUsers = new List<UserResponseViewModel>();
 
-      foreach (var user in _userManager.Users.ToList())
+      var users = _userManager.Users.ToList();
+      if (predicate != null)
+      {
+        users = users.Where(predicate).ToList();
+      }
+      
+      foreach (var user in users)
       {
         resultUsers.Add(await MapUserAsync(user));
       }
@@ -37,9 +48,9 @@ namespace Nanobank.API.DAL
       return resultUsers;
     }
 
-    public async Task<UserResponseViewModel> GetUser(string userName)
+    public async Task<UserResponseViewModel> GetUser(string username)
     {
-      var user = await _userManager.FindByNameAsync(userName);
+      var user = await _userManager.FindByNameAsync(username);
       if (user == null)
       {
         return null;
@@ -74,9 +85,40 @@ namespace Nanobank.API.DAL
       return result;
     }
 
-    public async Task<ApplicationUser> FindUser(string userName, string password)
+    public async Task<IdentityResult> ApproveUser(string username)
     {
-      ApplicationUser user = await _userManager.FindAsync(userName, password);
+      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      if (user == null)
+      {
+        return IdentityResult.Failed($"User '{username}' not found.");
+      }
+
+      user.IsApproved = true;
+      // TODO: The hook should be deleted.
+      // The hook for load lazy property UserInfo.
+      user.UserInfo.ToString();
+      
+      return await _userManager.UpdateAsync(user);
+    }
+
+    public async Task<IdentityResult> DeleteUser(string username)
+    {
+      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      if (user == null)
+      {
+        return IdentityResult.Failed($"User '{username}' not found.");
+      }
+
+      // TODO: The hook should be deleted.
+      // The hook for load lazy property UserInfo.
+      user.UserInfo.ToString();
+      
+      return await _userManager.DeleteAsync(user);
+    }
+
+    public async Task<ApplicationUser> FindUser(string username, string password)
+    {
+      ApplicationUser user = await _userManager.FindAsync(username, password);
 
       return user;
     }

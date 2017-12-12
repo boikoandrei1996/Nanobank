@@ -33,6 +33,30 @@ namespace Nanobank.API.Controllers
       return errorResult != null ? errorResult : Ok();
     }
 
+    // PUT api/account/approve/{username}
+    [HttpPut]
+    [Route("approve/{username}")]
+    public async Task<IHttpActionResult> Approve(string username)
+    {
+      IdentityResult result = await _repo.ApproveUser(username);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
+    }
+
+    // DELETE api/account/{username}
+    [HttpDelete]
+    [Route("{username}")]
+    public async Task<IHttpActionResult> Delete(string username)
+    {
+      IdentityResult result = await _repo.DeleteUser(username);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
+    }
+
     protected override void Dispose(bool disposing)
     {
       if (disposing)

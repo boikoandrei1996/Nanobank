@@ -29,11 +29,11 @@ namespace Nanobank.API.Controllers
       return Ok(users);
     }
 
-    // GET api/user/all/approved
+    // GET api/user/all/unapproved
     [HttpGet]
-    [Route("all/approved")]
+    [Route("all/unapproved")]
     // [Authorize(Roles = RoleTypes.Admin)]
-    public async Task<IHttpActionResult> AllApproved()
+    public async Task<IHttpActionResult> AllUnapproved()
     {
       IList<UserResponseViewModel> users = await _repo.GetUsers(user => !user.IsApproved);
 

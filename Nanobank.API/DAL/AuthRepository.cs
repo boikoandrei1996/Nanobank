@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -29,7 +30,7 @@ namespace Nanobank.API.DAL
     {
       var resultUsers = new List<UserResponseViewModel>();
 
-      var users = _userManager.Users.ToList();
+      var users = await _userManager.Users.ToListAsync();
       if (predicate != null)
       {
         users = users.Where(predicate).ToList();

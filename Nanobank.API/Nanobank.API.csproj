@@ -165,13 +165,17 @@
     <Compile Include="App_Start\Unity\UnityConfig.cs" />
     <Compile Include="App_Start\Unity\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="DAL\DealRepository.cs" />
     <Compile Include="DAL\Interface\IAuthRepository.cs" />
+    <Compile Include="DAL\Interface\IDealRepository.cs" />
     <Compile Include="DAL\Models\CreditCard.cs" />
+    <Compile Include="DAL\Models\Deal.cs" />
     <Compile Include="DAL\Models\RoleTypes.cs" />
     <Compile Include="DAL\Models\UserInfo.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationRoleManager.cs" />
@@ -186,7 +190,13 @@
     <Compile Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.Designer.cs">
       <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712132238394_AddDealTable.cs" />
+    <Compile Include="Migrations\201712132238394_AddDealTable.Designer.cs">
+      <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DealRequestViewModel.cs" />
+    <Compile Include="Models\DealResponseViewModel.cs" />
     <Compile Include="Models\UserRequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Providers\SimpleAuthorizationServerProvider.cs" />
@@ -212,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.resx">
       <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712132238394_AddDealTable.resx">
+      <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -28,14 +28,12 @@ namespace Nanobank.API.DAL.Models
     public string Patronymic { get; set; }
 
     [Required]
-    [MaxLength(20)]
     [DataType(DataType.CreditCard)]
     [ForeignKey("Card")]
     public string CardNumber { get; set; }
     
     public virtual CreditCard Card { get; set; }
     
-    [Required]
     [DataType(DataType.Date)]
     public DateTime CardDateOfExpire { get; set; }
     

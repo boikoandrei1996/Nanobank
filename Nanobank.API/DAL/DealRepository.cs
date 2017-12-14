@@ -42,6 +42,17 @@ namespace Nanobank.API.DAL
       return resultDeals;
     }
 
+    public async Task<DealResponseViewModel> GetDeal(string dealId)
+    {
+      var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
+      {
+        return null;
+      }
+
+      return MapDeal(deal);
+    }
+
     public void Dispose()
     {
       _context.Dispose();

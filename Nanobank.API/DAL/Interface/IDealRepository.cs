@@ -12,8 +12,8 @@ namespace Nanobank.API.DAL.Interface
   public interface IDealRepository : IDisposable
   {
     Task<IList<DealResponseViewModel>> GetDeals(Func<Deal, bool> predicate = null);
-    /*Task<UserResponseViewModel> GetDeal(string dealId);
-    Task<IdentityResult> Create();
+    Task<DealResponseViewModel> GetDeal(string dealId);
+    /*Task<IdentityResult> Create();
     Task<IdentityResult> Update();
     Task<IdentityResult> Delete(string dealId);*/
   }

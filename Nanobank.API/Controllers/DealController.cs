@@ -36,7 +36,13 @@ namespace Nanobank.API.Controllers
     [Route("{dealId}")]
     public async Task<IHttpActionResult> Get(string dealId)
     {
-      return BadRequest("NotImplemented");
+      DealResponseViewModel deal = await _repo.GetDeal(dealId);
+      if (deal == null)
+      {
+        return BadRequest($"Can not find deal by id: '{dealId}'");
+      }
+
+      return Ok(deal);
     }
 
     // POST api/deal/register

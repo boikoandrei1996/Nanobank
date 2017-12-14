@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
@@ -24,8 +22,6 @@ namespace Nanobank.API.Infrastructure.Providers
 
     public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
     {
-      context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
       var user = await _authRepo.FindUser(context.UserName, context.Password);
 
       if (user == null)

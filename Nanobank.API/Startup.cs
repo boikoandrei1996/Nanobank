@@ -17,13 +17,18 @@ namespace Nanobank.API
   {
     public void Configuration(IAppBuilder app)
     {
+      // Должен быть в начале, т.к. иначе будут ошибки связанные с CORS доступом
+      app.UseCors(CorsOptions.AllowAll);
+
       ConfigureOAuth(app);
 
-      HttpConfiguration config = new HttpConfiguration();
+      HttpConfiguration config = new HttpConfiguration
+      {
+        DependencyResolver = new UnityResolver(UnityConfig.Container)
+      };
+      
       WebApiConfig.Register(config);
       
-      config.DependencyResolver = new UnityResolver(UnityConfig.Container);
-
       // https://metanit.com/sharp/aspnet_webapi/5.1.php
       // Класс HostAuthenticationFilter подключает аутентификацию токенов, 
       // а метод SuppressDefaultHostAuthentication() указывает Web API игнорировать любую аутентификацию, 
@@ -33,7 +38,6 @@ namespace Nanobank.API
       config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
       app.UseWebApi(config);
-      app.UseCors(CorsOptions.AllowAll);
       
       var migrator = new DbMigrator(new Configuration());
       migrator.Update();

@@ -98,7 +98,7 @@ namespace Nanobank.API.DAL
         DealDurationInMonth = deal.DealDurationInMonth,
         PercentRate = deal.PercentRate,
         OwnerUserName = deal.UserOwner.UserName,
-        CreditorUserName = deal.UserCreditor.UserName,
+        CreditorUserName = deal.UserCreditor != null ? deal.UserCreditor.UserName : null,
         DealStartDate = deal.DealStartDate,
         DealClosedDate = deal.DealClosedDate,
         IsClosed = deal.IsClosed,

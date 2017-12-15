@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
 using Nanobank.API.Infrastructure.Identity;
@@ -14,14 +16,10 @@ namespace Nanobank.API.DAL
   public class DealRepository : IDealRepository
   {
     private readonly ApplicationContext _context;
-    private readonly ApplicationUserManager _userManager;
 
-    public DealRepository(
-      ApplicationContext context,
-      ApplicationUserManager userManager)
+    public DealRepository(ApplicationContext context)
     {
       _context = context;
-      _userManager = userManager;
     }
 
     public async Task<IList<DealResponseViewModel>> GetDeals(Func<Deal, bool> predicate = null)
@@ -53,9 +51,41 @@ namespace Nanobank.API.DAL
       return MapDeal(deal);
     }
 
+    public async Task<IdentityResult> CreateDeal(DealRequestViewModel dealModel)
+    {
+      try
+      {
+        _context.Deals.Add(await MapDealAsync(dealModel));
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch(DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch(Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not add deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
     public void Dispose()
     {
       _context.Dispose();
+    }
+
+    private string[] GetValidationErrors(DbEntityValidationException ex)
+    {
+      var validationErrors = new List<string>();
+
+      foreach(var error in ex.EntityValidationErrors)
+      {
+        validationErrors.AddRange(error.ValidationErrors.Select(err => $"[{err.PropertyName}]: '{err.ErrorMessage}'"));
+      }
+
+      return validationErrors.ToArray();
     }
 
     private DealResponseViewModel MapDeal(Deal deal)
@@ -85,8 +115,8 @@ namespace Nanobank.API.DAL
         StartAmount = deal.StartAmount,
         DealDurationInMonth = deal.DealDurationInMonth,
         PercentRate = deal.PercentRate,
-        UserOwner = await _userManager.FindByNameAsync(deal.OwnerUserName),
-        UserCreditor = await _userManager.FindByNameAsync(deal.CreditorUserName),
+        UserOwner = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.OwnerUserName),
+        UserCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.CreditorUserName),
         DealStartDate = DateTime.Today.Date,
         RatingPositive = null,
         RatingNegative = null,

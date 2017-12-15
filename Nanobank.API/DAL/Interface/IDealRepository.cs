@@ -13,8 +13,8 @@ namespace Nanobank.API.DAL.Interface
   {
     Task<IList<DealResponseViewModel>> GetDeals(Func<Deal, bool> predicate = null);
     Task<DealResponseViewModel> GetDeal(string dealId);
-    /*Task<IdentityResult> Create();
-    Task<IdentityResult> Update();
+    Task<IdentityResult> CreateDeal(DealRequestViewModel dealModel);
+    /*Task<IdentityResult> Update();
     Task<IdentityResult> Delete(string dealId);*/
   }
 }

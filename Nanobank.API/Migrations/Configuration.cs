@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.IO;
@@ -107,7 +108,6 @@ namespace Nanobank.API.Migrations
 
         var newDeal = new Deal
         {
-          Id = Guid.NewGuid().ToString(),
           Title = deal.Title,
           StartAmount = deal.StartAmount,
           DealDurationInMonth = deal.DealDurationInMonth,
@@ -129,6 +129,10 @@ namespace Nanobank.API.Migrations
         context.SaveChanges();
       }
       catch(DbEntityValidationException ex)
+      {
+        throw;
+      }
+      catch (DbUpdateException ex)
       {
         throw;
       }

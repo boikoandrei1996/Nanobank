@@ -50,7 +50,16 @@ namespace Nanobank.API.Controllers
     [Route("register")]
     public async Task<IHttpActionResult> Register(DealRequestViewModel dealModel)
     {
-      return BadRequest("NotImplemented");
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      IdentityResult result = await _repo.CreateDeal(dealModel);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
     }
 
     // PUT api/deal/{dealId}

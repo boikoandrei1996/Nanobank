@@ -16,6 +16,7 @@ namespace Nanobank.API.Models
 
     public decimal PercentRate { get; set; }
 
+    [Required]
     public string OwnerUserName { get; set; }
 
     public string CreditorUserName { get; set; }

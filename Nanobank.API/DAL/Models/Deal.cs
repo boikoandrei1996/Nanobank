@@ -5,6 +5,11 @@ namespace Nanobank.API.DAL.Models
 {
   public class Deal
   {
+    public Deal()
+    {
+      Id = Guid.NewGuid().ToString();
+    }
+
     [Key]
     public string Id { get; set; }
 

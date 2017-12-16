@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
@@ -29,6 +30,21 @@ namespace Nanobank.API.Controllers
       IList<DealResponseViewModel> deals = await _repo.GetDeals();
 
       return Ok(deals);
+    }
+
+    // GET api/deal/{username}/all
+    [HttpGet]
+    [Route("{username}/all")]
+    public async Task<IHttpActionResult> All(string username)
+    {
+      IList<DealResponseViewModel> dealsAsOwner = await _repo.GetDeals(deal => deal.UserOwner.UserName == username);
+      IList<DealResponseViewModel> dealsAsCreditor = await _repo.GetDeals(deal => deal.UserCreditor?.UserName == username);
+
+      var responseDict = new Dictionary<string, IList<DealResponseViewModel>>();
+      responseDict["asOwner"] = dealsAsOwner;
+      responseDict["asCreditor"] = dealsAsCreditor;
+
+      return Ok(responseDict);
     }
 
     // GET api/deal/{dealId}
@@ -74,12 +90,28 @@ namespace Nanobank.API.Controllers
       return errorResult != null ? errorResult : Ok();
     }
 
+    // PUT api/deal/respond/{dealId}
+    [HttpPut]
+    [Route("respond/{dealId}")]
+    public async Task<IHttpActionResult> RespondOn(string dealId, [FromBody]string creditorUsername)
+    {
+      IdentityResult result = await _repo.RespondOnDeal(dealId, creditorUsername);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
+    }
+
     // PUT api/deal/close/{dealId}
     [HttpPut]
     [Route("close/{dealId}")]
-    public async Task<IHttpActionResult> Close(string dealId)
+    public async Task<IHttpActionResult> Close(string dealId, [FromBody]string creditorUsername)
     {
-      return BadRequest("NotImplemented");
+      IdentityResult result = await _repo.CloseDeal(dealId, creditorUsername);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
     }
 
     // PUT api/deal/rating/positive

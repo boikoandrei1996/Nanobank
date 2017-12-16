@@ -79,9 +79,14 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
       }
 
+      if (oldDeal.IsClosed)
+      {
+        return IdentityResult.Failed("Deal is closed.");
+      }
+
       if (oldDeal.UserCreditor != null)
       {
-        return IdentityResult.Failed("Can not change условие deal after заключения договора");
+        return IdentityResult.Failed("Can not change условие deal after заключения договора.");
       }
 
       ApplicationUser creditorUser = await _context.Users.FirstOrDefaultAsync(d => d.UserName == dealModel.CreditorUserName);
@@ -95,6 +100,101 @@ namespace Nanobank.API.DAL
       oldDeal.DealDurationInMonth = dealModel.DealDurationInMonth;
       oldDeal.PercentRate = dealModel.PercentRate;
       oldDeal.UserCreditor = creditorUser;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
+    public async Task<IdentityResult> RespondOnDeal(string dealId, string creditorUsername)
+    {
+      Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      if (deal.IsClosed)
+      {
+        return IdentityResult.Failed("Deal is closed.");
+      }
+
+      if (deal.UserCreditor != null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' is busy.");
+      }
+
+      ApplicationUser userCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == creditorUsername);
+      if (userCreditor == null)
+      {
+        return IdentityResult.Failed($"User '{creditorUsername}' not found.");
+      }
+
+      if (userCreditor.UserInfo.Card.Balance < deal.StartAmount)
+      {
+        return IdentityResult.Failed($"User '{creditorUsername}' can not respond on deal because of the lack of balance.");
+      }
+
+      userCreditor.UserInfo.Card.Balance -= deal.StartAmount;
+      deal.UserOwner.UserInfo.Card.Balance += deal.StartAmount;
+
+      deal.UserCreditor = userCreditor;
+      deal.DealStartDate = DateTime.Today.Date;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
+    public async Task<IdentityResult> CloseDeal(string dealId, string creditorUsername)
+    {
+      Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      if (deal.IsClosed)
+      {
+        return IdentityResult.Failed("Deal already is closed.");
+      }
+      
+      if (deal.UserCreditor == null)
+      {
+        return IdentityResult.Failed("Deal has not creditor still.");
+      }
+
+      if (deal.UserCreditor.UserName != creditorUsername)
+      {
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. {deal.UserCreditor.UserName} are not equal {creditorUsername}");
+      }
+
+      deal.DealClosedDate = DateTime.Today.Date;
+      deal.IsClosed = true;
 
       try
       {
@@ -185,7 +285,7 @@ namespace Nanobank.API.DAL
         PercentRate = deal.PercentRate,
         UserOwner = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.OwnerUserName),
         UserCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.CreditorUserName),
-        DealStartDate = DateTime.Today.Date,
+        DealStartDate = null,
         RatingPositive = null,
         RatingNegative = null,
         DealClosedDate = null,

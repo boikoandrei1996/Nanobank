@@ -67,7 +67,11 @@ namespace Nanobank.API.Controllers
     [Route("{dealId}")]
     public async Task<IHttpActionResult> Update(string dealId, [FromBody]DealRequestViewModel dealModel)
     {
-      return BadRequest("NotImplemented");
+      IdentityResult result = await _repo.UpdateDeal(dealId, dealModel);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
     }
 
     // PUT api/deal/close/{dealId}
@@ -99,7 +103,11 @@ namespace Nanobank.API.Controllers
     [Route("{dealId}")]
     public async Task<IHttpActionResult> Delete(string dealId)
     {
-      return BadRequest("NotImplemented");
+      IdentityResult result = await _repo.DeleteDeal(dealId);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
     }
     
     protected override void Dispose(bool disposing)

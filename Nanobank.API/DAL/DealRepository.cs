@@ -71,6 +71,74 @@ namespace Nanobank.API.DAL
       }
     }
 
+    public async Task<IdentityResult> UpdateDeal(string dealId, DealRequestViewModel dealModel)
+    {
+      Deal oldDeal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (oldDeal == null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      if (oldDeal.UserCreditor != null)
+      {
+        return IdentityResult.Failed("Can not change условие deal after заключения договора");
+      }
+
+      ApplicationUser creditorUser = await _context.Users.FirstOrDefaultAsync(d => d.UserName == dealModel.CreditorUserName);
+      if (!string.IsNullOrWhiteSpace(dealModel.CreditorUserName) && creditorUser == null)
+      {
+        return IdentityResult.Failed($"User with username '{dealModel.CreditorUserName}' not found");
+      }
+
+      oldDeal.Title = dealModel.Title;
+      oldDeal.StartAmount = dealModel.StartAmount;
+      oldDeal.DealDurationInMonth = dealModel.DealDurationInMonth;
+      oldDeal.PercentRate = dealModel.PercentRate;
+      oldDeal.UserCreditor = creditorUser;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
+    public async Task<IdentityResult> DeleteDeal(string dealId)
+    {
+      Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      try
+      {
+        _context.Deals.Remove(deal);
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
     public void Dispose()
     {
       _context.Dispose();

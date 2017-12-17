@@ -32,6 +32,16 @@ namespace Nanobank.API.Controllers
       return Ok(deals);
     }
 
+    // GET api/deal/all/opened
+    [HttpGet]
+    [Route("all/opened")]
+    public async Task<IHttpActionResult> AllOpened()
+    {
+      IList<DealResponseViewModel> deals = await _repo.GetDeals(deal => deal.UserCreditor == null);
+
+      return Ok(deals);
+    }
+
     // GET api/deal/{username}/all
     [HttpGet]
     [Route("{username}/all")]

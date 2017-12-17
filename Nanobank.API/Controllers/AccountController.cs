@@ -45,6 +45,18 @@ namespace Nanobank.API.Controllers
       return errorResult != null ? errorResult : Ok();
     }
 
+    // PUT api/account/{username}/add/role
+    [HttpPut]
+    [Route("{username}/add/role")]
+    public async Task<IHttpActionResult> AddRole(string username, [FromBody]string roleName)
+    {
+      IdentityResult result = await _repo.AddRoleToUser(username, roleName);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
+    }
+
     // DELETE api/account/{username}
     [HttpDelete]
     [Route("{username}")]

@@ -14,6 +14,7 @@ namespace Nanobank.API.DAL.Interface
     Task<UserResponseViewModel> GetUser(string userName);
     Task<IdentityResult> RegisterUser(UserRequestViewModel userModel);
     Task<IdentityResult> ApproveUser(string username);
+    Task<IdentityResult> AddRoleToUser(string username, string roleName);
     Task<IdentityResult> DeleteUser(string username);
     Task<ApplicationUser> FindUser(string userName, string password);
     Task<ClaimsIdentity> CreateClaimsIdentity(ApplicationUser user, string authenticationType);

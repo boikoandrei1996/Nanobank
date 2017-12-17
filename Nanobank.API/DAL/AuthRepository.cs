@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -95,6 +96,26 @@ namespace Nanobank.API.DAL
       user.UserInfo.ToString();
       
       return await _userManager.UpdateAsync(user);
+    }
+
+    public async Task<IdentityResult> AddRoleToUser(string username, string roleName)
+    {
+      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      if (user == null)
+      {
+        return IdentityResult.Failed($"User '{username}' not found.");
+      }
+
+      if (!RoleTypes.AllRoles.Contains(roleName))
+      {
+        return IdentityResult.Failed($"Role '{roleName}' not found.");
+      }
+
+      // TODO: The hook should be deleted.
+      // The hook for load lazy property UserInfo.
+      user.UserInfo.ToString();
+
+      return await _userManager.AddToRoleAsync(user.Id, roleName);
     }
 
     public async Task<IdentityResult> DeleteUser(string username)

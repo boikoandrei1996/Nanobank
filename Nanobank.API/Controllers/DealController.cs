@@ -83,6 +83,11 @@ namespace Nanobank.API.Controllers
     [Route("{dealId}")]
     public async Task<IHttpActionResult> Update(string dealId, [FromBody]DealRequestViewModel dealModel)
     {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
       IdentityResult result = await _repo.UpdateDeal(dealId, dealModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
@@ -114,20 +119,21 @@ namespace Nanobank.API.Controllers
       return errorResult != null ? errorResult : Ok();
     }
 
-    // PUT api/deal/rating/positive
+    // PUT api/deal/{dealID}/set/rating
     [HttpPut]
-    [Route("rating/positive")]
-    public async Task<IHttpActionResult> SetPositiveRating(decimal? ratingValue)
+    [Route("{dealId}/set/rating")]
+    public async Task<IHttpActionResult> SetRating(string dealId, [FromBody]RatingRequestViewModel ratingModel)
     {
-      return BadRequest("NotImplemented");
-    }
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
 
-    // PUT api/deal/rating/positive
-    [HttpPut]
-    [Route("rating/negative")]
-    public async Task<IHttpActionResult> SetNegativeRating(decimal? ratingValue)
-    {
-      return BadRequest("NotImplemented");
+      IdentityResult result = await _repo.SetRating(dealId, ratingModel);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult != null ? errorResult : Ok();
     }
 
     // DELETE api/deal/{dealId}

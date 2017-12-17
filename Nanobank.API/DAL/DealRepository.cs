@@ -190,12 +190,91 @@ namespace Nanobank.API.DAL
 
       if (deal.UserCreditor.UserName != creditorUsername)
       {
-        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. {deal.UserCreditor.UserName} are not equal {creditorUsername}");
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{creditorUsername}'.");
       }
 
       deal.DealClosedDate = DateTime.Today.Date;
       deal.IsClosed = true;
 
+      try
+      {
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(GetValidationErrors(ex));
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
+    }
+
+    public async Task<IdentityResult> SetRating(string dealId, RatingRequestViewModel ratingModel)
+    {
+      Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
+      {
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      if (deal.IsClosed)
+      {
+        return IdentityResult.Failed("Deal is closed.");
+      }
+
+      if (deal.UserCreditor == null)
+      {
+        return IdentityResult.Failed("Deal has not creditor still.");
+      }
+
+      if (deal.UserCreditor.UserName != ratingModel.CreditorUsername)
+      {
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{ratingModel.CreditorUsername}'.");
+      }
+
+      // logic with update rating for deal
+      short oldDealRatingPositive = 0;
+      if (deal.RatingPositive.HasValue)
+      {
+        oldDealRatingPositive = deal.RatingPositive.Value;
+      }
+      deal.RatingPositive = ratingModel.Positive;
+
+      short oldDealRatingNegative = 0;
+      if (deal.RatingNegative.HasValue)
+      {
+        oldDealRatingNegative = deal.RatingNegative.Value;
+      }
+      deal.RatingNegative = ratingModel.Negative;
+
+      // logic with update rating for user owner
+      long koef = (long)Math.Floor(deal.StartAmount / 100);
+
+      long userPositiveRating = (ratingModel.Positive - oldDealRatingPositive) * koef;
+      if (deal.UserOwner.UserInfo.RatingPositive.HasValue)
+      {
+        deal.UserOwner.UserInfo.RatingPositive += userPositiveRating;
+      }
+      else
+      {
+        deal.UserOwner.UserInfo.RatingPositive = userPositiveRating;
+      }
+
+      long userNegativeRating = (ratingModel.Negative - oldDealRatingNegative) * koef;
+      if (deal.UserOwner.UserInfo.RatingNegative.HasValue)
+      {
+        deal.UserOwner.UserInfo.RatingNegative += userNegativeRating;
+      }
+      else
+      {
+        deal.UserOwner.UserInfo.RatingNegative = userNegativeRating;
+      }
+
+      // save changes
       try
       {
         await _context.SaveChangesAsync();

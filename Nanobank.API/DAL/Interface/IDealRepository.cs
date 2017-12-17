@@ -17,6 +17,7 @@ namespace Nanobank.API.DAL.Interface
     Task<IdentityResult> UpdateDeal(string dealId, DealRequestViewModel dealModel);
     Task<IdentityResult> RespondOnDeal(string dealId, string creditorUsername);
     Task<IdentityResult> CloseDeal(string dealId, string creditorUsername);
+    Task<IdentityResult> SetRating(string dealId, RatingRequestViewModel ratingModel);
     Task<IdentityResult> DeleteDeal(string dealId);
   }
 }

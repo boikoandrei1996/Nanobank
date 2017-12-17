@@ -197,6 +197,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DealRequestViewModel.cs" />
     <Compile Include="Models\DealResponseViewModel.cs" />
+    <Compile Include="Models\RatingRequestViewModel.cs" />
     <Compile Include="Models\UserRequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Providers\SimpleAuthorizationServerProvider.cs" />

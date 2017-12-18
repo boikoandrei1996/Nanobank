@@ -77,10 +77,10 @@ namespace Nanobank.API.Migrations
           PercentRate = 25m,
           OwnerUserName = "user1",
           CreditorUserName = "user2",
-          DealStartDate = DateTime.Today.Date.AddDays(-2),
+          DealStartDate = DateTime.Today.Date.AddDays(-5),
           RatingPositive = (short)2,
           RatingNegative = (short)1,
-          DealClosedDate = (DateTime?)DateTime.Today.AddDays(-5),
+          DealClosedDate = (DateTime?)DateTime.Today.AddDays(-2),
           IsClosed = true
         },
         new

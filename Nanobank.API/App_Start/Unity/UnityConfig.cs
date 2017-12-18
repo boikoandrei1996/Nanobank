@@ -57,6 +57,7 @@ namespace Nanobank.API
 
       container.RegisterType<IAuthRepository, AuthRepository>();
       container.RegisterType<IDealRepository, DealRepository>();
+      container.RegisterType<ICreditCardRepository, CreditCardRepository>();
 
       //container.RegisterType<OrdersController>(new InjectionConstructor());
     }

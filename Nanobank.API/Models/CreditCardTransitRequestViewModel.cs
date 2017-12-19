@@ -7,8 +7,7 @@ namespace Nanobank.API.Models
 {
   public class CreditCardTransitRequestViewModel
   {
-    public string FromCreditNumber { get; set; }
-    public string ToCreditNumber { get; set; }
+    public string DealId { get; set; }
     public decimal Amount { get; set; }
     public string Username { get; set; }
   }

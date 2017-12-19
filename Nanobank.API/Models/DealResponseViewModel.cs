@@ -13,7 +13,10 @@ namespace Nanobank.API.Models
 
     [Display(Name = "Origin amount")]
     public decimal StartAmount { get; set; }
-    
+
+    [Display(Name = "Returned amount")]
+    public decimal ReturnedAmount { get; set; }
+
     [Display(Name = "Deal duration(month)")]
     public short DealDurationInMonth { get; set; }
 

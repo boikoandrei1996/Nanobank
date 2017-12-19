@@ -59,6 +59,7 @@ namespace Nanobank.API.Migrations
         {
           Title = "Deal 1",
           StartAmount = 50m,
+          ReturnedAmount = 25m,
           DealDurationInMonth = (short)2,
           PercentRate = 18m,
           OwnerUserName = "admin",
@@ -73,6 +74,7 @@ namespace Nanobank.API.Migrations
         {
           Title = "Deal 2",
           StartAmount = 100m,
+          ReturnedAmount = 125m,
           DealDurationInMonth = (short)1,
           PercentRate = 25m,
           OwnerUserName = "user1",
@@ -87,6 +89,7 @@ namespace Nanobank.API.Migrations
         {
           Title = "Deal 3",
           StartAmount = 200m,
+          ReturnedAmount = 150m,
           DealDurationInMonth = (short)5,
           PercentRate = 10.5m,
           OwnerUserName = "user2",
@@ -99,8 +102,15 @@ namespace Nanobank.API.Migrations
         }
       };
 
+      // clean deal table
+      foreach(var deal in context.Deals.ToList())
+      {
+        context.Deals.Remove(deal);
+      }
+      context.SaveChanges();
+
       foreach (var deal in deals)
-      {        
+      {
         if (context.Deals.FirstOrDefault(d => d.Title == deal.Title) != null)
         {
           continue;
@@ -110,6 +120,7 @@ namespace Nanobank.API.Migrations
         {
           Title = deal.Title,
           StartAmount = deal.StartAmount,
+          ReturnedAmount = deal.ReturnedAmount,
           DealDurationInMonth = deal.DealDurationInMonth,
           PercentRate = deal.PercentRate,
           UserOwner = manager.FindByName(deal.OwnerUserName),

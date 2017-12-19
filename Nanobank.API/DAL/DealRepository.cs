@@ -86,7 +86,7 @@ namespace Nanobank.API.DAL
 
       if (oldDeal.UserCreditor != null)
       {
-        return IdentityResult.Failed("Can not change условие deal after заключения договора.");
+        return IdentityResult.Failed("Can not change condition deal after deal conclusion.");
       }
 
       ApplicationUser creditorUser = await _context.Users.FirstOrDefaultAsync(d => d.UserName == dealModel.CreditorUserName);
@@ -342,6 +342,7 @@ namespace Nanobank.API.DAL
         Id = deal.Id,
         Title = deal.Title,
         StartAmount = deal.StartAmount,
+        ReturnedAmount = deal.ReturnedAmount,
         DealDurationInMonth = deal.DealDurationInMonth,
         PercentRate = deal.PercentRate,
         OwnerUserName = deal.UserOwner.UserName,
@@ -360,6 +361,7 @@ namespace Nanobank.API.DAL
       {
         Title = deal.Title,
         StartAmount = deal.StartAmount,
+        ReturnedAmount = 0m,
         DealDurationInMonth = deal.DealDurationInMonth,
         PercentRate = deal.PercentRate,
         UserOwner = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.OwnerUserName),

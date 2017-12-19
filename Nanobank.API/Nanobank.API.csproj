@@ -196,6 +196,10 @@
     <Compile Include="Migrations\201712132238394_AddDealTable.Designer.cs">
       <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.cs" />
+    <Compile Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.Designer.cs">
+      <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreditCardResponseViewModel.cs" />
     <Compile Include="Models\CreditCardTransitRequestViewModel.cs" />
@@ -230,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712132238394_AddDealTable.resx">
       <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.resx">
+      <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

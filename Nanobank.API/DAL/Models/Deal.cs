@@ -20,7 +20,10 @@ namespace Nanobank.API.DAL.Models
 
     [DataType(DataType.Currency)]
     public decimal StartAmount { get; set; }
-    
+
+    [DataType(DataType.Currency)]
+    public decimal ReturnedAmount { get; set; }
+
     [Range(1, 24, ErrorMessage = "Deal duration should be [1 - 24] month(s)")]
     public short DealDurationInMonth { get; set; }
 

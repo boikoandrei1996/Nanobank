@@ -43,15 +43,21 @@ namespace Nanobank.API.DAL
 
     public async Task<IdentityResult> Transit(CreditCardTransitRequestViewModel transitModel)
     {
+      var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == transitModel.DealId);
+      if (deal == null)
+      {
+        return IdentityResult.Failed($"Deal '{transitModel.DealId}' not found.");
+      }
+
       var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == transitModel.Username);
       if (user == null)
       {
         return IdentityResult.Failed($"User '{transitModel.Username}' not found.");
       }
 
-      if (user.UserInfo.CardNumber != transitModel.FromCreditNumber)
+      if (deal.UserOwner.Id != user.Id)
       {
-        return IdentityResult.Failed($"Can not transit money from other credit card.");
+        return IdentityResult.Failed($"Can not transit money via other account.");
       }
 
       if (user.UserInfo.Card.Balance < transitModel.Amount)
@@ -59,14 +65,9 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed("Not enough money.");
       }
 
-      var cardTo = await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == transitModel.ToCreditNumber);
-      if (cardTo == null)
-      {
-        return IdentityResult.Failed($"Credit card with number '{transitModel.ToCreditNumber}' not found.");
-      }
-
-      user.UserInfo.Card.Balance -= transitModel.Amount;
-      cardTo.Balance += transitModel.Amount;
+      deal.UserOwner.UserInfo.Card.Balance -= transitModel.Amount;
+      deal.UserCreditor.UserInfo.Card.Balance += transitModel.Amount;
+      deal.ReturnedAmount += transitModel.Amount;
 
       try
       {

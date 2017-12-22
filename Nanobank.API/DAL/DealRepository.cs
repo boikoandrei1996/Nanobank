@@ -147,6 +147,11 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"User '{creditorUsername}' can not respond on deal because of the lack of balance.");
       }
 
+      if (userCreditor.Id == deal.UserOwnerId)
+      {
+        return IdentityResult.Failed($"User can not respond on own deal.");
+      }
+
       userCreditor.UserInfo.Card.Balance -= deal.StartAmount;
       deal.UserOwner.UserInfo.Card.Balance += deal.StartAmount;
 
@@ -252,7 +257,7 @@ namespace Nanobank.API.DAL
       deal.RatingNegative = ratingModel.Negative;
 
       // logic with update rating for user owner
-      long koef = (long)Math.Floor(deal.StartAmount / 100);
+      long koef = (long)Math.Ceiling(deal.StartAmount / 100);
 
       long userPositiveRating = (ratingModel.Positive - oldDealRatingPositive) * koef;
       if (deal.UserOwner.UserInfo.RatingPositive.HasValue)

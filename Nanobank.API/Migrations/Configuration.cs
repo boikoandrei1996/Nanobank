@@ -103,11 +103,11 @@ namespace Nanobank.API.Migrations
       };
 
       // clean deal table
-      foreach(var deal in context.Deals.ToList())
+      /*foreach(var deal in context.Deals.ToList())
       {
         context.Deals.Remove(deal);
       }
-      context.SaveChanges();
+      context.SaveChanges();*/
 
       foreach (var deal in deals)
       {

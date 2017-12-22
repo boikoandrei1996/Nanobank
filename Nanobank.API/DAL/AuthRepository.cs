@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
@@ -60,7 +61,17 @@ namespace Nanobank.API.DAL
     {
       var user = MapUser(userModel);
 
-      var result = await _userManager.CreateAsync(user, userModel.Password);
+      IdentityResult result;
+
+      try
+      {
+        result = await _userManager.CreateAsync(user, userModel.Password);
+      }
+      catch(DbUpdateException ex)
+      {
+        return IdentityResult.Failed(ex.InnerException.InnerException.Message);
+      }
+
       if (!result.Succeeded)
       {
         return result;
@@ -166,7 +177,8 @@ namespace Nanobank.API.DAL
         IsApproved = user.IsApproved,
         RatingPositive = user.UserInfo.RatingPositive,
         RatingNegative = user.UserInfo.RatingNegative,
-        Roles = await _userManager.GetRolesAsync(user.Id)
+        Roles = await _userManager.GetRolesAsync(user.Id),
+        CardNumber = user.UserInfo.CardNumber
       };
     }
 

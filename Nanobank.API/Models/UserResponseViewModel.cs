@@ -35,5 +35,8 @@ namespace Nanobank.API.Models
 
     [Display(Name = "Rating negative")]
     public long? RatingNegative { get; set; }
+
+    [Display(Name = "Credit card number")]
+    public string CardNumber { get; set; }
   }
 }

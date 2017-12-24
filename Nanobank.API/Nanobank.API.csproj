@@ -165,17 +165,21 @@
     <Compile Include="App_Start\Unity\UnityConfig.cs" />
     <Compile Include="App_Start\Unity\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ComplainController.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
+    <Compile Include="DAL\ComplainRepository.cs" />
     <Compile Include="DAL\CreditCardRepository.cs" />
     <Compile Include="DAL\DealRepository.cs" />
     <Compile Include="DAL\Interface\IAuthRepository.cs" />
+    <Compile Include="DAL\Interface\IComplainRepository.cs" />
     <Compile Include="DAL\Interface\ICreditCardRepository.cs" />
     <Compile Include="DAL\Interface\IDealRepository.cs" />
+    <Compile Include="DAL\Models\Complain.cs" />
     <Compile Include="DAL\Models\CreditCard.cs" />
     <Compile Include="DAL\Models\Deal.cs" />
     <Compile Include="DAL\Models\RoleTypes.cs" />
@@ -200,7 +204,13 @@
     <Compile Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.Designer.cs">
       <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712242058094_Add complain table.cs" />
+    <Compile Include="Migrations\201712242058094_Add complain table.Designer.cs">
+      <DependentUpon>201712242058094_Add complain table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ComplainRequestViewModel.cs" />
+    <Compile Include="Models\ComplainResponseViewModel.cs" />
     <Compile Include="Models\CreditCardResponseViewModel.cs" />
     <Compile Include="Models\CreditCardTransitRequestViewModel.cs" />
     <Compile Include="Models\DealRequestViewModel.cs" />
@@ -237,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.resx">
       <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712242058094_Add complain table.resx">
+      <DependentUpon>201712242058094_Add complain table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

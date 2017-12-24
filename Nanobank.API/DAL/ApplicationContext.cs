@@ -12,5 +12,6 @@ namespace Nanobank.API.DAL
 
     public virtual DbSet<CreditCard> Cards { get; set; }
     public virtual DbSet<Deal> Deals { get; set; }
+    public virtual DbSet<Complain> Complains { get; set; }
   }
 }

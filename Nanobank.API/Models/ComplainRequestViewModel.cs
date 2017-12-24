@@ -6,12 +6,14 @@ using System.Web;
 
 namespace Nanobank.API.Models
 {
-  public class CreditCardTransitRequestViewModel
+  public class ComplainRequestViewModel
   {
     [Required]
     public string DealId { get; set; }
-    
-    public decimal Amount { get; set; }
+
+    [Required]
+    [MaxLength(1000, ErrorMessage = "Too much symbols, max length is 1000")]
+    public string ComplainText { get; set; }
 
     [Required]
     public string Username { get; set; }

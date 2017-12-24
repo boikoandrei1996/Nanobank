@@ -4,11 +4,9 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL
@@ -322,7 +320,7 @@ namespace Nanobank.API.DAL
         return null;
       }
     }
-
+    
     public void Dispose()
     {
       _context.Dispose();

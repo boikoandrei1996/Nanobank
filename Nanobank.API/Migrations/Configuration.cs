@@ -33,6 +33,30 @@ namespace Nanobank.API.Migrations
       CreateRoles(ApplicationRoleManager.Create(context));
       CreateUsers(userManager);
       CreateDeals(context, userManager);
+      CreateComplains(context);
+    }
+
+    private void CreateComplains(ApplicationContext context)
+    {
+      var complains = new List<Complain>();
+      var deals = context.Deals.ToList();
+
+      for (int i = 1; i <= 5; i++)
+      {
+        var complain = new Complain
+        {
+          Text = $"Complain text #{i}",
+          Deal = deals.ElementAtOrDefault(i) ?? deals.First()
+        };
+
+        if (context.Complains.FirstOrDefault(c => c.Text == complain.Text) == null)
+        {
+          complains.Add(complain);
+        }
+      }
+
+      context.Complains.AddRange(complains);
+      context.SaveChanges();
     }
 
     private void CreateCreditCards(ApplicationContext context)

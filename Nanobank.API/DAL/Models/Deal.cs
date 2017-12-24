@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nanobank.API.DAL.Models
@@ -8,6 +9,7 @@ namespace Nanobank.API.DAL.Models
     public Deal()
     {
       Id = Guid.NewGuid().ToString();
+      Complains = new List<Complain>();
     }
 
     [Key]
@@ -49,5 +51,7 @@ namespace Nanobank.API.DAL.Models
     public DateTime? DealClosedDate { get; set; }
 
     public bool IsClosed { get; set; }
+
+    public virtual ICollection<Complain> Complains { get; set; }
   }
 }

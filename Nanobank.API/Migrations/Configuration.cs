@@ -41,12 +41,17 @@ namespace Nanobank.API.Migrations
       var complains = new List<Complain>();
       var deals = context.Deals.ToList();
 
+      /*var oldComplains = context.Complains.ToList();
+      context.Complains.RemoveRange(oldComplains);
+      context.SaveChanges();*/
+
       for (int i = 1; i <= 5; i++)
       {
         var complain = new Complain
         {
           Text = $"Complain text #{i}",
-          Deal = deals.ElementAtOrDefault(i) ?? deals.First()
+          Deal = deals.ElementAtOrDefault(i) ?? deals.First(),
+          DateOfCreating = DateTime.Today.Date
         };
 
         if (context.Complains.FirstOrDefault(c => c.Text == complain.Text) == null)

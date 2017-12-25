@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
+using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL
@@ -67,19 +68,16 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"Can not create complain for the closed deal.");
       }
 
+      _context.Complains.Add(MapComplain(complainModel));
+
       try
       {
-        _context.Complains.Add(new Complain
-        {
-          Text = complainModel.ComplainText,
-          DealId = complainModel.DealId
-        });
         await _context.SaveChangesAsync();
         return IdentityResult.Success;
       }
       catch (DbEntityValidationException ex)
       {
-        return IdentityResult.Failed(GetValidationErrors(ex));
+        return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
@@ -101,15 +99,16 @@ namespace Nanobank.API.DAL
       // The hook for load lazy property UserInfo.
       complain.Deal.ToString();
 
+      _context.Complains.Remove(complain);
+
       try
       {
-        _context.Complains.Remove(complain);
         await _context.SaveChangesAsync();
         return IdentityResult.Success;
       }
       catch (DbEntityValidationException ex)
       {
-        return IdentityResult.Failed(GetValidationErrors(ex));
+        return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
@@ -124,25 +123,14 @@ namespace Nanobank.API.DAL
       _context.Dispose();
     }
 
-    private string[] GetValidationErrors(DbEntityValidationException ex)
-    {
-      var validationErrors = new List<string>();
-
-      foreach (var error in ex.EntityValidationErrors)
-      {
-        validationErrors.AddRange(error.ValidationErrors.Select(err => $"[{err.PropertyName}]: '{err.ErrorMessage}'"));
-      }
-
-      return validationErrors.ToArray();
-    }
-    
     private ComplainResponseViewModel MapComplain(Complain complain)
     {
       return new ComplainResponseViewModel
       {
         ComplainId = complain.Id,
         ComplainText = complain.Text,
-        DealId = complain.DealId
+        DealId = complain.DealId,
+        DateOfCreating = complain.DateOfCreating
       };
     }
 
@@ -151,7 +139,8 @@ namespace Nanobank.API.DAL
       return new Complain
       {
         Text = complain.ComplainText,
-        DealId = complain.DealId
+        DealId = complain.DealId,
+        DateOfCreating = DateTime.Today.Date
       };
     }
   }

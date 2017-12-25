@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL
@@ -76,7 +77,7 @@ namespace Nanobank.API.DAL
       }
       catch(DbEntityValidationException ex)
       {
-        return IdentityResult.Failed(GetValidationErrors(ex));
+        return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch(Exception ex)
       {
@@ -87,18 +88,6 @@ namespace Nanobank.API.DAL
     public void Dispose()
     {
       _context.Dispose();
-    }
-
-    private string[] GetValidationErrors(DbEntityValidationException ex)
-    {
-      var validationErrors = new List<string>();
-
-      foreach (var error in ex.EntityValidationErrors)
-      {
-        validationErrors.AddRange(error.ValidationErrors.Select(err => $"[{err.PropertyName}]: '{err.ErrorMessage}'"));
-      }
-
-      return validationErrors.ToArray();
     }
   }
 }

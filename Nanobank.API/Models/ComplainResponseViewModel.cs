@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nanobank.API.Models
 {
@@ -12,5 +13,8 @@ namespace Nanobank.API.Models
 
     [Display(Name = "Deal Id")]
     public string DealId { get; set; }
+
+    [Display(Name = "Date of creating")]
+    public DateTime DateOfCreating { get; set; }
   }
 }

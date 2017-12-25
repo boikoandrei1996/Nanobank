@@ -21,5 +21,9 @@ namespace Nanobank.API.DAL.Models
     [Required]
     public string DealId { get; set; }
     public virtual Deal Deal { get; set; }
+
+    [Required]
+    [DataType(DataType.Date)]
+    public DateTime DateOfCreating { get; set; }
   }
 }

@@ -106,7 +106,14 @@ namespace Nanobank.API.DAL
       // The hook for load lazy property UserInfo.
       user.UserInfo.ToString();
       
-      return await _userManager.UpdateAsync(user);
+      try
+      {
+        return await _userManager.UpdateAsync(user);
+      }
+      catch (DbUpdateException ex)
+      {
+        return IdentityResult.Failed(ex.InnerException.InnerException.Message);
+      }
     }
 
     public async Task<IdentityResult> AddRoleToUser(string username, string roleName)
@@ -126,7 +133,14 @@ namespace Nanobank.API.DAL
       // The hook for load lazy property UserInfo.
       user.UserInfo.ToString();
 
-      return await _userManager.AddToRoleAsync(user.Id, roleName);
+      try
+      {
+        return await _userManager.AddToRoleAsync(user.Id, roleName);
+      }
+      catch(DbUpdateException ex)
+      {
+        return IdentityResult.Failed(ex.InnerException.InnerException.Message);
+      }
     }
 
     public async Task<IdentityResult> DeleteUser(string username)
@@ -140,8 +154,15 @@ namespace Nanobank.API.DAL
       // TODO: The hook should be deleted.
       // The hook for load lazy property UserInfo.
       user.UserInfo.ToString();
-      
-      return await _userManager.DeleteAsync(user);
+
+      try
+      {
+        return await _userManager.DeleteAsync(user);
+      }
+      catch(DbUpdateException ex)
+      {
+        return IdentityResult.Failed(ex.InnerException.InnerException.Message);
+      }
     }
 
     public async Task<ApplicationUser> FindUser(string username, string password)

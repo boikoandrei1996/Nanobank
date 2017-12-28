@@ -17,6 +17,8 @@ namespace Nanobank.API.Infrastructure.Identity
       var manager = new ApplicationUserManager(
         new UserStore<ApplicationUser>(context));
 
+      manager.EmailService = new SendGridEmailService();
+
       /*manager.UserValidator = new UserValidator<ApplicationUser>(manager)
       {
         AllowOnlyAlphanumericUserNames = false,

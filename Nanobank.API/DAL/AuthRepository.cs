@@ -108,7 +108,16 @@ namespace Nanobank.API.DAL
       
       try
       {
-        return await _userManager.UpdateAsync(user);
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+        {
+          await _userManager.SendEmailAsync(
+            user.Id,
+            "Approved by admin in Nanobank.",
+            $"<p>Account <i>{user.UserName}</i> have been <b>approved</b> by admin.</p>");
+        }
+
+        return result;
       }
       catch (DbUpdateException ex)
       {

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
 using Nanobank.API.Infrastructure.Identity;
+using Nanobank.API.Infrastructure.Notifications;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL
@@ -19,13 +20,16 @@ namespace Nanobank.API.DAL
   {
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
+    private readonly IPushNotificationManager _pushManager;
 
     public AuthRepository(
       ApplicationUserManager userManager,
-      ApplicationRoleManager roleManager)
+      ApplicationRoleManager roleManager,
+      IPushNotificationManager pushManager)
     {
       _userManager = userManager;
       _roleManager = roleManager;
+      _pushManager = pushManager;
     }
 
     public async Task<IList<UserResponseViewModel>> GetUsers(Func<ApplicationUser, bool> predicate = null)
@@ -111,6 +115,11 @@ namespace Nanobank.API.DAL
         var result = await _userManager.UpdateAsync(user);
         if (result.Succeeded)
         {
+          await _pushManager.SendAsync(
+            user.FCMPushNotificationToken,
+            "Approved by admin in Nanobank.",
+            $"Account '{user.UserName}' have been approved by admin.");
+
           await _userManager.SendEmailAsync(
             user.Id,
             "Approved by admin in Nanobank.",
@@ -220,6 +229,7 @@ namespace Nanobank.API.DAL
         Email = user.Email,
         PhoneNumber = user.PhoneNumber,
         IsApproved = false,
+        FCMPushNotificationToken = user.FCMPushNotificationToken,
         UserInfo = new UserInfo
         {
           FirstName = user.FirstName,

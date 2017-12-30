@@ -8,6 +8,8 @@ namespace Nanobank.API.DAL.Models
     [Required]
     public virtual UserInfo UserInfo { get; set; }
 
+    public string FCMPushNotificationToken { get; set; }
+
     public bool IsApproved { get; set; }
   }
 }

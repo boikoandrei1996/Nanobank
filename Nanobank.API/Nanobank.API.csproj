@@ -195,6 +195,8 @@
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
     <Compile Include="Infrastructure\Identity\SendGridEmailService.cs" />
+    <Compile Include="Infrastructure\Notifications\AndroidGCMPushNotification.cs" />
+    <Compile Include="Infrastructure\Notifications\IPushNotificationManager.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>
@@ -218,6 +220,10 @@
     <Compile Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.cs" />
     <Compile Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.Designer.cs">
       <DependentUpon>201712252203129_add DateOfCreating field to ComplainTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712301928413_Add_PushNotificationToken_Column.cs" />
+    <Compile Include="Migrations\201712301928413_Add_PushNotificationToken_Column.Designer.cs">
+      <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ComplainRequestViewModel.cs" />
@@ -266,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.resx">
       <DependentUpon>201712252203129_add DateOfCreating field to ComplainTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712301928413_Add_PushNotificationToken_Column.resx">
+      <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

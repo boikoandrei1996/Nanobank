@@ -2,6 +2,7 @@ using System;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Identity;
+using Nanobank.API.Infrastructure.Notifications;
 using Unity;
 using Unity.Injection;
 
@@ -59,6 +60,8 @@ namespace Nanobank.API
       container.RegisterType<IDealRepository, DealRepository>();
       container.RegisterType<ICreditCardRepository, CreditCardRepository>();
       container.RegisterType<IComplainRepository, ComplainRepository>();
+
+      container.RegisterType<IPushNotificationManager, AndroidPushNotificationManager>();
 
       //container.RegisterType<OrdersController>(new InjectionConstructor());
     }

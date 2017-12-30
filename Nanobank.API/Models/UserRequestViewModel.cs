@@ -56,6 +56,8 @@ namespace Nanobank.API.Models
     [MaxLength(3)]
     public string CardCVV2Key { get; set; }
 
+    public string FCMPushNotificationToken { get; set; }
+
     //[Required]
     //public byte[] PassportImage { get; set; }
 

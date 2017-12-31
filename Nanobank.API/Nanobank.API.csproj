@@ -195,7 +195,7 @@
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
     <Compile Include="Infrastructure\Identity\SendGridEmailService.cs" />
-    <Compile Include="Infrastructure\Notifications\AndroidGCMPushNotification.cs" />
+    <Compile Include="Infrastructure\Notifications\AndroidPushNotificationManager.cs" />
     <Compile Include="Infrastructure\Notifications\IPushNotificationManager.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">

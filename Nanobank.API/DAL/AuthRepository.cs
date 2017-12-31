@@ -115,10 +115,13 @@ namespace Nanobank.API.DAL
         var result = await _userManager.UpdateAsync(user);
         if (result.Succeeded)
         {
-          await _pushManager.SendAsync(
-            user.FCMPushNotificationToken,
-            "Approved by admin in Nanobank.",
-            $"Account '{user.UserName}' have been approved by admin.");
+          if (!string.IsNullOrWhiteSpace(user.FCMPushNotificationToken))
+          {
+            await _pushManager.SendAsync(
+              user.FCMPushNotificationToken,
+              "Approved by admin in Nanobank.",
+              $"Account '{user.UserName}' have been approved by admin.");
+          }
 
           await _userManager.SendEmailAsync(
             user.Id,

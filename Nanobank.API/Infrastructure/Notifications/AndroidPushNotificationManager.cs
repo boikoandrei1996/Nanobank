@@ -34,7 +34,7 @@ namespace Nanobank.API.Infrastructure.Notifications
     {
       var jsonData = new
       {
-        to = "cU1VpNlqlis:APA91bFYJgsVg4ZXXRS1oYBrIprFKI1gtti_UhAyNImySrr1TWEC-22iXWYhOdh2xG3gR-0b4EPYVODMMYuWTUcabj-0CDtYN8hKsGHYG1i8zP-1nvLppEQ3XzEUJnGZ403gcRMKCfSC",
+        to = token,
         data = new 
         {
           title = title,

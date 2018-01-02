@@ -80,7 +80,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateDeal(dealModel, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.CreateDeal(HttpContext.Current.User.Identity.Name, dealModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -97,7 +97,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.UpdateDeal(dealId, dealModel, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.UpdateDeal(HttpContext.Current.User.Identity.Name, dealId, dealModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -138,7 +138,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.SetRating(dealId, ratingModel, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.SetRating(HttpContext.Current.User.Identity.Name, dealId, ratingModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 

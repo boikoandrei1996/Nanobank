@@ -40,7 +40,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.Transit(transitModel, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.Transit(HttpContext.Current.User.Identity.Name, transitModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 

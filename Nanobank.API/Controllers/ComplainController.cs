@@ -56,7 +56,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateComplain(complainModel, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.CreateComplain(HttpContext.Current.User.Identity.Name, complainModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 

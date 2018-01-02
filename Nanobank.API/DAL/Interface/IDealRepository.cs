@@ -11,12 +11,12 @@ namespace Nanobank.API.DAL.Interface
   {
     Task<IList<DealResponseViewModel>> GetDeals(Func<Deal, bool> predicate = null);
     Task<DealResponseViewModel> GetDeal(string dealId);
-    Task<IdentityResult> CreateDeal(DealRequestViewModel dealModel, string ownerUsername);
-    Task<IdentityResult> UpdateDeal(string dealId, DealRequestViewModel dealModel, string ownerUsername);
-    Task<IdentityResult> RespondOnDeal(string dealId, string creditorUsername);
-    Task<IdentityResult> CloseDeal(string dealId, string creditorUsername);
-    Task<IdentityResult> SetRating(string dealId, RatingRequestViewModel ratingModel, string creditorUsername);
+    Task<IdentityResult> CreateDeal(string currentUsername, DealRequestViewModel dealModel);
+    Task<IdentityResult> UpdateDeal(string currentUsername, string dealId, DealRequestViewModel dealModel);
+    Task<IdentityResult> RespondOnDeal(string currentUsername, string dealId);
+    Task<IdentityResult> CloseDeal(string currentUsername, string dealId);
+    Task<IdentityResult> SetRating(string currentUsername, string dealId, RatingRequestViewModel ratingModel);
     Task<IdentityResult> DeleteDealByAdmin(string dealId);
-    Task<IdentityResult> DeleteDealByUser(string dealId, string currentUsername);
+    Task<IdentityResult> DeleteDealByUser(string currentUsername, string dealId);
   }
 }

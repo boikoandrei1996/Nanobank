@@ -42,7 +42,7 @@ namespace Nanobank.API.DAL
       return Task.Run(() => resultList);
     }
 
-    public async Task<IdentityResult> Transit(CreditCardTransitRequestViewModel transitModel, string currentUsername)
+    public async Task<IdentityResult> Transit(string currentUsername, CreditCardTransitRequestViewModel transitModel)
     {
       var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == transitModel.DealId);
       if (deal == null)

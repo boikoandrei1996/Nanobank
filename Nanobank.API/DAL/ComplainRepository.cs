@@ -50,7 +50,7 @@ namespace Nanobank.API.DAL
       return MapComplain(complain);
     }
 
-    public async Task<IdentityResult> CreateComplain(ComplainRequestViewModel complainModel, string currentUsername)
+    public async Task<IdentityResult> CreateComplain(string currentUsername, ComplainRequestViewModel complainModel)
     {
       var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == complainModel.DealId);
       if (deal == null)

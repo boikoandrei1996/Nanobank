@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -147,7 +146,7 @@ namespace Nanobank.API.DAL
       }
     }
 
-    public async Task<IdentityResult> AddRoleToUser(string username, string roleName)
+    public async Task<IdentityResult> AddRoleToUser(string username, string rolename)
     {
       ApplicationUser user = await _userManager.FindByNameAsync(username);
       if (user == null)
@@ -155,9 +154,9 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"User '{username}' not found.");
       }
 
-      if (!RoleTypes.AllRoles.Contains(roleName))
+      if (!RoleTypes.AllRoles.Contains(rolename))
       {
-        return IdentityResult.Failed($"Role '{roleName}' not found.");
+        return IdentityResult.Failed($"Role '{rolename}' not found.");
       }
 
       // TODO: The hook should be deleted.
@@ -166,7 +165,7 @@ namespace Nanobank.API.DAL
 
       try
       {
-        return await _userManager.AddToRoleAsync(user.Id, roleName);
+        return await _userManager.AddToRoleAsync(user.Id, rolename);
       }
       catch(DbUpdateException ex)
       {

@@ -109,7 +109,7 @@ namespace Nanobank.API.Controllers
     [Route("respond/{dealId}")]
     public async Task<IHttpActionResult> RespondOn(string dealId)
     {
-      IdentityResult result = await _repo.RespondOnDeal(dealId, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.RespondOnDeal(HttpContext.Current.User.Identity.Name, dealId);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -121,7 +121,7 @@ namespace Nanobank.API.Controllers
     [Route("close/{dealId}")]
     public async Task<IHttpActionResult> Close(string dealId)
     {
-      IdentityResult result = await _repo.CloseDeal(dealId, HttpContext.Current.User.Identity.Name);
+      IdentityResult result = await _repo.CloseDeal(HttpContext.Current.User.Identity.Name, dealId);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -157,7 +157,7 @@ namespace Nanobank.API.Controllers
       }
       else
       {
-        result = await _repo.DeleteDealByUser(dealId, HttpContext.Current.User.Identity.Name);
+        result = await _repo.DeleteDealByUser(HttpContext.Current.User.Identity.Name, dealId);
       }
 
       IHttpActionResult errorResult = GetErrorResult(result);

@@ -38,5 +38,13 @@ namespace Nanobank.API.Models
 
     [Display(Name = "Credit card number")]
     public string CardNumber { get; set; }
+
+    // As Base64 string
+    [Display(Name = "Passport image as base64 string")]
+    public string PassportImage { get; set; }
+
+    [Required]
+    [MaxLength(10)]
+    public string ImageMimeType { get; set; }
   }
 }

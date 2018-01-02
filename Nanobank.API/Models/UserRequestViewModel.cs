@@ -58,11 +58,12 @@ namespace Nanobank.API.Models
 
     public string FCMPushNotificationToken { get; set; }
 
-    //[Required]
-    //public byte[] PassportImage { get; set; }
+    // As Base64 string
+    [Required]
+    public string PassportImage { get; set; }
 
-    //[Required]
-    //[MaxLength(10)]
-    //public string ImageMimeType { get; set; }
+    [Required]
+    [MaxLength(10)]
+    public string ImageMimeType { get; set; }
   }
 }

@@ -63,7 +63,17 @@ namespace Nanobank.API.DAL
 
     public async Task<IdentityResult> RegisterUser(UserRequestViewModel userModel)
     {
-      var user = MapUser(userModel);
+      byte[] image;
+      try
+      {
+        image = Convert.FromBase64String(userModel.PassportImage);
+      }
+      catch(FormatException ex)
+      {
+        return IdentityResult.Failed(ex.Message);
+      }
+
+      var user = MapUser(userModel, image);
 
       IdentityResult result;
 
@@ -220,11 +230,13 @@ namespace Nanobank.API.DAL
         RatingPositive = user.UserInfo.RatingPositive,
         RatingNegative = user.UserInfo.RatingNegative,
         Roles = await _userManager.GetRolesAsync(user.Id),
-        CardNumber = user.UserInfo.CardNumber
+        CardNumber = user.UserInfo.CardNumber,
+        ImageMimeType = user.UserInfo.ImageMimeType,
+        PassportImage = Convert.ToBase64String(user.UserInfo.PassportImage)
       };
     }
 
-    private ApplicationUser MapUser(UserRequestViewModel user)
+    private ApplicationUser MapUser(UserRequestViewModel user, byte[] image)
     {
       return new ApplicationUser
       {
@@ -242,8 +254,8 @@ namespace Nanobank.API.DAL
           CardOwnerFullName = user.CardOwnerFullName,
           CardDateOfExpire = DateTime.ParseExact(user.CardDateOfExpire, "MM/yy", CultureInfo.InvariantCulture).Date,
           CardCVV2Key = user.CardCVV2Key,
-          PassportImage = new byte[0], //userModel.PassportImage,
-          ImageMimeType = "png" //userModel.ImageMimeType
+          PassportImage = image,
+          ImageMimeType = user.ImageMimeType
         }
       };
     }

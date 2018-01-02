@@ -50,7 +50,7 @@ namespace Nanobank.API.DAL
       return MapComplain(complain);
     }
 
-    public async Task<IdentityResult> CreateComplain(ComplainRequestViewModel complainModel)
+    public async Task<IdentityResult> CreateComplain(ComplainRequestViewModel complainModel, string currentUsername)
     {
       var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == complainModel.DealId);
       if (deal == null)
@@ -58,9 +58,9 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"Deal {complainModel.DealId} not found.");
       }
 
-      if (deal.UserCreditor == null || deal.UserCreditor.UserName != complainModel.Username)
+      if (deal.UserCreditor == null || deal.UserCreditor.UserName != currentUsername)
       {
-        return IdentityResult.Failed($"User '{complainModel.Username}' can not create complain for this deal.");
+        return IdentityResult.Failed($"User '{currentUsername}' can not create complain for this deal.");
       }
 
       if (deal.IsClosed)

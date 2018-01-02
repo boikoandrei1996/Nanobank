@@ -50,9 +50,9 @@ namespace Nanobank.API.DAL
       return MapDeal(deal);
     }
 
-    public async Task<IdentityResult> CreateDeal(DealRequestViewModel dealModel)
+    public async Task<IdentityResult> CreateDeal(DealRequestViewModel dealModel, string ownerUsername)
     {
-      _context.Deals.Add(await MapDealAsync(dealModel));
+      _context.Deals.Add(await MapDealAsync(dealModel, ownerUsername));
 
       try
       {
@@ -71,12 +71,17 @@ namespace Nanobank.API.DAL
       }
     }
 
-    public async Task<IdentityResult> UpdateDeal(string dealId, DealRequestViewModel dealModel)
+    public async Task<IdentityResult> UpdateDeal(string dealId, DealRequestViewModel dealModel, string ownerUsername)
     {
       Deal oldDeal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (oldDeal == null)
       {
         return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
+      }
+
+      if (oldDeal.UserOwner.UserName != ownerUsername)
+      {
+        return IdentityResult.Failed("Can not update deal by not owner user.");
       }
 
       if (oldDeal.IsClosed)
@@ -218,7 +223,7 @@ namespace Nanobank.API.DAL
       }
     }
 
-    public async Task<IdentityResult> SetRating(string dealId, RatingRequestViewModel ratingModel)
+    public async Task<IdentityResult> SetRating(string dealId, RatingRequestViewModel ratingModel, string creditorUsername)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -236,9 +241,9 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed("Deal has not creditor still.");
       }
 
-      if (deal.UserCreditor.UserName != ratingModel.CreditorUsername)
+      if (deal.UserCreditor.UserName != creditorUsername)
       {
-        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{ratingModel.CreditorUsername}'.");
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{creditorUsername}'.");
       }
 
       // logic with update rating for deal
@@ -297,7 +302,7 @@ namespace Nanobank.API.DAL
       }
     }
 
-    public async Task<IdentityResult> DeleteDeal(string dealId)
+    public async Task<IdentityResult> DeleteDealByAdmin(string dealId)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -305,23 +310,23 @@ namespace Nanobank.API.DAL
         return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
       }
 
-      _context.Deals.Remove(deal);
+      return await PrivateDeleteDealAsync(deal);
+    }
 
-      try
+    public async Task<IdentityResult> DeleteDealByUser(string dealId, string currentUsername)
+    {
+      Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
+      if (deal == null)
       {
-        await _context.SaveChangesAsync();
-        return IdentityResult.Success;
+        return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
       }
-      catch (DbEntityValidationException ex)
+
+      if (deal.UserOwner.UserName != currentUsername)
       {
-        return IdentityResult.Failed(ex.GetValidationErrors());
+        return IdentityResult.Failed($"You can not delete deal because of '{deal.UserOwner.UserName}' not equal '{currentUsername}'.");
       }
-      catch (Exception ex)
-      {
-        // TODO: setting Logger
-        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
-        return null;
-      }
+
+      return await PrivateDeleteDealAsync(deal);
     }
 
     public void Dispose()
@@ -349,7 +354,7 @@ namespace Nanobank.API.DAL
       };
     }
 
-    private async Task<Deal> MapDealAsync(DealRequestViewModel deal)
+    private async Task<Deal> MapDealAsync(DealRequestViewModel deal, string ownerUsername)
     {
       return new Deal
       {
@@ -358,7 +363,7 @@ namespace Nanobank.API.DAL
         ReturnedAmount = 0m,
         DealDurationInMonth = deal.DealDurationInMonth,
         PercentRate = deal.PercentRate,
-        UserOwner = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.OwnerUserName),
+        UserOwner = await _context.Users.FirstOrDefaultAsync(u => u.UserName == ownerUsername),
         UserCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == deal.CreditorUserName),
         DealStartDate = null,
         RatingPositive = null,
@@ -366,6 +371,27 @@ namespace Nanobank.API.DAL
         DealClosedDate = null,
         IsClosed = false
       };
+    }
+
+    private async Task<IdentityResult> PrivateDeleteDealAsync(Deal deal)
+    {
+      _context.Deals.Remove(deal);
+
+      try
+      {
+        await _context.SaveChangesAsync();
+        return IdentityResult.Success;
+      }
+      catch (DbEntityValidationException ex)
+      {
+        return IdentityResult.Failed(ex.GetValidationErrors());
+      }
+      catch (Exception ex)
+      {
+        // TODO: setting Logger
+        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        return null;
+      }
     }
   }
 }

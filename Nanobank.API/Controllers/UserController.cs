@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
 
   [RoutePrefix("api/user")]
-  //[Authorize]
+  [Authorize]
   public class UserController : ApiController
   {
     private readonly IAuthRepository _repo;
@@ -21,7 +22,7 @@ namespace Nanobank.API.Controllers
     // GET api/user/all
     [HttpGet]
     [Route("all")]
-    // [Authorize(Roles = RoleTypes.Admin)]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> All()
     {
       IList<UserResponseViewModel> users = await _repo.GetUsers();
@@ -32,7 +33,7 @@ namespace Nanobank.API.Controllers
     // GET api/user/all/unapproved
     [HttpGet]
     [Route("all/unapproved")]
-    // [Authorize(Roles = RoleTypes.Admin)]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> AllUnapproved()
     {
       IList<UserResponseViewModel> users = await _repo.GetUsers(user => !user.IsApproved);

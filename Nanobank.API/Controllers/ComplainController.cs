@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
   [RoutePrefix("api/complain")]
+  [Authorize]
   public class ComplainController : ApiController
   {
     private readonly IComplainRepository _repo;
@@ -24,7 +23,7 @@ namespace Nanobank.API.Controllers
     // GET api/complain/all
     [HttpGet]
     [Route("all")]
-    // [Authorize(Roles = RoleTypes.Admin)]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> All()
     {
       IList<ComplainResponseViewModel> complains = await _repo.GetComplains();
@@ -35,6 +34,7 @@ namespace Nanobank.API.Controllers
     // GET api/complain/{complainId}
     [HttpGet]
     [Route("{complainId}")]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> Get(string complainId)
     {
       ComplainResponseViewModel complain = await _repo.GetComplain(complainId);
@@ -46,8 +46,9 @@ namespace Nanobank.API.Controllers
       return Ok(complain);
     }
 
-    // POST api/complain
+    // POST api/complain/add
     [HttpPost]
+    [Route("add")]
     public async Task<IHttpActionResult> Create(ComplainRequestViewModel complainModel)
     {
       if (!ModelState.IsValid)
@@ -55,7 +56,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateComplain(complainModel);
+      IdentityResult result = await _repo.CreateComplain(complainModel, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -65,6 +66,7 @@ namespace Nanobank.API.Controllers
     // DELETE api/complain/{complainId}
     [HttpDelete]
     [Route("{complainId}")]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> Delete(string complainId)
     {
       IdentityResult result = await _repo.DeleteComplain(complainId);

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
   [RoutePrefix("api/creditcard")]
+  [Authorize]
   public class CreditCardController : ApiController
   {
     private readonly ICreditCardRepository _repo;
@@ -26,6 +22,7 @@ namespace Nanobank.API.Controllers
     // GET api/creditcard/all
     [HttpGet]
     [Route("all")]
+    [Authorize(Roles = RoleTypes.Admin)]
     public IHttpActionResult All()
     {
       var cards = _repo.GetCreditCards();
@@ -43,7 +40,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.Transit(transitModel);
+      IdentityResult result = await _repo.Transit(transitModel, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 

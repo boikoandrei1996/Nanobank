@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Models;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
   [RoutePrefix("api/deal")]
+  [Authorize]
   public class DealController : ApiController
   {
     private readonly IDealRepository _repo;
@@ -25,6 +23,7 @@ namespace Nanobank.API.Controllers
     // GET api/deal/all
     [HttpGet]
     [Route("all")]
+    [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> All()
     {
       IList<DealResponseViewModel> deals = await _repo.GetDeals();
@@ -81,7 +80,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateDeal(dealModel);
+      IdentityResult result = await _repo.CreateDeal(dealModel, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -98,7 +97,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.UpdateDeal(dealId, dealModel);
+      IdentityResult result = await _repo.UpdateDeal(dealId, dealModel, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -108,9 +107,9 @@ namespace Nanobank.API.Controllers
     // PUT api/deal/respond/{dealId}
     [HttpPut]
     [Route("respond/{dealId}")]
-    public async Task<IHttpActionResult> RespondOn(string dealId, [FromBody]string creditorUsername)
+    public async Task<IHttpActionResult> RespondOn(string dealId)
     {
-      IdentityResult result = await _repo.RespondOnDeal(dealId, creditorUsername);
+      IdentityResult result = await _repo.RespondOnDeal(dealId, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -120,9 +119,9 @@ namespace Nanobank.API.Controllers
     // PUT api/deal/close/{dealId}
     [HttpPut]
     [Route("close/{dealId}")]
-    public async Task<IHttpActionResult> Close(string dealId, [FromBody]string creditorUsername)
+    public async Task<IHttpActionResult> Close(string dealId)
     {
-      IdentityResult result = await _repo.CloseDeal(dealId, creditorUsername);
+      IdentityResult result = await _repo.CloseDeal(dealId, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -139,7 +138,7 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.SetRating(dealId, ratingModel);
+      IdentityResult result = await _repo.SetRating(dealId, ratingModel, HttpContext.Current.User.Identity.Name);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -151,7 +150,15 @@ namespace Nanobank.API.Controllers
     [Route("{dealId}")]
     public async Task<IHttpActionResult> Delete(string dealId)
     {
-      IdentityResult result = await _repo.DeleteDeal(dealId);
+      IdentityResult result;
+      if (HttpContext.Current.User.IsInRole(RoleTypes.Admin))
+      {
+        result = await _repo.DeleteDealByAdmin(dealId);
+      }
+      else
+      {
+        result = await _repo.DeleteDealByUser(dealId, HttpContext.Current.User.Identity.Name);
+      }
 
       IHttpActionResult errorResult = GetErrorResult(result);
 

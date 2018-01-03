@@ -18,5 +18,6 @@ namespace Nanobank.API.DAL.Interface
     Task<IdentityResult> DeleteUser(string username);
     Task<ApplicationUser> FindUser(string username, string password);
     Task<ClaimsIdentity> CreateClaimsIdentity(ApplicationUser user, string authenticationType);
+    Task<PhotoResponseViewModel> GetPhoto(string username);
   }
 }

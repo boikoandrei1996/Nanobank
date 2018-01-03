@@ -54,7 +54,22 @@ namespace Nanobank.API.Controllers
 
       return Ok(user);
     }
-    
+
+    // GET api/user/{userName}/passport/photo
+    [HttpGet]
+    [Route("{userName}/passport/photo")]
+    [Authorize(Roles = RoleTypes.Admin)]
+    public async Task<IHttpActionResult> GetPassportPhoto(string userName)
+    {
+      PhotoResponseViewModel photo = await _repo.GetPhoto(userName);
+      if (photo == null)
+      {
+        return BadRequest($"Can not find passport photo by username: '{userName}'");
+      }
+
+      return Ok(photo);
+    }
+
     protected override void Dispose(bool disposing)
     {
       if (disposing)

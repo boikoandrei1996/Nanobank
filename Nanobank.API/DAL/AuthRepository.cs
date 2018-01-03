@@ -209,6 +209,21 @@ namespace Nanobank.API.DAL
       return identity;
     }
 
+    public async Task<PhotoResponseViewModel> GetPhoto(string username)
+    {
+      var user = await _userManager.FindByNameAsync(username);
+      if (user == null)
+      {
+        return null;
+      }
+
+      return new PhotoResponseViewModel
+      {
+        PassportImage = Convert.ToBase64String(user.UserInfo.PassportImage),
+        ImageMimeType = user.UserInfo.ImageMimeType
+      };
+    }
+
     public void Dispose()
     {
       _userManager.Dispose();
@@ -229,9 +244,7 @@ namespace Nanobank.API.DAL
         RatingPositive = user.UserInfo.RatingPositive,
         RatingNegative = user.UserInfo.RatingNegative,
         Roles = await _userManager.GetRolesAsync(user.Id),
-        CardNumber = user.UserInfo.CardNumber,
-        ImageMimeType = user.UserInfo.ImageMimeType,
-        PassportImage = Convert.ToBase64String(user.UserInfo.PassportImage)
+        CardNumber = user.UserInfo.CardNumber
       };
     }
 

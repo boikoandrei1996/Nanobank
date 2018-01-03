@@ -232,6 +232,7 @@
     <Compile Include="Models\CreditCardTransitRequestViewModel.cs" />
     <Compile Include="Models\DealRequestViewModel.cs" />
     <Compile Include="Models\DealResponseViewModel.cs" />
+    <Compile Include="Models\PhotoResponseViewModel.cs" />
     <Compile Include="Models\RatingRequestViewModel.cs" />
     <Compile Include="Models\UserRequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

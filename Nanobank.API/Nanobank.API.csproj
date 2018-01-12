@@ -194,7 +194,7 @@
     <Compile Include="DAL\Models\ApplicationUser.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
-    <Compile Include="Infrastructure\Identity\SendGridEmailService.cs" />
+    <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
     <Compile Include="Infrastructure\Notifications\AndroidPushNotificationManager.cs" />
     <Compile Include="Infrastructure\Notifications\IPushNotificationManager.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
@@ -245,6 +245,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\nanobank - Web Deploy.pubxml" />
+    <Content Include="README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

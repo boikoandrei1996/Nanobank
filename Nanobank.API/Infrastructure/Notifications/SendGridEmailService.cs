@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Configuration;
@@ -7,7 +6,7 @@ using Microsoft.AspNet.Identity;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace Nanobank.API.Infrastructure.Identity
+namespace Nanobank.API.Infrastructure.Notifications
 {
   public class SendGridEmailService : IIdentityMessageService
   {

@@ -23,6 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Nanobank.Web(1)", "Nanobank
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "23614"
+		SlnRelativePath = "Nanobank.Web\"
 	EndProjectSection
 EndProject
 Global

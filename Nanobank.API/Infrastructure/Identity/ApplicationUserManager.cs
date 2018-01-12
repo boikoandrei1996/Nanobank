@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Models;
+using Nanobank.API.Infrastructure.Notifications;
 
 namespace Nanobank.API.Infrastructure.Identity
 {

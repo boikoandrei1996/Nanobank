@@ -3,6 +3,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
+using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
@@ -22,7 +23,7 @@ namespace Nanobank.API.Controllers
     [HttpPost]
     [Route("register")]
     [AllowAnonymous]
-    public async Task<IHttpActionResult> Register(UserRequestViewModel userModel)
+    public async Task<IHttpActionResult> Register([FromBody]UserRequestViewModel userModel)
     {
       if (!ModelState.IsValid)
       {
@@ -33,7 +34,7 @@ namespace Nanobank.API.Controllers
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/account/approve/{username}
@@ -46,7 +47,7 @@ namespace Nanobank.API.Controllers
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/account/{username}/add/role
@@ -59,7 +60,7 @@ namespace Nanobank.API.Controllers
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // DELETE api/account/{username}
@@ -72,7 +73,7 @@ namespace Nanobank.API.Controllers
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     protected override void Dispose(bool disposing)
@@ -92,26 +93,25 @@ namespace Nanobank.API.Controllers
         return InternalServerError();
       }
 
-      if (!result.Succeeded)
+      if (result.Succeeded)
       {
-        if (result.Errors != null)
-        {
-          foreach (string error in result.Errors)
-          {
-            ModelState.AddModelError("", error);
-          }
-        }
-
-        if (ModelState.IsValid)
-        {
-          // No ModelState errors are available to send, so just return an empty BadRequest.
-          return BadRequest();
-        }
-
-        return BadRequest(ModelState);
+        return null;
       }
 
-      return null;
+      if (result.Errors != null)
+      {
+        foreach (string error in result.Errors)
+        {
+          ModelState.AddModelError("", error);
+        }
+      }
+
+      if (ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      return BadRequest(ModelState);
     }
   }
 }

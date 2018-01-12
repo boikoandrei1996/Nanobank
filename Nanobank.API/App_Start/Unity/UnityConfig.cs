@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Repository;
@@ -48,9 +49,13 @@ namespace Nanobank.API
       // TODO: Register your type's mappings here.
 
       container.RegisterType<ApplicationContext>();
+      container.RegisterType<IIdentityMessageService, SendGridEmailService>();
       
       container.RegisterType<ApplicationUserManager>(
-        new InjectionFactory(c => ApplicationUserManager.Create(c.Resolve<ApplicationContext>()))
+        new InjectionFactory(
+          c => ApplicationUserManager.Create(
+            c.Resolve<ApplicationContext>(),
+            c.Resolve<IIdentityMessageService>()))
       );
 
       container.RegisterType<ApplicationRoleManager>(

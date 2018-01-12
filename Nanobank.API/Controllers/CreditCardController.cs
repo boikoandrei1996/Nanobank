@@ -4,6 +4,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
+using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
@@ -33,18 +34,19 @@ namespace Nanobank.API.Controllers
     // PUT api/creditcard/transit
     [HttpPut]
     [Route("transit")]
-    public async Task<IHttpActionResult> Transit([FromBody] CreditCardTransitRequestViewModel transitModel)
+    public async Task<IHttpActionResult> Transit([FromBody]CreditCardTransitRequestViewModel transitModel)
     {
       if (!ModelState.IsValid)
       {
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.Transit(HttpContext.Current.User.Identity.Name, transitModel);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.Transit(username, transitModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     protected override void Dispose(bool disposing)
@@ -64,26 +66,25 @@ namespace Nanobank.API.Controllers
         return InternalServerError();
       }
 
-      if (!result.Succeeded)
+      if (result.Succeeded)
       {
-        if (result.Errors != null)
-        {
-          foreach (string error in result.Errors)
-          {
-            ModelState.AddModelError("", error);
-          }
-        }
-
-        if (ModelState.IsValid)
-        {
-          // No ModelState errors are available to send, so just return an empty BadRequest.
-          return BadRequest();
-        }
-
-        return BadRequest(ModelState);
+        return null;
       }
 
-      return null;
+      if (result.Errors != null)
+      {
+        foreach (string error in result.Errors)
+        {
+          ModelState.AddModelError("", error);
+        }
+      }
+
+      if (ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      return BadRequest(ModelState);
     }
   }
 }

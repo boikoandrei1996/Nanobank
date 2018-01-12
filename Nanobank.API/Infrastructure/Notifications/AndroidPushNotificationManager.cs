@@ -14,7 +14,7 @@ namespace Nanobank.API.Infrastructure.Notifications
 
     public async Task SendAsync(string androidDeviceToken, string title, string message)
     {
-      string postData = await GetDataAsync(androidDeviceToken, title, message);
+      string postData = await GetJSONDataAsync(androidDeviceToken, title, message);
       byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
       WebRequest request = WebRequest.Create(Url);
@@ -30,7 +30,7 @@ namespace Nanobank.API.Infrastructure.Notifications
       }
     }
 
-    private Task<string> GetDataAsync(string token, string title, string body)
+    private Task<string> GetJSONDataAsync(string token, string title, string body)
     {
       var jsonData = new
       {

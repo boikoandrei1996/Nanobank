@@ -7,7 +7,6 @@ using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
 {
-
   [RoutePrefix("api/user")]
   [Authorize]
   public class UserController : ApiController
@@ -51,10 +50,6 @@ namespace Nanobank.API.Controllers
     public async Task<IHttpActionResult> Get(string userName)
     {
       UserResponseViewModel user = await _userRepo.GetUser(userName);
-      if (user == null)
-      {
-        return BadRequest($"Can not find user by username: '{userName}'");
-      }
 
       return Ok(user);
     }
@@ -66,10 +61,6 @@ namespace Nanobank.API.Controllers
     public async Task<IHttpActionResult> GetPassportPhoto(string userName)
     {
       PhotoResponseViewModel photo = await _photoRepo.GetPhoto(userName);
-      if (photo == null)
-      {
-        return BadRequest($"Can not find passport photo by username: '{userName}'");
-      }
 
       return Ok(photo);
     }

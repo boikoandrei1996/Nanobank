@@ -38,11 +38,7 @@ namespace Nanobank.API.Controllers
     public async Task<IHttpActionResult> Get(string complainId)
     {
       ComplainResponseViewModel complain = await _repo.GetComplain(complainId);
-      if (complain == null)
-      {
-        return BadRequest($"Can not find complain by id: '{complainId}'.");
-      }
-
+      
       return Ok(complain);
     }
 
@@ -56,11 +52,12 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateComplain(HttpContext.Current.User.Identity.Name, complainModel);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.CreateComplain(username, complainModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // DELETE api/complain/{complainId}
@@ -73,7 +70,7 @@ namespace Nanobank.API.Controllers
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     protected override void Dispose(bool disposing)
@@ -93,26 +90,25 @@ namespace Nanobank.API.Controllers
         return InternalServerError();
       }
 
-      if (!result.Succeeded)
+      if (result.Succeeded)
       {
-        if (result.Errors != null)
-        {
-          foreach (string error in result.Errors)
-          {
-            ModelState.AddModelError("", error);
-          }
-        }
-
-        if (ModelState.IsValid)
-        {
-          // No ModelState errors are available to send, so just return an empty BadRequest.
-          return BadRequest();
-        }
-
-        return BadRequest(ModelState);
+        return null;
       }
 
-      return null;
+      if (result.Errors != null)
+      {
+        foreach (string error in result.Errors)
+        {
+          ModelState.AddModelError("", error);
+        }
+      }
+
+      if (ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      return BadRequest(ModelState);
     }
   }
 }

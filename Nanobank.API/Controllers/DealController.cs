@@ -5,6 +5,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
+using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
 namespace Nanobank.API.Controllers
@@ -44,16 +45,18 @@ namespace Nanobank.API.Controllers
     // GET api/deal/{username}/all
     [HttpGet]
     [Route("{username}/all")]
-    public async Task<IHttpActionResult> All(string username)
+    public async Task<IHttpActionResult> AllByUsername(string username)
     {
       IList<DealResponseViewModel> dealsAsOwner = await _repo.GetDeals(deal => deal.UserOwner.UserName == username);
       IList<DealResponseViewModel> dealsAsCreditor = await _repo.GetDeals(deal => deal.UserCreditor?.UserName == username);
 
-      var responseDict = new Dictionary<string, IList<DealResponseViewModel>>();
-      responseDict["asOwner"] = dealsAsOwner;
-      responseDict["asCreditor"] = dealsAsCreditor;
+      var responseObject = new
+      {
+        asOwner = dealsAsOwner,
+        asCreditor = dealsAsCreditor
+      };
 
-      return Ok(responseDict);
+      return Ok(responseObject);
     }
 
     // GET api/deal/{dealId}
@@ -62,10 +65,6 @@ namespace Nanobank.API.Controllers
     public async Task<IHttpActionResult> Get(string dealId)
     {
       DealResponseViewModel deal = await _repo.GetDeal(dealId);
-      if (deal == null)
-      {
-        return BadRequest($"Can not find deal by id: '{dealId}'");
-      }
 
       return Ok(deal);
     }
@@ -73,18 +72,19 @@ namespace Nanobank.API.Controllers
     // POST api/deal/register
     [HttpPost]
     [Route("register")]
-    public async Task<IHttpActionResult> Register(DealRequestViewModel dealModel)
+    public async Task<IHttpActionResult> Register([FromBody]DealRequestViewModel dealModel)
     {
       if (!ModelState.IsValid)
       {
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.CreateDeal(HttpContext.Current.User.Identity.Name, dealModel);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.CreateDeal(username, dealModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/deal/{dealId}
@@ -97,11 +97,12 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.UpdateDeal(HttpContext.Current.User.Identity.Name, dealId, dealModel);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.UpdateDeal(username, dealId, dealModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/deal/respond/{dealId}
@@ -109,11 +110,12 @@ namespace Nanobank.API.Controllers
     [Route("respond/{dealId}")]
     public async Task<IHttpActionResult> RespondOn(string dealId)
     {
-      IdentityResult result = await _repo.RespondOnDeal(HttpContext.Current.User.Identity.Name, dealId);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.RespondOnDeal(username, dealId);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/deal/close/{dealId}
@@ -121,11 +123,12 @@ namespace Nanobank.API.Controllers
     [Route("close/{dealId}")]
     public async Task<IHttpActionResult> Close(string dealId)
     {
-      IdentityResult result = await _repo.CloseDeal(HttpContext.Current.User.Identity.Name, dealId);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.CloseDeal(username, dealId);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // PUT api/deal/{dealID}/set/rating
@@ -138,11 +141,12 @@ namespace Nanobank.API.Controllers
         return BadRequest(ModelState);
       }
 
-      IdentityResult result = await _repo.SetRating(HttpContext.Current.User.Identity.Name, dealId, ratingModel);
+      string username = HttpContext.Current.User.Identity.Name;
+      IdentityResult result = await _repo.SetRating(username, dealId, ratingModel);
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
 
     // DELETE api/deal/{dealId}
@@ -157,12 +161,13 @@ namespace Nanobank.API.Controllers
       }
       else
       {
-        result = await _repo.DeleteDealByUser(HttpContext.Current.User.Identity.Name, dealId);
+        string username = HttpContext.Current.User.Identity.Name;
+        result = await _repo.DeleteDealByUser(username, dealId);
       }
 
       IHttpActionResult errorResult = GetErrorResult(result);
 
-      return errorResult != null ? errorResult : Ok();
+      return errorResult == null ? Ok() : errorResult;
     }
     
     protected override void Dispose(bool disposing)
@@ -182,26 +187,25 @@ namespace Nanobank.API.Controllers
         return InternalServerError();
       }
 
-      if (!result.Succeeded)
+      if (result.Succeeded)
       {
-        if (result.Errors != null)
-        {
-          foreach (string error in result.Errors)
-          {
-            ModelState.AddModelError("", error);
-          }
-        }
-
-        if (ModelState.IsValid)
-        {
-          // No ModelState errors are available to send, so just return an empty BadRequest.
-          return BadRequest();
-        }
-
-        return BadRequest(ModelState);
+        return null;
       }
 
-      return null;
+      if (result.Errors != null)
+      {
+        foreach (string error in result.Errors)
+        {
+          ModelState.AddModelError("", error);
+        }
+      }
+
+      if (ModelState.IsValid)
+      {
+        return BadRequest();
+      }
+
+      return BadRequest(ModelState);
     }
   }
 }

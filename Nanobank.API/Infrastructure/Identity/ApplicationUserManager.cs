@@ -13,12 +13,14 @@ namespace Nanobank.API.Infrastructure.Identity
     {
     }
 
-    public static ApplicationUserManager Create(ApplicationContext context)
+    public static ApplicationUserManager Create(
+      ApplicationContext context,
+      IIdentityMessageService emailService)
     {
       var manager = new ApplicationUserManager(
         new UserStore<ApplicationUser>(context));
 
-      manager.EmailService = new SendGridEmailService();
+      manager.EmailService = emailService;
 
       /*manager.UserValidator = new UserValidator<ApplicationUser>(manager)
       {

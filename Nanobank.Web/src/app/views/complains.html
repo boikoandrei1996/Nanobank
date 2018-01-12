@@ -1,0 +1,50 @@
+<!-- TODO: Replace table to table component when https://github.com/angular/material/issues/796 will closed -->
+<div>
+    <div layout ng-hide="!vm.activated" md-theme='custom' style="padding: 0 70px;">
+        <md-input-container flex>
+            <label for="search">Искать</label>
+            <input flex type="text" name="search" id="search" ng-model="vm.search" />
+        </md-input-container >
+        <!-- Показывать &#9;
+        <md-input-container flex>
+          <md-switch ng-model="vm.showUnassigned" aria-label="Switch 1">
+            нeназначенные
+          </md-switch>
+        </md-input-container >
+        <md-input-container flex>
+          <md-switch ng-model="vm.showAssigned" aria-label="Switch 2">
+            назначенные
+          </md-switch>
+        </md-input-container >
+        <md-input-container ng-if=vm.showAssigned>
+          <md-switch ng-model="vm.showClosed" aria-label="Switch 3">
+            закрытые
+          </md-switch>
+        </md-input-container>
+        <md-input-container ng-if=vm.showAssigned>
+          <md-switch ng-model="vm.showOpened" aria-label="Switch 3">
+            открытые
+          </md-switch>
+        </md-input-container>
+         сделки -->
+    </div>
+    <div ng-hide="vm.activated">
+      <md-progress-linear md-mode="query" ng-disabled="vm.activated"></md-progress-linear>
+    </div>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Время создания</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in vm.tableData | filter:vm.search | filter:customFilter track by $index " ng-click="showAdvanced($event, data)">
+            <td data-title="ID">{{$index + 1}}</td>
+            <td data-title="Время создания">{{vm.formatDate(data.dateOfCreating)}}</td>
+            <td data-title="Описание">{{data.complainText}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

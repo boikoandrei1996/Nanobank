@@ -1,0 +1,103 @@
+<md-content class="md-padding">
+    <form name="userForm">
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Описание</label>
+                <input name="title" ng-model="vm.deal.title" ng-readonly="vm.isAlreadyStarted" ng-change="vm.change()" required>
+                <div class="hint" ng-if="vm.newDeal && !(userForm.title.$touched && userForm.title.$error.required)">расскажи, с какой целью ты хочешь взять взаймы</div>
+                <div class="errors" ng-messages="userForm.title.$error">
+                  <div class="md-input-message-animation" ng-message="required" ng-if="userForm.title.$touched && userForm.title.$error.required">Поле "Описание" не может быть пустым.</div>
+                </div>
+            </md-input-container>
+            <md-input-container ng-if="!vm.newDeal" flex>
+                <label>Заёмщик</label>
+                <input ng-model="vm.deal.ownerUserName" readonly>
+            </md-input-container>
+            <md-input-container ng-if="!vm.newDeal" flex>
+                <label>Кредитор</label>
+                <input ng-model="vm.deal.creditorUserName" readonly>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Начальная сумма</label>
+                <input type="number" name="startAmount" min="1" ng-model="vm.deal.startAmount" ng-readonly="vm.isAlreadyStarted" ng-change="vm.change()" required>
+                <div class="hint" ng-if="vm.newDeal && !(userForm.startAmount.$touched && userForm.startAmount.$error.required || userForm.startAmount.$error.min)">какая сумма тебе необходима в BYN</div>
+                <div class="errors" ng-messages="userForm.startAmount.$error">
+                  <div class="md-input-message-animation" ng-message="required" ng-if="userForm.startAmount.$touched && userForm.startAmount.$error.required">Поле "Сумма" не может быть пустым.</div>
+                  <div class="md-input-message-animation" ng-if="userForm.startAmount.$error.min">Сумма не может быть меньше 1 BYN.</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Число месяцев для возврата</label>
+                <input type="number" name="dealDurationInMonth" min="1"  ng-model="vm.deal.dealDurationInMonth" ng-readonly="vm.isAlreadyStarted" ng-change="vm.change()" required>
+                <div class="hint" ng-if="vm.newDeal && !(userForm.dealDurationInMonth.$touched && userForm.dealDurationInMonth.$error.required || userForm.dealDurationInMonth.$error.min)">за сколько месяцев ты сможешь вернуть деньги</div>
+                <div class="errors" ng-messages="userForm.dealDurationInMonth.$error">
+                  <div class="md-input-message-animation" ng-message="required" ng-if="userForm.dealDurationInMonth.$touched && userForm.dealDurationInMonth.$error.required">Поле "Число месяцев для возврата" не может быть пустым.</div>
+                  <div class="md-input-message-animation" ng-if="userForm.dealDurationInMonth.$error.min">Период воврата не должен быть меньше 1 месяца.</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Месячный процент возврата</label>
+                <input type="number" min="1" name="percentRate" ng-model="vm.deal.percentRate" ng-readonly="vm.isAlreadyStarted" ng-change="vm.change()" required>
+                <div class="hint" ng-if="vm.newDeal && !(userForm.percentRate.$touched && userForm.percentRate.$error.required || userForm.percentRate.$error.min)">какой процент от суммы ты готов платить ежемесячно</div>
+                <div class="errors" ng-messages="userForm.percentRate.$error">
+                  <div class="md-input-message-animation" ng-message="required" ng-if="userForm.percentRate.$touched && userForm.percentRate.$error.required">Поле "Месячный процент возврата" не может быть пустым.</div>
+                  <div class="md-input-message-animation" ng-if="userForm.percentRate.$error.min">Месячный процент воврата не должен быть меньше 1 месяца.</div>
+                </div>
+            </md-input-container>
+        </div>
+
+        <div layout layout-sm="column" ng-if="vm.isAlreadyStarted">
+          <md-input-container >
+              <label ng-if="vm.isCreditor">Вернули</label>
+              <label ng-if="!vm.isCreditor">Отдано</label>
+              <input ng-model="vm.deal.returnedAmount" ng-readonly="vm.isAlreadyStarted" aria-label="jj">
+          </md-input-container>
+          <md-input-container >
+              <label >Полная сумма</label>
+              <input ng-model="vm.amountToReturn" ng-readonly="true" aria-label="jj">
+          </md-input-container>
+          <md-input-container >
+            <md-button ng-if='!vm.isCreditor && !vm.deal.isClosed' ng-click="vm.payForDeal()" class="md-accent md-raised" >
+              Оплатить</md-button>
+          </md-input-container>
+          <span flex></span>
+          <md-button ng-if='vm.isCreditor && !vm.deal.isClosed && vm.isOverdue' style="color:#E75753;" ng-click="vm.complainAboutDeal()" class="md-accent" >
+            <md-tooltip md-direction="left" >
+                Пользователь не выплачивает в срок?
+            </md-tooltip>
+            Пожаловаться</md-button>
+        </div>
+
+        <div ng-if="vm.isAlreadyStarted" layout layout-sm="column">
+          <md-input-container class="md-input-has-value">
+            <label>Негативная оценка </label>
+            <ng-rate-it ng-model="vm.ratingNegative" read-only="!vm.isCreditor || vm.isClosed" star-width="32" star-height="32" cancel-width="20" class="custom negative" min="0" max="5" step="1" before-rated="vm.confirmNegativeRating(rating, '')" before-reset="vm.confirmNegativeReset(rating)"></ng-rate-it>
+          </md-input-container>
+          <md-input-container style="width: 35px">
+          </md-input-container>
+          <md-input-container class="md-input-has-value" style="width:200px">
+            <label>Положительная оценка </label>
+            <ng-rate-it ng-model="vm.ratingPositive" read-only="!vm.isCreditor || vm.isClosed" star-width="32" star-height="32" class="custom positive" min="0" max="5" step="1" before-rated="vm.confirmPositiveRating(rating, '')" before-reset="vm.confirmPositiveReset(rating)"></ng-rate-it>
+          </md-input-container>
+          <span flex></span>
+          <md-button ng-if='vm.isCreditor && !vm.isClosed' ng-disabled="vm.ratingPositive==0 && vm.ratingNegative==0" data-tooltip="hi" ng-click="vm.closeDeal()" class="md-accent" >
+            <md-tooltip md-direction="left" ng-if='vm.ratingPositive==0 && vm.ratingNegative==0'>
+                Сначала поставьте оценку пользователю
+            </md-tooltip>
+            Закрыть сделку</md-button>
+        </div>
+
+        <div class='deal-actions' layout layout-sm="column">
+          <span flex></span>
+
+          <md-button ng-if='vm.newDeal' ng-disabled='userForm.$invalid' ng-click="vm.createDeal()" class="md-accent md-raised" >создать заявку</md-button>
+
+          <md-button ng-if='!vm.newDeal && !vm.isAlreadyStarted' ng-click="vm.deleteDeal()" class="md-accent">удалить заявку</md-button>
+          <img ng-if="vm.dataLoading" style="height: 16px" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <md-button ng-if='!vm.newDeal && !vm.isAlreadyStarted && vm.formChanged' ng-disabled='userForm.$invalid' ng-click="vm.updateDeal()" class="md-accent md-raised">обновить информацию</md-button>
+
+      </div>
+    </form>
+</md-content>

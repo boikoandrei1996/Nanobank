@@ -1,0 +1,21 @@
+<div ng-hide="vm.activated">
+  <md-progress-linear md-mode="query" ng-disabled="vm.activated"></md-progress-linear>
+  Загрузка данных
+</div>
+<div class="divTable">
+  <div class="divTableBody">
+    <div class="divTableRow" ng-repeat="three in vm.separatedIntoThreeData">
+      <div class="divTableCell">
+        <pending-deal flex deal="three[0]" ng-if"three[0] !== undefined"></pending-deal>
+      </div>
+
+      <div class="divTableCell">
+        <pending-deal flex deal="three[1]" ng-if="three[1] !== undefined"></pending-deal>
+      </div>
+
+      <div class="divTableCell">
+        <pending-deal flex deal="three[2]" ng-if="three[2] !== undefined"></pending-deal>
+      </div>
+    </div>
+  </div>
+</div>

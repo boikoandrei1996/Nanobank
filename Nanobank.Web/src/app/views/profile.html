@@ -1,0 +1,51 @@
+<md-content class="md-padding" layout="row" layout-sm="column">
+    <md-input-container>
+        <label>Username</label>
+        <input ng-model="vm.user.userName" readonly>
+    </md-input-container>
+    <md-input-container>
+        <label>Email</label>
+        <input ng-model="vm.user.email" type="email" readonly>
+    </md-input-container>
+</md-content>
+<md-content class="md-padding">
+    <form name="userForm">
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>First Name</label>
+                <input ng-model="vm.user.firstName"
+                       placeholder="Placeholder text" readonly>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Last Name</label>
+                <input ng-model="vm.user.lastName" readonly>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Patronymic</label>
+                <input ng-model="vm.user.patronymic" readonly>
+            </md-input-container>
+        </div>
+        <div layout layout-sm="column">
+        <md-input-container flex>
+            <label>Phone Number</label>
+            <input ng-model="vm.user.phoneNumber" readonly>
+        </md-input-container>
+        <span flex></span>
+          <md-input-container class="md-input-has-value">
+            <label>Оценка</label>
+            <div layout >
+              <ng-rate-it ng-model="vm.one" read-only="true" star-width="32" star-height="32" class="custom negative"  max="1"></ng-rate-it>
+              <span style="font-size: 25px; margin: 0px 5px; color: #E75753">{{vm.user.ratingNegative}}</span>
+              <ng-rate-it ng-model="vm.one" read-only="true" star-width="32" star-height="32" class="custom positive" max="1"></ng-rate-it>
+              <span style="font-size: 25px; margin: 0px 5px; color: #009998">{{vm.user.ratingPositive}}</span>
+            </div>
+          </md-input-container>
+          <span flex></span>
+          <md-button ng-if='vm.isCreditor && !vm.isClosed' ng-disabled="vm.ratingPositive==0 && vm.ratingNegative==0" data-tooltip="hi" ng-click="vm.closeDeal()" class="md-accent" >
+            <md-tooltip md-direction="left" ng-if='vm.ratingPositive==0 && vm.ratingNegative==0'>
+                Сначала поставьте оценку пользователю
+            </md-tooltip>
+            Закрыть сделку</md-button>
+        </div>
+    </form>
+</md-content>

@@ -1,0 +1,70 @@
+<md-dialog aria-label="Mango (Fruit)" class="md-custom-theme">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Сделка</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="width: 700px">
+      <md-content class="md-padding">
+          <form name="userForm">
+              <div layout layout-sm="column">
+                <div class="field-view" flex >
+                  <label>Описание</label>
+                  <span><br />{{vm.deal.title}}</span>
+                </div>
+                <div class="field-view" flex>
+                  <label>Заёмщик</label>
+                  <span><br />{{vm.deal.ownerUserName}}</span>
+                </div>
+                <div class="field-view" flex>
+                  <label>Кредитор</label>
+                  <span><br />{{vm.deal.creditorUserName}}</span>
+                </div>
+              </div>
+              <div layout layout-sm="column" style="margin: 20px 0;">
+                <div class="field-view" flex>
+                  <label>Сумма</label>
+                  <span><br /><strong>{{vm.deal.startAmount}}</strong> BYN</span>
+
+                  <span>(под <strong>{{vm.deal.percentRate}}%</strong> в месяц)</span>
+                </div>
+                <div class="field-view" flex>
+                  <label>Срок</label>
+                  <span><br />{{vm.deal.dateInWords}}</span>
+                </div>
+                <div class="field-view" flex>
+                  <label>Отдано</label>
+                  <span><br /><strong>{{vm.deal.returnedAmount}}</strong> BYN</span>
+                </div>
+              </div>
+
+
+              <div layout layout-sm="column" style="margin: 10px 0;">
+                <div class="field-view" flex>
+                  <label>Негативная оценка </label>
+                  <ng-rate-it ng-model="vm.deal.ratingNegative" read-only="true" star-width="32" star-height="32" cancel-width="20" class="custom negative" min="0" max="5" step="1" ></ng-rate-it>
+                </div>
+
+                <div class="field-view" flex>
+                  <label>Положительная оценка </label>
+                  <ng-rate-it ng-model="vm.deal.ratingPositive" read-only="true" star-width="32" star-height="32" class="custom positive" min="0" max="5" ></ng-rate-it>
+                </div>
+              </div>
+          </form>
+      </md-content>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()" class="md-accent">
+       закрыть
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,99 @@
+<md-dialog aria-label="Mango (Fruit)" class="md-custom-theme" style="min-width: 600px;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Пользователь {{vm.user.firstName}} {{vm.user.lastName}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div style="display: table; background: white; width:100%; padding: 20px;">
+          <div style="display: row" >
+            <form name="form" role="form" ng-disabled="true">
+              <div layout layout-sm="column">
+                <div class="field-view" flex>
+                  <label>Фамилия</label>
+                  <span><br />{{vm.user.lastName}}</span>
+                </div>
+
+                <div class="field-view" flex>
+                  <label>Имя</label>
+                  <span><br />{{vm.user.firstName}}</span>
+                </div>
+
+                <div class="field-view" flex>
+                  <label>Отчество</label>
+                  <span><br />{{vm.user.patronymic}}</span>
+                </div>
+              </div>
+
+              <div layout layout-sm="column" style="margin: 10px 0;">
+                <div class="field-view" flex>
+                  <label>Логин</label>
+                  <span><br />{{vm.user.userName}}</span>
+                </div>
+              </div>
+
+              <div layout layout-sm="column" style="margin: 10px 0;" ng-if='!vm.user.readonly'>
+                <div class="field-view" flex>
+                  <label>Электронная почта</label>
+                  <span><br />{{vm.user.email}}</span>
+                </div>
+
+                <div class="field-view" flex>
+                  <label>Номер телефона</label>
+                  <span><br />{{vm.user.phoneNumber}}</span>
+                </div>
+              </div>
+
+              <div layout layout-sm="column"  style="margin: 10px 0;" ng-if='!vm.user.readonly'>
+                <div class="field-view" flex>
+                  <label>Номер карты</label>
+                  <span><br />{{vm.user.cardNumber}}</span>
+                </div>
+              </div>
+
+              <div layout layout-sm="column" style="margin: 10px 0;">
+                <div class="field-view" flex ng-if="!vm.user.readonly">
+                  <label>Роли</label>
+                  <md-chips ng-model="vm.user.roles" readonly="true">
+                    <md-chip-template style="color: #009688;">
+                        {{$chip}}
+                    </md-chip-template>
+                  </md-chips>
+                </div>
+
+                <div class="field-view" flex>
+                  <label>Рейтинг</label>
+                  <md-chips>
+                    <md-chip style="color: #E75753;">{{vm.user.ratingNegative}}</md-chip>
+                    <md-chip style="color: #009688;">{{vm.user.ratingPositive}}</md-chip>
+                  </md-chips>
+                </div>
+              </div>
+
+              <img ng-if="!vm.user.readonly" ng-src="{{imagePath}}" style="max-width: 640px">
+
+            </form>
+        </div>
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()" ng-if='vm.user.readonly' class="md-accent">
+       закрыть
+      </md-button>
+      <md-button ng-click="showConfirm($event, true)" ng-if='!vm.user.readonly' class="md-accent">
+       Удалить пользователя
+      </md-button>
+      <md-button ng-click="showConfirm($event, false)" ng-if='!vm.user.readonly && !vm.user.isApproved' class="md-raised md-accent" >
+        Подтвердить аккаунт
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

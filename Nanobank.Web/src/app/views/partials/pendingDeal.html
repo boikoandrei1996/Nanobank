@@ -1,0 +1,21 @@
+<div>
+  <md-card md-theme="custom">
+    <md-card-title>
+      <md-card-title-text  style="overflow: hidden">
+        <span class="md-headline">{{vm.deal.startAmount}} BYN на {{vm.deal.dealDurationInWords}} с возвратом {{vm.deal.percentRate}}% в месяц</span>
+        <span class="md-subhead np-wrap" style="text-overflow: ellipsis;" ng-click="vm.openUserModal()" >
+          <strong>{{vm.deal.ownerUserName}}</strong> {{vm.deal.title}}
+          <md-tooltip md-direction="buttom" >
+              посмотреть профиль пользователя
+          </md-tooltip>
+        </span>
+
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-if="!vm.showButton" ng-click="vm.showConfirm(true)" class="md-accent">удалить</md-button>
+      <md-button ng-if="vm.showButton" ng-click="vm.showConfirm(false)" class="md-accent md-raised">откликнуться</md-button>
+      <img ng-if='vm.dataLoading' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    </md-card-actions>
+  </md-card>
+</div>

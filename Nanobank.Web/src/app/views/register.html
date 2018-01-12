@@ -1,0 +1,145 @@
+<div style="display: table; background: white; width:100%">
+  <div class="col-md-2" style=""></div>
+
+  <div class="col-md-8" style="display: table-cell;">
+    <div style="display: row">
+      <h2>Регистрация</h2>
+
+      <form name="form" ng-submit="vm.register()" role="form">
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="lastName">Фамилия</label>
+            <input type="text" name="lastName" id="lastName" ng-model="vm.user.lastName" required />
+            <div class="errors" ng-messages="form.lastName.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.lastName.$touched && form.lastName.$error.required">Поле "Фамилия" не может быть пустым.</div>
+            </div>
+          </md-input-container >
+
+          <md-input-container flex>
+            <label for="firstName">Имя</label>
+            <input type="text" name="firstName" id="firstName" ng-model="vm.user.firstName" required />
+            <div class="errors" ng-messages="form.firstName.$error">
+              <div class="md-input-message-animation" ng-message="required"  ng-if="form.firstName.$touched && form.firstName.$error.required">Поле "Имя" не может быть пустым.</div>
+            </div>
+          </md-input-container >
+
+          <md-input-container flex>
+            <label for="patronymic">Отчество</label>
+            <input type="text" name="patronymic" id="patronymic" ng-model="vm.user.patronymic" required />
+            <div class="errors" ng-messages="form.patronymic.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.patronymic.$touched && form.patronymic.$error.required">Поле "Отчество" не может быть пустым.</div>
+            </div>
+          </md-input-container >
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="username">Логин</label>
+            <input type="text" name="username" id="username" ng-model="vm.user.username" required />
+            <div class="errors" ng-messages="form.username.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.username.$touched && form.username.$error.required">Поле "Логин" не может быть пустым.</div>
+            </div>
+          </md-input-container >
+
+          <md-input-container flex>
+            <label for="password">Пароль</label>
+            <input type="password" name="password" id="password" minlength="8" ng-model="vm.user.password" required />
+            <div class="errors" ng-messages="form.password.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.password.$touched && form.password.$error.required">Поле "Пароль" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="minlength" ng-if="form.password.$touched && form.password.$error.minlength">В пароле должно быть не меньше 8 символов.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container  md-is-error="form.confirmPassword.$touched && (form.confirmPassword.$error.required || form.password.$touched && vm.user.confirmPassword != vm.user.password)" flex>
+            <label for="confirmPassword">Подтверждение пароля</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" ng-model="vm.user.confirmPassword" required />
+            <div class="errors" ng-messages="form.confirmPassword.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.confirmPassword.$touched && form.confirmPassword.$error.required">Поле "Подтверждение пароля" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-if="vm.user.confirmPassword != vm.user.password">Пароли должны совпадать.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="username">Электронная почта</label>
+            <input type="email" name="email" id="email" ng-model="vm.user.email" ng-pattern="/^.+@.+\..+$/" required />
+            <div class="errors" ng-messages="form.email.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.email.$touched && form.email.$error.required">Поле "Email" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="pattern" ng-if="form.email.$touched && form.email.$error.pattern">Введённое значение не соответствует шаблону корректного email.</div>
+            </div>
+          </md-input-container >
+
+          <md-input-container flex>
+            <label for="username">Номер телефона</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" ng-model="vm.user.phoneNumber" ng-pattern="/^(\+?375|80)?(29|25|44|33)(\d{3})(\d{2})(\d{2})$/" required />
+            <div class="errors" ng-messages="form.phoneNumber.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.phoneNumber.$touched && form.phoneNumber.$error.required">Поле "Номер телефона" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="pattern" ng-if="form.phoneNumber.$touched && form.phoneNumber.$error.pattern">Введённое значение не соответствует формату белорусского номера телефона.</div>
+            </div>
+          </md-input-container >
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="cardNumber">Номер карточки</label>
+            <md-select id='cardNumber' ng-model="vm.user.cardNumber" aria-label="ll" required>
+              <md-option ng-repeat="card in vm.cards" ng-value="card.value">
+                {{card.display}}
+              </md-option>
+            </md-select>
+            <div class="errors" ng-messages="form.cardNumber.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.cardNumber.$touched && form.cardNumber.$error.required">Поле "Номер карточки" не может быть пустым.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex>
+            <label for="expiredAt">Срок действия</label>
+            <md-datepicker ng-model="vm.cardDateOfExpire" md-date-locale="vm.dateLocale.locale"  md-current-view="year" md-min-date="vm.minDate"  required></md-datepicker>
+            <div class="errors" ng-messages="form.cardDateOfExpire.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.cardDateOfExpire.$touched && form.cardDateOfExpire.$error.required">Поле "Срок действия" не может быть пустым.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex>
+            <label for="cvv2">CVV2</label>
+            <input type="text" name="cvv2" id="cvv2" ng-model="vm.user.cardCVV2Key" ng-pattern="/^\d{3}$/" required />
+            <div class="errors" ng-messages="form.cvv2.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.cvv2.$touched && form.cvv2.$error.required">Поле "CVV2" не может быть пустым.</div>
+              <div class="md-input-message-animation" ng-message="pattern" ng-if="form.cvv2.$touched && form.cvv2.$error.pattern">Введённое значение не соответствует формату CVV2(xxx).</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="cardOwnerFullName">Полное имя владельца карты</label>
+            <input type="text" name="cardOwnerFullName" id="cardOwnerFullName" ng-model="vm.user.cardOwnerFullName" required />
+            <div class="errors" ng-messages="form.cardOwnerFullName.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.cardOwnerFullName.$touched && form.cardOwnerFullName.$error.required">Поле "Полное имя вдадельца карты" не может быть пустым.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label for="files">Последняя страница паспорта</label>
+            <input type="file" name="files" ng-model="vm.files" placeholder="" required base-sixty-four-input>
+            <div class="errors" ng-messages="form.files.$error">
+              <div class="md-input-message-animation" ng-message="required" ng-if="form.files.$touched && form.files.$error.required">Фотографи паспорта обязательна.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+
+        <div layout layout-sm="column">
+          <md-button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="md-accent  md-raised waves-effect waves-light btn done">
+            <i class="material-icons left">done</i> Зарегистрироваться
+          </md-button>
+          <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <md-button class="md-accent" href="#!/login">Отмена</md-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

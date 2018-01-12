@@ -1,0 +1,92 @@
+<!-- TODO: Replace table to table component when https://github.com/angular/material/issues/796 will closed -->
+<div>
+    <div ng-hide="!vm.activated" md-theme='custom' style="padding: 0 70px;">
+        <md-input-container flex>
+            <label for="search">Искать</label>
+            <input type="text" name="search" id="search" ng-model="vm.search" />
+        </md-input-container >
+        Показывать &#9;
+        <md-input-container flex>
+          <md-switch ng-model="vm.showUnassigned" aria-label="Switch 1">
+            нeназначенные
+          </md-switch>
+        </md-input-container >
+        <md-input-container flex>
+          <md-switch ng-model="vm.showAssigned" aria-label="Switch 2">
+            назначенные
+          </md-switch>
+        </md-input-container >
+        <md-input-container ng-if=vm.showAssigned>
+          <md-switch ng-model="vm.showClosed" aria-label="Switch 3">
+            закрытые
+          </md-switch>
+        </md-input-container>
+        <md-input-container ng-if=vm.showAssigned>
+          <md-switch ng-model="vm.showOpened" aria-label="Switch 3">
+            открытые
+          </md-switch>
+        </md-input-container>
+         сделки
+    </div>
+    <div ng-hide="vm.activated">
+      <md-progress-linear md-mode="query" ng-disabled="vm.activated"></md-progress-linear>
+    </div>
+    <h3>В роли кредитора</h3>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Заёмщик</th>
+            <th>Сумма(% в месяц) на период</th>
+            <th>Описание</th>
+            <th>Вернули</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in vm.creditorTableData | filter:vm.search | filter:customFilter track by $index " ng-click="vm.goWithData(data)">
+            <td data-title="ID">{{$index + 1}}</td>
+            <td data-title="Заёмщик">{{data.ownerUserName}}</td>
+            <td data-title="Сумма"><strong>{{data.startAmount}}</strong> BYN ({{data.percentRate}}%) на {{vm.formatDataPeriod(data.dealDurationInMonth)}}</td>
+            <td data-title="Описание">{{data.title}}</td>
+            <td data-title="Отдано">
+                <md-progress-linear class="table-progress {{data.class}}"
+                                    ng-class="data.isClosed ? 'md-accent' :  data.dealClosedDate !== undefined ? 'orange' : ''"
+                                    md-mode="determinate"
+                                    value={{data.returnedAmount*100/data.startAmount}}>
+                </md-progress-linear>
+            </td>
+        </tr>
+        <!-- <tr ng-if="vm.tableData.length == 0 && !vm.activated" >У вас пока нет сделок в данной роли.</tr> -->
+        </tbody>
+    </table>
+    <h3>В роли заёмщика</h3>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Кредитор</th>
+            <th>Сумма(% в месяц) на период</th>
+            <th>Описание</th>
+            <th>Отдано</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in vm.ownerTableData | filter:vm.search | filter:customFilter track by $index " ng-click="vm.goWithData(data)">
+            <td data-title="ID">{{$index + 1}}</td>
+            <td data-title="Кредитор">{{data.creditorUserName ? data.creditorUserName : 'ещё не определён'}}</td>
+            <td data-title="Сумма"><strong>{{data.startAmount}}</strong> BYN ({{data.percentRate}}%) на {{vm.formatDataPeriod(data.dealDurationInMonth)}}</td>
+            <td data-title="Описание">{{data.title}}</td>
+            <td data-title="Отдано">
+                <md-progress-linear class="table-progress {{data.class}}"
+                                    ng-class="data.isClosed ? 'md-accent' :  data.dealClosedDate !== undefined ? 'orange' : ''"
+                                    md-mode="determinate"
+                                    value={{data.returnedAmount*100/data.startAmount}}>
+                </md-progress-linear>
+            </td>
+        </tr>
+        <!-- <tr ng-if="vm.tableData.length == 0 && !vm.activated" >У вас пока нет сделок в данной роли.</tr> -->
+        </tbody>
+    </table>
+
+</div>

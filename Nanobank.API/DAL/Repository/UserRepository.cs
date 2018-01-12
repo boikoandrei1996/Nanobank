@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
@@ -13,15 +12,15 @@ using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.Infrastructure.Notifications;
 using Nanobank.API.Models;
 
-namespace Nanobank.API.DAL
+namespace Nanobank.API.DAL.Repository
 {
-  public class AuthRepository : IAuthRepository
+  public class UserRepository : IUserRepository
   {
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
     private readonly IPushNotificationManager _pushManager;
 
-    public AuthRepository(
+    public UserRepository(
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager,
       IPushNotificationManager pushManager)
@@ -40,7 +39,7 @@ namespace Nanobank.API.DAL
       {
         users = users.Where(predicate).ToList();
       }
-      
+
       foreach (var user in users)
       {
         resultUsers.Add(await MapUserAsync(user));
@@ -67,7 +66,7 @@ namespace Nanobank.API.DAL
       {
         image = Convert.FromBase64String(userModel.PassportImage);
       }
-      catch(FormatException ex)
+      catch (FormatException ex)
       {
         return IdentityResult.Failed(ex.Message);
       }
@@ -80,7 +79,7 @@ namespace Nanobank.API.DAL
       {
         result = await _userManager.CreateAsync(user, userModel.Password);
       }
-      catch(DbUpdateException ex)
+      catch (DbUpdateException ex)
       {
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
@@ -118,7 +117,7 @@ namespace Nanobank.API.DAL
       // TODO: The hook should be deleted.
       // The hook for load lazy property UserInfo.
       user.UserInfo.ToString();
-      
+
       try
       {
         var result = await _userManager.UpdateAsync(user);
@@ -167,7 +166,7 @@ namespace Nanobank.API.DAL
       {
         return await _userManager.AddToRoleAsync(user.Id, rolename);
       }
-      catch(DbUpdateException ex)
+      catch (DbUpdateException ex)
       {
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
@@ -189,39 +188,10 @@ namespace Nanobank.API.DAL
       {
         return await _userManager.DeleteAsync(user);
       }
-      catch(DbUpdateException ex)
+      catch (DbUpdateException ex)
       {
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
-    }
-
-    public async Task<ApplicationUser> FindUser(string username, string password)
-    {
-      ApplicationUser user = await _userManager.FindAsync(username, password);
-
-      return user;
-    }
-
-    public async Task<ClaimsIdentity> CreateClaimsIdentity(ApplicationUser user, string authenticationType)
-    {
-      ClaimsIdentity identity = await _userManager.CreateIdentityAsync(user, authenticationType);
-
-      return identity;
-    }
-
-    public async Task<PhotoResponseViewModel> GetPhoto(string username)
-    {
-      var user = await _userManager.FindByNameAsync(username);
-      if (user == null)
-      {
-        return null;
-      }
-
-      return new PhotoResponseViewModel
-      {
-        PassportImage = Convert.ToBase64String(user.UserInfo.PassportImage),
-        ImageMimeType = user.UserInfo.ImageMimeType
-      };
     }
 
     public void Dispose()

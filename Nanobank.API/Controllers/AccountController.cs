@@ -11,9 +11,9 @@ namespace Nanobank.API.Controllers
   [Authorize]
   public class AccountController : ApiController
   {
-    private readonly IAuthRepository _repo;
+    private readonly IUserRepository _repo;
 
-    public AccountController(IAuthRepository repo)
+    public AccountController(IUserRepository repo)
     {
       _repo = repo;
     }

@@ -4,13 +4,12 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
-namespace Nanobank.API.DAL
+namespace Nanobank.API.DAL.Repository
 {
   public class CreditCardRepository : ICreditCardRepository
   {

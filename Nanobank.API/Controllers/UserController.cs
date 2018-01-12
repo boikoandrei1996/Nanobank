@@ -12,11 +12,15 @@ namespace Nanobank.API.Controllers
   [Authorize]
   public class UserController : ApiController
   {
-    private readonly IAuthRepository _repo;
+    private readonly IUserRepository _userRepo;
+    private readonly IPhotoRepository _photoRepo;
 
-    public UserController(IAuthRepository repo)
+    public UserController(
+      IUserRepository userRepo,
+      IPhotoRepository photoRepo)
     {
-      _repo = repo;
+      _userRepo = userRepo;
+      _photoRepo = photoRepo;
     }
 
     // GET api/user/all
@@ -25,7 +29,7 @@ namespace Nanobank.API.Controllers
     [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> All()
     {
-      IList<UserResponseViewModel> users = await _repo.GetUsers();
+      IList<UserResponseViewModel> users = await _userRepo.GetUsers();
 
       return Ok(users);
     }
@@ -36,7 +40,7 @@ namespace Nanobank.API.Controllers
     [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> AllUnapproved()
     {
-      IList<UserResponseViewModel> users = await _repo.GetUsers(user => !user.IsApproved);
+      IList<UserResponseViewModel> users = await _userRepo.GetUsers(user => !user.IsApproved);
 
       return Ok(users);
     }
@@ -46,7 +50,7 @@ namespace Nanobank.API.Controllers
     [Route("{userName}")]
     public async Task<IHttpActionResult> Get(string userName)
     {
-      UserResponseViewModel user = await _repo.GetUser(userName);
+      UserResponseViewModel user = await _userRepo.GetUser(userName);
       if (user == null)
       {
         return BadRequest($"Can not find user by username: '{userName}'");
@@ -61,7 +65,7 @@ namespace Nanobank.API.Controllers
     [Authorize(Roles = RoleTypes.Admin)]
     public async Task<IHttpActionResult> GetPassportPhoto(string userName)
     {
-      PhotoResponseViewModel photo = await _repo.GetPhoto(userName);
+      PhotoResponseViewModel photo = await _photoRepo.GetPhoto(userName);
       if (photo == null)
       {
         return BadRequest($"Can not find passport photo by username: '{userName}'");
@@ -74,7 +78,8 @@ namespace Nanobank.API.Controllers
     {
       if (disposing)
       {
-        _repo.Dispose();
+        _userRepo.Dispose();
+        _photoRepo.Dispose();
       }
 
       base.Dispose(disposing);

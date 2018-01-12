@@ -1,6 +1,7 @@
 using System;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Repository;
 using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.Infrastructure.Notifications;
 using Unity;
@@ -57,9 +58,11 @@ namespace Nanobank.API
       );
 
       container.RegisterType<IAuthRepository, AuthRepository>();
+      container.RegisterType<IUserRepository, UserRepository>();
       container.RegisterType<IDealRepository, DealRepository>();
-      container.RegisterType<ICreditCardRepository, CreditCardRepository>();
       container.RegisterType<IComplainRepository, ComplainRepository>();
+      container.RegisterType<IPhotoRepository, PhotoRepository>();
+      container.RegisterType<ICreditCardRepository, CreditCardRepository>();
 
       container.RegisterType<IPushNotificationManager, AndroidPushNotificationManager>();
 

@@ -10,7 +10,7 @@ using Nanobank.API.DAL.Models;
 using Nanobank.API.Infrastructure.Extensions;
 using Nanobank.API.Models;
 
-namespace Nanobank.API.DAL
+namespace Nanobank.API.DAL.Repository
 {
   public class DealRepository : IDealRepository
   {

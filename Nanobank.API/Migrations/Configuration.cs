@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Infrastructure.Identity;
 using Newtonsoft.Json;
 
 namespace Nanobank.API.Migrations

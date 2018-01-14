@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Nanobank.API.DAL;
 
-namespace Nanobank.API.Infrastructure.Identity
+namespace Nanobank.API.DAL
 {
   public class ApplicationRoleManager : RoleManager<IdentityRole>
   {

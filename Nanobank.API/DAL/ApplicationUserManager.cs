@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Nanobank.API.DAL;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Infrastructure.Notifications;
 
-namespace Nanobank.API.Infrastructure.Identity
+namespace Nanobank.API.DAL
 {
   public class ApplicationUserManager : UserManager<ApplicationUser>
   {

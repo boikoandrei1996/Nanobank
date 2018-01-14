@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Nanobank.API.DAL.Interface;
-using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.DAL.Repository

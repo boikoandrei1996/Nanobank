@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Infrastructure.Identity;
 
 namespace Nanobank.API.DAL.Repository
 {

@@ -3,7 +3,6 @@ using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Repository;
-using Nanobank.API.Infrastructure.Identity;
 using Nanobank.API.Infrastructure.Notifications;
 using Unity;
 using Unity.Injection;

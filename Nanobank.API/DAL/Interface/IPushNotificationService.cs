@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nanobank.API.Infrastructure.Notifications
+namespace Nanobank.API.DAL.Interface
 {
-  public interface IPushNotificationManager
+  public interface IPushNotificationService
   {
     Task SendAsync(string androidDeviceToken, string title, string message);
   }

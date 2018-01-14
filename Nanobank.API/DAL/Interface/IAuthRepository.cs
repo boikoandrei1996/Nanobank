@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Models;
 
 namespace Nanobank.API.DAL.Interface
 {

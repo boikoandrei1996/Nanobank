@@ -193,14 +193,14 @@
     <Compile Include="DAL\Models\UserInfo.cs" />
     <Compile Include="DAL\Repository\PhotoRepository.cs" />
     <Compile Include="DAL\Repository\UserRepository.cs" />
-    <Compile Include="Infrastructure\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="DAL\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationRoleManager.cs" />
     <Compile Include="DAL\Models\ApplicationUser.cs" />
     <Compile Include="Infrastructure\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
+    <Compile Include="Infrastructure\Notifications\AndroidPushNotificationService.cs" />
     <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
-    <Compile Include="Infrastructure\Notifications\AndroidPushNotificationManager.cs" />
-    <Compile Include="Infrastructure\Notifications\IPushNotificationManager.cs" />
+    <Compile Include="DAL\Interface\IPushNotificationService.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>

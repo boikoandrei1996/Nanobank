@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 
-namespace Nanobank.API.Infrastructure.Extensions
+namespace Nanobank.API.DAL.Extensions
 {
   public static class ExceptionExtensions
   {

@@ -69,7 +69,7 @@ namespace Nanobank.API
       container.RegisterType<IPhotoRepository, PhotoRepository>();
       container.RegisterType<ICreditCardRepository, CreditCardRepository>();
 
-      container.RegisterType<IPushNotificationManager, AndroidPushNotificationManager>();
+      container.RegisterType<IPushNotificationService, AndroidPushNotificationService>();
 
       //container.RegisterType<OrdersController>(new InjectionConstructor());
     }

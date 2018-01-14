@@ -18,16 +18,22 @@ namespace Nanobank.API.DAL.Repository
   {
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
-    private readonly IPushNotificationManager _pushManager;
+    private readonly IPushNotificationService _pushService;
 
     public UserRepository(
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager,
-      IPushNotificationManager pushManager)
+      IPushNotificationService pushService)
     {
       _userManager = userManager;
       _roleManager = roleManager;
-      _pushManager = pushManager;
+      _pushService = pushService;
+    }
+
+    public UserRepository(
+      ApplicationUserManager userManager,
+      ApplicationRoleManager roleManager) : this(userManager, roleManager, null)
+    {
     }
 
     public async Task<IList<UserResponseViewModel>> GetUsers(Func<ApplicationUser, bool> predicate = null)
@@ -123,9 +129,9 @@ namespace Nanobank.API.DAL.Repository
         var result = await _userManager.UpdateAsync(user);
         if (result.Succeeded)
         {
-          if (!string.IsNullOrWhiteSpace(user.FCMPushNotificationToken))
+          if (!string.IsNullOrWhiteSpace(user.FCMPushNotificationToken) && _pushService != null)
           {
-            await _pushManager.SendAsync(
+            await _pushService.SendAsync(
               user.FCMPushNotificationToken,
               "Approved by admin in Nanobank.",
               $"Account '{user.UserName}' have been approved by admin.");

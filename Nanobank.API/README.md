@@ -16,7 +16,7 @@
 ### User
 * _GET_ api/user/all - **admin**
 * _GET_ api/user/all/unapproved - **admin**
-* _GET_ api/user/{userName} - **user**
+* _GET_ api/user/{username} - **user**
 
 ### Account
 * _POST_ api/account/register - **anonymous**

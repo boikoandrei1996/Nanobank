@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Nanobank.API.DAL.Interface;
 using Newtonsoft.Json;
 
 namespace Nanobank.API.Infrastructure.Notifications
 {
-  public class AndroidPushNotificationManager : IPushNotificationManager
+  public class AndroidPushNotificationService : IPushNotificationService
   {
     private static readonly string Url = "https://fcm.googleapis.com/fcm/send";
     private static readonly string ServerKey = "AAAA6ATymIM:APA91bEkfzWhzJeVaKwmh2-9JEZ6obEp2v2Zjt2W4gj1_jLW-Q8_Ep3bsf5Ld24nTYlVGfqJNte0_g02cvkvoxeRDJrTMDw11fImrzq7szknAREOH7eFk68KZDHgVPmIzDYl22uRtnq0";

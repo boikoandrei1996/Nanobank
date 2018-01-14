@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nanobank.API.Models
+namespace Nanobank.API.Models.ResponseViewModels
 {
   public class PhotoResponseViewModel
   {

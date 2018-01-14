@@ -230,19 +230,19 @@
       <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ComplainRequestViewModel.cs" />
-    <Compile Include="Models\ComplainResponseViewModel.cs" />
-    <Compile Include="Models\CreditCardResponseViewModel.cs" />
-    <Compile Include="Models\CreditCardTransitRequestViewModel.cs" />
-    <Compile Include="Models\DealRequestViewModel.cs" />
-    <Compile Include="Models\DealResponseViewModel.cs" />
-    <Compile Include="Models\PhotoResponseViewModel.cs" />
-    <Compile Include="Models\RatingRequestViewModel.cs" />
-    <Compile Include="Models\UserRequestViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\ComplainRequestViewModel.cs" />
+    <Compile Include="Models\ResponseViewModels\ComplainResponseViewModel.cs" />
+    <Compile Include="Models\ResponseViewModels\CreditCardResponseViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\CreditCardTransitRequestViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\DealRequestViewModel.cs" />
+    <Compile Include="Models\ResponseViewModels\DealResponseViewModel.cs" />
+    <Compile Include="Models\ResponseViewModels\PhotoResponseViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\RatingRequestViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\UserRequestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Models\UserResponseViewModel.cs" />
+    <Compile Include="Models\ResponseViewModels\UserResponseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

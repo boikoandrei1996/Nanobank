@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Extensions;
-using Nanobank.API.Models;
+using Nanobank.API.Models.RequestViewModels;
+using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.DAL.Repository
 {

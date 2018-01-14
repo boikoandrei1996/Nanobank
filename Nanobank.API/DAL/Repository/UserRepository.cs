@@ -9,8 +9,8 @@ using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
 using Nanobank.API.Infrastructure.Identity;
-using Nanobank.API.Infrastructure.Notifications;
-using Nanobank.API.Models;
+using Nanobank.API.Models.RequestViewModels;
+using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.DAL.Repository
 {

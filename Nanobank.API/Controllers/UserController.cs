@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Models;
+using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.Controllers
 {

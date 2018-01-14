@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.Models;
+using Nanobank.API.Models.RequestViewModels;
+using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.DAL.Interface
 {

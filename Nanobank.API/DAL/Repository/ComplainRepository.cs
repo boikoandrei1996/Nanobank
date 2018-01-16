@@ -43,7 +43,7 @@ namespace Nanobank.API.DAL.Repository
     public async Task<ComplainResponseViewModel> GetComplain(string complainId)
     {
       var complain = await _context.Complains.FirstOrDefaultAsync(c => c.Id == complainId);
-      if (complainId == null)
+      if (complain == null)
       {
         return null;
       }
@@ -91,7 +91,7 @@ namespace Nanobank.API.DAL.Repository
     public async Task<IdentityResult> DeleteComplain(string complainId)
     {
       Complain complain = await _context.Complains.FirstOrDefaultAsync(c => c.Id == complainId);
-      if (complainId == null)
+      if (complain == null)
       {
         return IdentityResult.Failed($"Complain with id: '{complainId}' not found.");
       }

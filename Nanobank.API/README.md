@@ -22,6 +22,7 @@
 * _POST_ api/account/register - **anonymous**
 * _PUT_ api/account/approve/{username} - **admin**
 * _PUT_ api/account/{username}/add/role - **admin**
+* _PUT_ api/account/{username}/update/card - **user**
 * _DELETE_ api/account/{username} - **admin**
 
 ### Deal

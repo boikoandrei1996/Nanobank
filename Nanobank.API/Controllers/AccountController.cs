@@ -62,6 +62,23 @@ namespace Nanobank.API.Controllers
       return errorResult == null ? Ok() : errorResult;
     }
 
+    // PUT api/account/{username}/update/card
+    [HttpPut]
+    [Route("{username}/update/card")]
+    public async Task<IHttpActionResult> UpdateCard(string username, [FromBody]UserCardRequestViewModel userCardModel)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      IdentityResult result = await _repo.UpdateUserCard(username, userCardModel);
+
+      IHttpActionResult errorResult = GetErrorResult(result);
+
+      return errorResult == null ? Ok() : errorResult;
+    }
+
     // DELETE api/account/{username}
     [HttpDelete]
     [Route("{username}")]

@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RequestViewModels\ComplainRequestViewModel.cs" />
+    <Compile Include="Models\RequestViewModels\UserCardRequestViewModel.cs" />
     <Compile Include="Models\ResponseViewModels\ComplainResponseViewModel.cs" />
     <Compile Include="Models\ResponseViewModels\CreditCardResponseViewModel.cs" />
     <Compile Include="Models\RequestViewModels\CreditCardTransitRequestViewModel.cs" />

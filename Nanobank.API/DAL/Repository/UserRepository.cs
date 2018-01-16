@@ -15,25 +15,28 @@ namespace Nanobank.API.DAL.Repository
 {
   public class UserRepository : IUserRepository
   {
+    private readonly ApplicationContext _context;
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
     private readonly IPushNotificationService _pushService;
 
     public UserRepository(
+      ApplicationContext context,
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager,
       IPushNotificationService pushService)
     {
+      _context = context;
       _userManager = userManager;
       _roleManager = roleManager;
       _pushService = pushService;
     }
 
-    public UserRepository(
+    /*public UserRepository(
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager) : this(userManager, roleManager, null)
     {
-    }
+    }*/
 
     public async Task<IList<UserResponseViewModel>> GetUsers(Func<ApplicationUser, bool> predicate = null)
     {
@@ -79,7 +82,6 @@ namespace Nanobank.API.DAL.Repository
       var user = MapUser(userModel, image);
 
       IdentityResult result;
-
       try
       {
         result = await _userManager.CreateAsync(user, userModel.Password);
@@ -170,6 +172,38 @@ namespace Nanobank.API.DAL.Repository
       try
       {
         return await _userManager.AddToRoleAsync(user.Id, rolename);
+      }
+      catch (DbUpdateException ex)
+      {
+        return IdentityResult.Failed(ex.InnerException.InnerException.Message);
+      }
+    }
+
+    public async Task<IdentityResult> UpdateUserCard(string username, UserCardRequestViewModel userCardModel)
+    {
+      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      if (user == null)
+      {
+        return IdentityResult.Failed($"User '{username}' not found.");
+      }
+
+      CreditCard card = await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == userCardModel.CardNumber);
+      if (card == null)
+      {
+        return IdentityResult.Failed($"Credit card '{userCardModel.CardNumber}' not found.");
+      }
+
+      user.UserInfo.CardNumber = userCardModel.CardNumber;
+      user.UserInfo.CardDateOfExpire =
+        DateTime.ParseExact(userCardModel.CardDateOfExpire, "MM/yy", CultureInfo.InvariantCulture).Date;
+      user.UserInfo.CardOwnerFullName = userCardModel.CardOwnerFullName;
+      user.UserInfo.CardCVV2Key = userCardModel.CardCVV2Key;
+
+      try
+      {
+        var result = await _userManager.UpdateAsync(user);
+
+        return result;
       }
       catch (DbUpdateException ex)
       {

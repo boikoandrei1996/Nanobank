@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/base_space">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/line_current"
+            android:layout_width="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/current_root_deposit" />
+
+        <RelativeLayout
+            android:id="@+id/current_root_deposit"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@id/line_current"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_space_2x">
+
+            <include
+                android:id="@+id/viewStub_wait"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_current_wait" />
+
+            <include
+                android:id="@+id/viewStub_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_current_owner" />
+
+            <include
+                android:id="@+id/viewStub_creditor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_current_creditor" />
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

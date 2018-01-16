@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.activity.SignUpActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/root_navigation" />
+
+    <LinearLayout
+        android:id="@+id/root_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/root_navigation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_space"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_margin="@dimen/base_space"
+            android:background="@color/signUpScreenCurrent" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_margin="@dimen/base_space"
+            android:background="@color/signUpScreenFuture" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_margin="@dimen/base_space"
+            android:background="@color/signUpScreenFuture" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_margin="@dimen/base_space"
+            android:background="@color/signUpScreenFuture" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_margin="@dimen/base_space"
+            android:background="@color/signUpScreenFuture" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/root_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/btn_sign_up_back"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base_space"
+            android:layout_marginRight="@dimen/base_space"
+            android:layout_marginBottom="@dimen/base_space_2x"
+            android:text="@string/btn_back" />
+
+        <Button
+            android:id="@+id/btn_sign_up_next"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base_space"
+            android:layout_marginRight="@dimen/base_space"
+            android:layout_marginBottom="@dimen/base_space_2x"
+            android:layout_weight="1"
+            android:text="@string/btn_next" />
+
+    </LinearLayout>
+</RelativeLayout>

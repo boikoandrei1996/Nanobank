@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/edit_money">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/root_current_details_username_owner"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/current_details_username_owner"
+                    style="@style/Title_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_space"
+                    android:layout_toRightOf="@+id/title_login"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/title_login"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_space"
+                    android:text="@string/title_login"
+                    android:textSize="@dimen/textSize_label_normal" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title_about"
+                style="@style/Hint_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_details_username_owner"
+                android:layout_marginTop="@dimen/base_space"
+                android:gravity="center_horizontal"
+                android:text="@string/title_about" />
+
+            <TextView
+                android:id="@+id/current_details_about_owner"
+                style="@style/About_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_about"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/base_space"
+                android:gravity="center" />
+
+            <RelativeLayout
+                android:id="@+id/root_current_start_value_details_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/current_details_about_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_start_value_details_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Начальная сумма: " />
+
+                <TextView
+                    android:id="@+id/current_start_value_details_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_start_value_details_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_finish_value_details_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_start_value_details_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_finish_value_details_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Конечная сумма: " />
+
+                <TextView
+                    android:id="@+id/current_finish_value_details_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_finish_value_details_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_duration_details_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_finish_value_details_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_duration_details_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Период: " />
+
+                <TextView
+                    android:id="@+id/current_duration_details_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_duration_details_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_percent_details_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_duration_details_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_percent_details_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% (в месяц): " />
+
+                <TextView
+                    android:id="@+id/old_percent_details_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_percent_details_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_start_data_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_percent_details_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_deposit_start_data_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Начало сделки: " />
+
+                <TextView
+                    android:id="@+id/current_deposit_start_data_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_deposit_start_data_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_returnd_cash_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_start_data_owner"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_returnd_cash_owner"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Погашенная сумма: " />
+
+                <TextView
+                    android:id="@+id/current_returnd_cash_owner"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_returnd_cash_owner"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edit_money"
+        style="@style/TextColorHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_put_money_deal"
+        android:layout_margin="8dp">
+
+        <EditText
+            android:id="@+id/et_edit_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_amount_mony"
+            android:inputType="numberDecimal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_put_money_deal"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/base_space_2x"
+        android:text="@string/hint_amount_put_money" />
+
+</RelativeLayout>

@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.fragment.RequestFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_space_2x"
+                    android:gravity="center"
+                    android:text="@string/title_above"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="@dimen/textSize_label_normal" />
+
+                <Button
+                    android:id="@+id/btn_request"
+                    style="@style/ButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/base_space_2x"
+                    android:text="@string/hint_request_credit" />
+
+<!--                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_space_2x"
+                    android:gravity="center"
+                    android:text="@string/title_below"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="@dimen/textSize_label_normal" />-->
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

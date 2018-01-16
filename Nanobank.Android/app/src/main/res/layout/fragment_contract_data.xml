@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/base_space_2x"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.fragment.ContractDataFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/root_chb"
+        android:text="@string/contract"
+        android:textSize="@dimen/textSize_label_smal"
+        android:layout_marginBottom="@dimen/base_space" />
+
+    <RelativeLayout
+        android:id="@+id/root_chb"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/base_space_2x"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <CheckBox
+            android:id="@+id/chb_contract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/base_space" />
+
+        <TextView
+            style="@style/TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/chb_contract"
+            android:labelFor="@id/chb_contract"
+            android:text="Поставьте галочку если вы согласны" />
+
+    </RelativeLayout>
+</RelativeLayout>

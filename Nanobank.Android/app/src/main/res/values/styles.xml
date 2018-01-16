@@ -1,0 +1,68 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TextColor">
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+    </style>
+
+    <style name="Negative_rating" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/negative_rating_bar</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:maxHeight">32dp</item>
+    </style>
+
+    <style name="Positive_rating" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/positive_rating_bar</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:maxHeight">32dp</item>
+    </style>
+
+    <style name="TextColorHintWhite">
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextColorHint">
+        <item name="android:textColorHint">@android:color/holo_orange_light</item>
+    </style>
+
+    <style name="Title_style">
+        <item name="android:textSize">@dimen/textSize_label_normal</item>
+    </style>
+
+    <style name="About_style">
+        <item name="android:textSize">@dimen/textSize_label_normal</item>
+        <item name="android:textColor">@android:color/holo_orange_light</item>
+    </style>
+
+    <style name="Hint_style">
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+        <item name="android:textSize">@dimen/textSize_label_smal</item>
+    </style>
+
+    <style name="Value_style">
+        <item name="android:textColor">@android:color/holo_orange_light</item>
+        <item name="android:textSize">@dimen/textSize_label_smal</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/main_btn_gradient</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+</resources>

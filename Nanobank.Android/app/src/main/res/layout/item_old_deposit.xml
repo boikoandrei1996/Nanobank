@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/base_space">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/line_old"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/old_root_deposit"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
+        <RelativeLayout
+            android:id="@+id/old_root_deposit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/line_old"
+            android:padding="@dimen/base_space_2x">
+
+            <TextView
+                android:id="@+id/old_deposit_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/base_space"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <RelativeLayout
+                android:id="@+id/root_old_finish_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/old_deposit_about"
+                android:layout_marginBottom="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_deposit_finish_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Конечная сумма: "
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+                <TextView
+                    android:id="@+id/old_deposit_finish_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_deposit_finish_value"
+                    android:gravity="right"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_old_start_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_finish_value"
+                android:layout_marginBottom="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_deposit_start_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Начало сделки: "
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+                <TextView
+                    android:id="@+id/old_deposit_start_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_deposit_start_data"
+                    android:gravity="right"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_start_data">
+
+                <TextView
+                    android:id="@+id/hint_old_deposit_end_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Конец выплаты: "
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+                <TextView
+                    android:id="@+id/old_deposit_end_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_deposit_end_data"
+                    android:gravity="right"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="@dimen/textSize_label_mini" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

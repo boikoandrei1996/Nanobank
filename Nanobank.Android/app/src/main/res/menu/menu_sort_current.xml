@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_current_info"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_info_outline"
+        android:title="подсказка"
+        app:showAsAction="always" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_current_all"
+            android:orderInCategory="1"
+            android:title="все"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_current_credirot"
+            android:orderInCategory="2"
+            android:title="как кредитор"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_current_owner"
+            android:orderInCategory="3"
+            android:title="как заёмщик"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_current_owner_wait"
+            android:orderInCategory="4"
+            android:title="не откликнувшиеся"
+            app:showAsAction="never" />
+    </group>
+</menu>

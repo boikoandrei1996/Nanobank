@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_info"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_info_outline"
+        android:title="подсказка"
+        app:showAsAction="always" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_all"
+            android:orderInCategory="50"
+            android:title="все"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_credirot"
+            android:orderInCategory="51"
+            android:title="как кредитор"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_owner"
+            android:orderInCategory="52"
+            android:title="как заёмщик"
+            app:showAsAction="never" />
+    </group>
+</menu>

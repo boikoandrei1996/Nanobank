@@ -26,6 +26,27 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Nanobank.Web(1)", "Nanobank
 		SlnRelativePath = "Nanobank.Web\"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Nanobank.Android", "Nanobank.Android\", "{09BA655B-0082-4E56-AC0E-ABBFBF9B560B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_27194"
+		Debug.AspNetCompiler.PhysicalPath = "Nanobank.Android\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_27194\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_27194"
+		Release.AspNetCompiler.PhysicalPath = "Nanobank.Android\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_27194\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "27194"
+		SlnRelativePath = "Nanobank.Android\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +60,9 @@ Global
 		{98D7A966-B39F-479F-AEC8-3221BAB110FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98D7A966-B39F-479F-AEC8-3221BAB110FA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{98D7A966-B39F-479F-AEC8-3221BAB110FA}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{09BA655B-0082-4E56-AC0E-ABBFBF9B560B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09BA655B-0082-4E56-AC0E-ABBFBF9B560B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{09BA655B-0082-4E56-AC0E-ABBFBF9B560B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

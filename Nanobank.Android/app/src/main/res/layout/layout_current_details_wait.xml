@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_edit_deal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_about"
+                style="@style/Hint_style"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_space"
+                android:layout_height="wrap_content"
+                android:text="@string/title_about" />
+
+            <TextView
+                android:id="@+id/current_details_about"
+                style="@style/About_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_about"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/base_space"
+                android:gravity="center" />
+
+            <RelativeLayout
+                android:id="@+id/root_current_wait_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/current_details_about"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_wait_amount"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сумма: " />
+
+                <TextView
+                    android:id="@+id/current_wait_amount"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_wait_amount"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_current_wait_percent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_wait_amount"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_wait_percent"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% (в месяц): " />
+
+                <TextView
+                    android:id="@+id/current_wait_percent"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_wait_percent"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_current_wait_percent"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_current_wait_period"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Период: " />
+
+                <TextView
+                    android:id="@+id/current_wait_period"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_current_wait_period"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_edit_deal"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/base_space_2x"
+        android:text="@string/hint_change_credit" />
+
+</RelativeLayout>

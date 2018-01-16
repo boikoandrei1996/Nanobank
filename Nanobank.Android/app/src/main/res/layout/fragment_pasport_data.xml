@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/base_space_2x"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.fragment.PasportDataFragment">
+
+    <TextView
+        android:id="@+id/label_passport"
+        style="@style/TextColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_space_2x"
+        android:gravity="center_horizontal"
+        android:text="@string/hint_passport"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/base_space">
+
+        <ImageView
+            android:id="@+id/iv_pasport"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/root_navigation_select_passport"
+            android:background="@drawable/icon_passport" />
+
+        <LinearLayout
+            android:id="@+id/root_navigation_select_passport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:id="@+id/btn_pasport_camera"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_camera_alt" />
+
+            <ImageButton
+                android:id="@+id/btn_pasport_galery"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/base_space_2x"
+                android:background="@drawable/icon_gallery" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

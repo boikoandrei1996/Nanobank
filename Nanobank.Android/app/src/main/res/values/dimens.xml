@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_space">8dp</dimen>
+    <dimen name="base_space_2x">16dp</dimen>
+    <dimen name="textSize_title">45sp</dimen>
+    <dimen name="textSize_label_mini">15sp</dimen>
+    <dimen name="textSize_label_smal">20sp</dimen>
+    <dimen name="textSize_label_normal">25sp</dimen>
+    <dimen name="textSize_label_large">30sp</dimen>
+</resources>

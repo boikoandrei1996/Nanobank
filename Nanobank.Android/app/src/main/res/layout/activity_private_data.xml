@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.activity.PrivateDataActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_userName"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Логин:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/userName"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_userName"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_firstName"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Имя:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/firstName"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_firstName"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_lastName"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Фамилия:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/lastName"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_lastName"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_patronymic"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отчество:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/patronymic"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_patronymic"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_email"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/email"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_email"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_phoneNumber"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Телефон:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/phoneNumber"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_phoneNumber"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hint_cardNumber"
+                style="@style/Hint_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Кредитка:"
+                android:textSize="@dimen/textSize_label_smal" />
+
+            <TextView
+                android:id="@+id/cardNumber"
+                style="@style/Value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_space"
+                android:layout_toRightOf="@id/hint_cardNumber"
+                android:textSize="@dimen/textSize_label_smal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deposit_percent"
+            android:layout_margin="@dimen/base_space"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/positive_star"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_star_green" />
+
+            <ImageView
+                android:id="@+id/negative_star"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="@dimen/base_space_2x"
+                android:layout_toRightOf="@+id/value_positive_star"
+                android:src="@drawable/ic_star_red" />
+
+            <TextView
+                android:id="@+id/value_positive_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/positive_star"
+                android:layout_toRightOf="@id/positive_star"
+                android:textColor="@color/colorPositivRaiting"
+                android:textSize="@dimen/textSize_label_normal" />
+
+            <TextView
+                android:id="@+id/value_negative_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/negative_star"
+                android:layout_toRightOf="@id/negative_star"
+                android:textColor="@color/colorNegotiveRaiting"
+
+                android:textSize="@dimen/textSize_label_normal" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

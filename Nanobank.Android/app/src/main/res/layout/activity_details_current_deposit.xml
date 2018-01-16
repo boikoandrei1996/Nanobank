@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.activity.DetailsCurrentDepositActivity">
+
+    <ViewStub
+        android:id="@+id/viewStub_details_wait"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inflatedId="@+id/inflate_details_1"
+        android:layout="@layout/layout_current_details_wait" />
+
+    <ViewStub
+        android:id="@+id/viewStub_details_owner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inflatedId="@+id/inflate_details_2"
+        android:layout="@layout/layout_current_details_owner" />
+
+    <ViewStub
+        android:id="@+id/viewStub_details_creditor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inflatedId="@+id/inflate_details_3"
+        android:layout="@layout/layout_current_details_creditor" />
+
+</RelativeLayout>

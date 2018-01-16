@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="outlook.krasovsky.dima.nanobank">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/logo_app"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_app"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activity.SignInActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.SignUpActivity"
+            android:label="Регистрация"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.activity.MenuActivity" />
+        <activity
+            android:name=".ui.activity.GetCreditActivity"
+            android:label="Оформление заявки"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.ChangeCreditActivity"
+            android:label="Редактировать заявку"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.DetailsDepositActivity"
+            android:label="Подробная информация"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.PrivateDataActivity"
+            android:label="Личная информация"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.HistoryCreditsActivity"
+            android:label="Завершенные сделки"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.DetailsOldDepositActivity"
+            android:label="Подробная информация"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.CurrentDealsActivity"
+            android:label="Открытые сделки"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.DetailsCurrentDepositActivity"
+            android:label="Подробная информация"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.InfoUserActivity"
+            android:label="Информация о пользователе" />
+        <activity
+            android:label="Подать жалобу"
+            android:windowSoftInputMode="adjustPan"
+            android:name=".ui.activity.ComplainActivity" />
+
+        <!-- [START gcm_listener] -->
+        <service
+            android:name="outlook.krasovsky.dima.nanobank.gcm.MyGcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener] -->
+        <!-- [START instanceId_listener] -->
+        <service
+            android:name="outlook.krasovsky.dima.nanobank.gcm.MyInstanceIDListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener] -->
+
+    </application>
+
+</manifest>

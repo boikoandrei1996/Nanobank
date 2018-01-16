@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="outlook.krasovsky.dima.nanobank.ui.activity.DetailsOldDepositActivity">
+
+    <FrameLayout
+        android:id="@+id/line_role"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line_role">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/root_tv_old_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/tv_old_owner"
+                    style="@style/Title_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_space"
+                    android:layout_toRightOf="@+id/title_login"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/title_login"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_space"
+                    android:text="@string/title_login"
+                    android:textSize="@dimen/textSize_label_normal" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title_about"
+                style="@style/Hint_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_tv_old_owner"
+                android:layout_marginTop="@dimen/base_space"
+                android:gravity="center_horizontal"
+                android:text="@string/title_about" />
+
+            <TextView
+                android:id="@+id/tv_old_about"
+                style="@style/About_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_about"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/base_space"
+                android:gravity="center" />
+
+            <RelativeLayout
+                android:id="@+id/root_old_start_value_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_old_about"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_start_value_details"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Начальная сумма: " />
+
+                <TextView
+                    android:id="@+id/old_start_value_details"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_start_value_details"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_old_finish_value_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_start_value_details"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_finish_value_details"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Конечная сумма: " />
+
+                <TextView
+                    android:id="@+id/old_finish_value_details"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_finish_value_details"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_old_duration_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_finish_value_details"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_duration_details"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Период: " />
+
+                <TextView
+                    android:id="@+id/old_duration_details"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_duration_details"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_old_percent_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_duration_details"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_percent_details"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% (в месяц): " />
+
+                <TextView
+                    android:id="@+id/old_percent_details"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_percent_details"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/root_old_start_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_percent_details"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_deposit_start_data"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Начало сделки: " />
+
+                <TextView
+                    android:id="@+id/old_deposit_start_data"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_deposit_start_data"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/root_old_start_data"
+                android:layout_margin="@dimen/base_space">
+
+                <TextView
+                    android:id="@+id/hint_old_deposit_end_data"
+                    style="@style/Hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Конец выплаты: " />
+
+                <TextView
+                    android:id="@+id/old_deposit_end_data"
+                    style="@style/Value_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/base_space"
+                    android:layout_toRightOf="@id/hint_old_deposit_end_data"
+                    android:gravity="right" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

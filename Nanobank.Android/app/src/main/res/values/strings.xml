@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Nanobank</string>
+
+    <string name="title_about">цель кредита:</string>
+    <string name="title_login">Логин:</string>
+
+    <!--SIGNIN-->
+    <string name="btn_sign_in">вход</string>
+    <string name="btn_sign_up">регистрация</string>
+    <string name="hint_user">логин</string>
+    <string name="hint_pasword">пароль</string>
+
+    <!--SIGNUP-->
+    <string name="btn_back">выход</string>
+    <string name="btn_next">далее</string>
+    <string name="btn_ready">регистрация</string>
+    <string name="hint_pasword_repeat">повторите пароль</string>
+    <string name="hint_first_name">имя</string>
+    <string name="hint_second_name">фамилия</string>
+    <string name="hint_third_name">отчество</string>
+    <string name="hint_email">email</string>
+    <string name="hint_phone">телефон</string>
+    <string name="hint_number_card">номер карты</string>
+    <string name="hint_validily_period">срок действия карты</string>
+    <string name="hint_customer">имя и фамилия владельца карты</string>
+    <string name="hint_cvv2">cvv2/cvc2</string>
+    <string name="hint_passport">фотография паспорта</string>
+
+    <!--REQUEST-->
+    <string name="hint_request_credit">оформить заявку на кредит</string>
+    <string name="title_above">Оформить заявку на кредит очень просто. Нажмите на эту кнопку и заполните форму.</string>
+    <string name="title_below">Данная операция не займёт у вас много времени. Также процентная ставка рассчитывается за один месяц.</string>
+
+    <!--ROOM-->
+    <string name="hint_private_data">личные данные</string>
+    <string name="hint_current_reauest">актуальные заявки</string>
+    <string name="hint_history_credits">история сделок</string>
+
+    <!--FEEDBACK-->
+    <string name="text_advintages">Наши положительные стороны:\n 1) Надежность;\n 2) Скорость;\n 3) Без посредников;\n 4) Без документов;\n 5) Сам диктуешь условия.</string>
+    <string name="text_disadvintages">Наши недостатки: ИХ НЕТ.</string>
+    <string name="text_feedback">Обратная связь:\n Наш офис находится по адресу ул.Гикало 9;\n Тел. 354-28-11;\n Web. https://vk.com/podslushanobsuir</string>
+
+    <!--GETCREDIT-->
+    <string name="hint_about_credit">цель кредита</string>
+    <string name="hint_amount">сумма кредита (в руб.)</string>
+    <string name="hint_distance">срок кредита (1-24 месяца)</string>
+    <string name="hint_percent">процентная ставка (в месяц)</string>
+    <string name="hint_send_credit">подать заявку</string>
+
+    <!--CHANGECREDIT-->
+    <string name="hint_change_credit">редактировать</string>
+
+    <!--PUTMONEY-->
+    <string name="hint_amount_put_money">пополнить</string>
+    <string name="hint_amount_mony">введите сумму</string>
+
+    <!--CLOSE-->
+    <string name="hint_close_deal">закрыть кредит</string>
+    <string name="hint_complaint_deal">пожаловаться</string>
+
+    <!--CONTRACT-->
+    <string name="contract">
+        Согласны ли вы с условиями нашего приложения?
+    </string>
+
+    <!--ABOUTOPENDEPOSIT-->
+    <string name="hint_approve_credit">откликнуться</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

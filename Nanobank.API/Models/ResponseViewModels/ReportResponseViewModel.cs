@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Nanobank.API.Models.ResponseViewModels
 {
+  [Serializable]
   public class ReportResponseViewModel
   {
     [Display(Name = "Complain Id")]

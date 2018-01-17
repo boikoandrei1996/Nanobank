@@ -185,6 +185,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Infrastructure\XSLT\htmlReport.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Unity\UnityConfig.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="DAL\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
     <Compile Include="Infrastructure\Formatters\PdfMediaTypeFormatter.cs" />
+    <Compile Include="Infrastructure\HtmlGenerator.cs" />
     <Compile Include="Infrastructure\Notifications\AndroidPushNotificationService.cs" />
     <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
     <Compile Include="DAL\Interface\IPushNotificationService.cs" />

@@ -46,7 +46,8 @@
 * _DELETE_ api/complain/{complainId} - **admin**
 
 ### Report
-* _GET_ report/complain/{complainId} - **admin**
+* _GET_ report/pdf/complain/{complainId} - **admin**
+* _GET_ report/html/complain/{complainId} - **admin**
 
 ### Credit Card
 * _GET_ api/creditcard/all - **admin**

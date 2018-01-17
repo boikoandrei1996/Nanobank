@@ -51,6 +51,17 @@ namespace Nanobank.API.DAL.Repository
       return MapComplain(complain);
     }
 
+    public async Task<ReportResponseViewModel> GetReport(string complainId)
+    {
+      var complain = await _context.Complains.FirstOrDefaultAsync(c => c.Id == complainId);
+      if (complain == null)
+      {
+        return null;
+      }
+
+      return MapReport(complain);
+    }
+
     public async Task<IdentityResult> CreateComplain(string currentUsername, ComplainRequestViewModel complainModel)
     {
       var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == complainModel.DealId);
@@ -142,6 +153,19 @@ namespace Nanobank.API.DAL.Repository
         Text = complain.ComplainText,
         DealId = complain.DealId,
         DateOfCreating = DateTime.Today.Date
+      };
+    }
+
+    private ReportResponseViewModel MapReport(Complain complain)
+    {
+      return new ReportResponseViewModel
+      {
+        ComplainId = complain.Id,
+        ComplainText = complain.Text,
+        DealId = complain.DealId,
+        DateOfCreating = complain.DateOfCreating,
+        DealOwnerUsername = complain.Deal.UserOwner.UserName,
+        DealCreditorUsername = complain.Deal.UserCreditor.UserName
       };
     }
   }

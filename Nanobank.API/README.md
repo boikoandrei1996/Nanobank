@@ -42,9 +42,11 @@
 ### Complain
 * _GET_ api/complain/all - **admin**
 * _GET_ api/complain/{complainId} - **admin**
-* _GET_ report/complain/{complainId} - **admin**
 * _POST_ api/complain/add - **user**
 * _DELETE_ api/complain/{complainId} - **admin**
+
+### Report
+* _GET_ report/complain/{complainId} - **admin**
 
 ### Credit Card
 * _GET_ api/creditcard/all - **admin**

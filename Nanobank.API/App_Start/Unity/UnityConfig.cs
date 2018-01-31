@@ -14,7 +14,6 @@ namespace Nanobank.API
   /// </summary>
   public static class UnityConfig
   {
-    #region Unity Container
     private static Lazy<IUnityContainer> container =
       new Lazy<IUnityContainer>(() =>
       {
@@ -27,7 +26,6 @@ namespace Nanobank.API
     /// Configured Unity Container.
     /// </summary>
     public static IUnityContainer Container => container.Value;
-    #endregion
 
     /// <summary>
     /// Registers the type mappings with the Unity container.
@@ -46,7 +44,6 @@ namespace Nanobank.API
       // container.LoadConfiguration();
 
       // TODO: Register your type's mappings here.
-
       container.RegisterType<ApplicationContext>();
       container.RegisterType<IIdentityMessageService, SendGridEmailService>();
       

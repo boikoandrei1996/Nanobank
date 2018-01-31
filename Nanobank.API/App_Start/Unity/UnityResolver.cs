@@ -12,11 +12,6 @@ namespace Nanobank.API
 
     public UnityResolver(IUnityContainer container)
     {
-      if (container == null)
-      {
-        throw new ArgumentNullException(nameof(container));
-      }
-
       _container = container;
     }
 
@@ -47,6 +42,7 @@ namespace Nanobank.API
     public IDependencyScope BeginScope()
     {
       var child = _container.CreateChildContainer();
+
       return new UnityResolver(child);
     }
 

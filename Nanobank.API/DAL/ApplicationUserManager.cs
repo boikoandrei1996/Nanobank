@@ -13,7 +13,7 @@ namespace Nanobank.API.DAL
 
     public static ApplicationUserManager Create(
       ApplicationContext context,
-      IIdentityMessageService emailService)
+      IIdentityMessageService emailService = null)
     {
       var manager = new ApplicationUserManager(
         new UserStore<ApplicationUser>(context));

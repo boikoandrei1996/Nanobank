@@ -26,8 +26,7 @@ namespace Nanobank.API.Migrations
     {
       base.Seed(context);
 
-      // null - because of email service will not use in this context.
-      var userManager = ApplicationUserManager.Create(context, null);
+      var userManager = ApplicationUserManager.Create(context);
 
       CreateCreditCards(context);
       CreateRoles(ApplicationRoleManager.Create(context));

@@ -11,20 +11,21 @@ namespace Nanobank.API
   {
     public static void Register(HttpConfiguration config)
     {
-      // Web API routes
+      // enable routing via attributes
       config.MapHttpAttributeRoutes();
 
+      // default map route
       config.Routes.MapHttpRoute(
         name: "DefaultApi",
         routeTemplate: "api/{controller}/{id}",
         defaults: new { id = RouteParameter.Optional }
       );
 
-      // Web API configuration and services
+      // JSON formatter
       var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
       jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-      //config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(jsonFormatter));
-
+      
+      // PDF formatter
       config.Formatters.Add(new PdfMediaTypeFormatter<ReportResponseViewModel>());
     }
   }

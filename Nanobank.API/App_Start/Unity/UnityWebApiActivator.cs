@@ -1,5 +1,4 @@
 using System.Web.Http;
-
 using Unity.AspNet.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Nanobank.API.UnityWebApiActivator), nameof(Nanobank.API.UnityWebApiActivator.Start))]

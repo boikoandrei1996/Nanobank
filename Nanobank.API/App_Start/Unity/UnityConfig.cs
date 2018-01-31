@@ -62,6 +62,7 @@ namespace Nanobank.API
       container.RegisterType<IUserRepository, UserRepository>();
       container.RegisterType<IDealRepository, DealRepository>();
       container.RegisterType<IComplainRepository, ComplainRepository>();
+      container.RegisterType<IReportRepository, ReportRepository>();
       container.RegisterType<IPhotoRepository, PhotoRepository>();
       container.RegisterType<ICreditCardRepository, CreditCardRepository>();
 

@@ -51,9 +51,9 @@ namespace Nanobank.API.DAL.Repository
       return MapDeal(deal);
     }
 
-    public async Task<IdentityResult> CreateDeal(string currentUsername, DealRequestViewModel dealModel)
+    public async Task<IdentityResult> CreateDeal(string username, DealRequestViewModel dealModel)
     {
-      _context.Deals.Add(await MapDealAsync(dealModel, currentUsername));
+      _context.Deals.Add(await MapDealAsync(dealModel, username));
 
       try
       {
@@ -72,7 +72,7 @@ namespace Nanobank.API.DAL.Repository
       }
     }
 
-    public async Task<IdentityResult> UpdateDeal(string currentUsername, string dealId, DealRequestViewModel dealModel)
+    public async Task<IdentityResult> UpdateDeal(string username, string dealId, DealRequestViewModel dealModel)
     {
       Deal oldDeal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (oldDeal == null)
@@ -80,7 +80,7 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
       }
 
-      if (oldDeal.UserOwner.UserName != currentUsername)
+      if (oldDeal.UserOwner.UserName != username)
       {
         return IdentityResult.Failed("Can not update deal by not owner user.");
       }
@@ -124,7 +124,7 @@ namespace Nanobank.API.DAL.Repository
       }
     }
 
-    public async Task<IdentityResult> RespondOnDeal(string currentUsername, string dealId)
+    public async Task<IdentityResult> RespondOnDeal(string username, string dealId)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -142,15 +142,15 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed($"Deal with id '{dealId}' is busy.");
       }
 
-      ApplicationUser userCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == currentUsername);
+      ApplicationUser userCreditor = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
       if (userCreditor == null)
       {
-        return IdentityResult.Failed($"User '{currentUsername}' not found.");
+        return IdentityResult.Failed($"User '{username}' not found.");
       }
 
       if (userCreditor.UserInfo.Card.Balance < deal.StartAmount)
       {
-        return IdentityResult.Failed($"User '{currentUsername}' can not respond on deal because of the lack of balance.");
+        return IdentityResult.Failed($"User '{username}' can not respond on deal because of the lack of balance.");
       }
 
       if (userCreditor.Id == deal.UserOwnerId)
@@ -181,7 +181,7 @@ namespace Nanobank.API.DAL.Repository
       }
     }
 
-    public async Task<IdentityResult> CloseDeal(string currentUsername, string dealId)
+    public async Task<IdentityResult> CloseDeal(string username, string dealId)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -199,9 +199,9 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed("Deal has not creditor still.");
       }
 
-      if (deal.UserCreditor.UserName != currentUsername)
+      if (deal.UserCreditor.UserName != username)
       {
-        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{currentUsername}'.");
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{username}'.");
       }
 
       deal.DealClosedDate = DateTime.Today.Date;
@@ -224,7 +224,7 @@ namespace Nanobank.API.DAL.Repository
       }
     }
 
-    public async Task<IdentityResult> SetRating(string currentUsername, string dealId, RatingRequestViewModel ratingModel)
+    public async Task<IdentityResult> SetRating(string username, string dealId, RatingRequestViewModel ratingModel)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -242,9 +242,9 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed("Deal has not creditor still.");
       }
 
-      if (deal.UserCreditor.UserName != currentUsername)
+      if (deal.UserCreditor.UserName != username)
       {
-        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{currentUsername}'.");
+        return IdentityResult.Failed($"Deal creditor username are not equal param creditor username. '{deal.UserCreditor.UserName}' are not equal '{username}'.");
       }
 
       // logic with update rating for deal
@@ -314,7 +314,7 @@ namespace Nanobank.API.DAL.Repository
       return await PrivateDeleteDealAsync(deal);
     }
 
-    public async Task<IdentityResult> DeleteDealByUser(string currentUsername, string dealId)
+    public async Task<IdentityResult> DeleteDealByUser(string username, string dealId)
     {
       Deal deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == dealId);
       if (deal == null)
@@ -322,9 +322,9 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed($"Deal with id '{dealId}' not found.");
       }
 
-      if (deal.UserOwner.UserName != currentUsername)
+      if (deal.UserOwner.UserName != username)
       {
-        return IdentityResult.Failed($"You can not delete deal because of '{deal.UserOwner.UserName}' not equal '{currentUsername}'.");
+        return IdentityResult.Failed($"You can not delete deal because of '{deal.UserOwner.UserName}' not equal '{username}'.");
       }
 
       return await PrivateDeleteDealAsync(deal);

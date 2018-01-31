@@ -42,7 +42,7 @@ namespace Nanobank.API.DAL.Repository
       return Task.Run(() => resultList);
     }
 
-    public async Task<IdentityResult> Transit(string currentUsername, CreditCardTransitRequestViewModel transitModel)
+    public async Task<IdentityResult> Transit(string username, CreditCardTransitRequestViewModel transitModel)
     {
       var deal = await _context.Deals.FirstOrDefaultAsync(d => d.Id == transitModel.DealId);
       if (deal == null)
@@ -50,10 +50,10 @@ namespace Nanobank.API.DAL.Repository
         return IdentityResult.Failed($"Deal '{transitModel.DealId}' not found.");
       }
 
-      var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == currentUsername);
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
       if (user == null)
       {
-        return IdentityResult.Failed($"User '{currentUsername}' not found.");
+        return IdentityResult.Failed($"User '{username}' not found.");
       }
 
       if (deal.UserOwner.Id != user.Id)

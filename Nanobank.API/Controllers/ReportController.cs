@@ -6,6 +6,7 @@ using System.Web.Http;
 using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
 using Nanobank.API.Infrastructure;
+using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.Controllers
 {
@@ -13,9 +14,9 @@ namespace Nanobank.API.Controllers
   [Authorize(Roles = RoleTypes.Admin)]
   public class ReportController : ApiController
   {
-    private readonly IComplainRepository _repo;
+    private readonly IReportRepository _repo;
 
-    public ReportController(IComplainRepository repo)
+    public ReportController(IReportRepository repo)
     {
       _repo = repo;
     }
@@ -25,7 +26,8 @@ namespace Nanobank.API.Controllers
     [Route("pdf/complain/{complainId}")]
     public async Task<IHttpActionResult> ComplainPdf(string complainId)
     {
-      var report = await _repo.GetReport(complainId);
+      ReportResponseViewModel report = await _repo.GetReport(complainId);
+
       if (report == null)
       {
         return BadRequest($"Complain {complainId} not found.");
@@ -49,11 +51,12 @@ namespace Nanobank.API.Controllers
         return response;
       }
 
-      var html = HtmlGenerator.CreateHtml(report);
+      var htmlContent = HtmlGenerator.CreateHtml(report);
 
       response.StatusCode = HttpStatusCode.OK;
-      response.Content = new StringContent(html);
+      response.Content = new StringContent(htmlContent);
       response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+
       return response;
     }
 

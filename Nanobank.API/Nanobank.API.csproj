@@ -196,6 +196,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
+    <Compile Include="DAL\Interface\IReportRepository.cs" />
     <Compile Include="DAL\Repository\AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="DAL\Models\Deal.cs" />
     <Compile Include="DAL\Models\RoleTypes.cs" />
     <Compile Include="DAL\Models\UserInfo.cs" />
+    <Compile Include="DAL\Repository\ReportRepository.cs" />
     <Compile Include="DAL\Repository\PhotoRepository.cs" />
     <Compile Include="DAL\Repository\UserRepository.cs" />
     <Compile Include="DAL\Extensions\ExceptionExtensions.cs" />

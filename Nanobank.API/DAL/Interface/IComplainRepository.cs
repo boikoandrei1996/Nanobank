@@ -12,8 +12,7 @@ namespace Nanobank.API.DAL.Interface
   {
     Task<IList<ComplainResponseViewModel>> GetComplains(Func<Complain, bool> predicate = null);
     Task<ComplainResponseViewModel> GetComplain(string complainId);
-    Task<ReportResponseViewModel> GetReport(string complainId);
-    Task<IdentityResult> CreateComplain(string currentUsername, ComplainRequestViewModel complainModel);
+    Task<IdentityResult> CreateComplain(string username, ComplainRequestViewModel complainModel);
     Task<IdentityResult> DeleteComplain(string complainId);
   }
 }

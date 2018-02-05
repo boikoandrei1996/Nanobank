@@ -2,10 +2,11 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 using System.Web.Http;
-using Nanobank.API.DAL.Interface;
 using Nanobank.API.DAL.Models;
-using Nanobank.API.Infrastructure;
+using Nanobank.API.DAL.Repositories.Interfaces;
+using Nanobank.API.Infrastructure.ReportGenerators;
 using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.Controllers
@@ -51,7 +52,8 @@ namespace Nanobank.API.Controllers
         return response;
       }
 
-      var htmlContent = HtmlGenerator.CreateHtml(report);
+      var xsltTemplatePath = HostingEnvironment.MapPath("\\XSLT\\htmlReport.xslt");
+      var htmlContent = HtmlGenerator.CreateHtml(report, xsltTemplatePath);
 
       response.StatusCode = HttpStatusCode.OK;
       response.Content = new StringContent(htmlContent);

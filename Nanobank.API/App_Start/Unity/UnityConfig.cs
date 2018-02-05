@@ -1,8 +1,10 @@
 using System;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL;
-using Nanobank.API.DAL.Interface;
-using Nanobank.API.DAL.Repository;
+using Nanobank.API.DAL.Managers;
+using Nanobank.API.DAL.Notifications;
+using Nanobank.API.DAL.Repositories;
+using Nanobank.API.DAL.Repositories.Interfaces;
 using Nanobank.API.Infrastructure.Notifications;
 using Unity;
 using Unity.Injection;

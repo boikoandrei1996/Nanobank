@@ -4,11 +4,11 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
-using Nanobank.API.DAL.Interface;
 using Nanobank.API.Infrastructure.Providers;
-using Nanobank.API.Migrations;
+using Nanobank.API.DAL.Migrations;
 using Owin;
 using Unity;
+using Nanobank.API.DAL.Repositories.Interfaces;
 
 [assembly: OwinStartup(typeof(Nanobank.API.Startup))]
 namespace Nanobank.API

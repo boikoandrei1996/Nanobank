@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
-using Nanobank.API.DAL.Interface;
+using Nanobank.API.DAL.Repositories.Interfaces;
 
 namespace Nanobank.API.Infrastructure.Providers
 {

@@ -1,4 +1,4 @@
-namespace Nanobank.API.DAL.Migrations
+namespace Nanobank.API.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

@@ -228,35 +228,35 @@
     <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
     <Compile Include="DAL\Notifications\IPushNotificationService.cs" />
     <Compile Include="Infrastructure\ReportGenerators\PdfGenerator.cs" />
-    <Compile Include="DAL\Migrations\201712082010334_InitialCreate.cs" />
-    <Compile Include="DAL\Migrations\201712082010334_InitialCreate.Designer.cs">
+    <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
+    <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712101529303_Add UserInfo and CreditCard tables.cs" />
-    <Compile Include="DAL\Migrations\201712101529303_Add UserInfo and CreditCard tables.Designer.cs">
+    <Compile Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.cs" />
+    <Compile Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.Designer.cs">
       <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712132238394_AddDealTable.cs" />
-    <Compile Include="DAL\Migrations\201712132238394_AddDealTable.Designer.cs">
+    <Compile Include="Migrations\201712132238394_AddDealTable.cs" />
+    <Compile Include="Migrations\201712132238394_AddDealTable.Designer.cs">
       <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712190808589_addReturnedAmountFieldForDeal.cs" />
-    <Compile Include="DAL\Migrations\201712190808589_addReturnedAmountFieldForDeal.Designer.cs">
+    <Compile Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.cs" />
+    <Compile Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.Designer.cs">
       <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712242058094_Add complain table.cs" />
-    <Compile Include="DAL\Migrations\201712242058094_Add complain table.Designer.cs">
+    <Compile Include="Migrations\201712242058094_Add complain table.cs" />
+    <Compile Include="Migrations\201712242058094_Add complain table.Designer.cs">
       <DependentUpon>201712242058094_Add complain table.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712252203129_add DateOfCreating field to ComplainTable.cs" />
-    <Compile Include="DAL\Migrations\201712252203129_add DateOfCreating field to ComplainTable.Designer.cs">
+    <Compile Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.cs" />
+    <Compile Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.Designer.cs">
       <DependentUpon>201712252203129_add DateOfCreating field to ComplainTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\201712301928413_Add_PushNotificationToken_Column.cs" />
-    <Compile Include="DAL\Migrations\201712301928413_Add_PushNotificationToken_Column.Designer.cs">
+    <Compile Include="Migrations\201712301928413_Add_PushNotificationToken_Column.cs" />
+    <Compile Include="Migrations\201712301928413_Add_PushNotificationToken_Column.Designer.cs">
       <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RequestViewModels\ComplainRequestViewModel.cs" />
     <Compile Include="Models\RequestViewModels\UserCardRequestViewModel.cs" />
     <Compile Include="Models\ResponseViewModels\ComplainResponseViewModel.cs" />
@@ -290,25 +290,25 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\Migrations\201712082010334_InitialCreate.resx">
+    <EmbeddedResource Include="Migrations\201712082010334_InitialCreate.resx">
       <DependentUpon>201712082010334_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712101529303_Add UserInfo and CreditCard tables.resx">
+    <EmbeddedResource Include="Migrations\201712101529303_Add UserInfo and CreditCard tables.resx">
       <DependentUpon>201712101529303_Add UserInfo and CreditCard tables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712132238394_AddDealTable.resx">
+    <EmbeddedResource Include="Migrations\201712132238394_AddDealTable.resx">
       <DependentUpon>201712132238394_AddDealTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712190808589_addReturnedAmountFieldForDeal.resx">
+    <EmbeddedResource Include="Migrations\201712190808589_addReturnedAmountFieldForDeal.resx">
       <DependentUpon>201712190808589_addReturnedAmountFieldForDeal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712242058094_Add complain table.resx">
+    <EmbeddedResource Include="Migrations\201712242058094_Add complain table.resx">
       <DependentUpon>201712242058094_Add complain table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712252203129_add DateOfCreating field to ComplainTable.resx">
+    <EmbeddedResource Include="Migrations\201712252203129_add DateOfCreating field to ComplainTable.resx">
       <DependentUpon>201712252203129_add DateOfCreating field to ComplainTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\201712301928413_Add_PushNotificationToken_Column.resx">
+    <EmbeddedResource Include="Migrations\201712301928413_Add_PushNotificationToken_Column.resx">
       <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

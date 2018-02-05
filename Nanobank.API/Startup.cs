@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Nanobank.API.Infrastructure.Providers;
-using Nanobank.API.DAL.Migrations;
+using Nanobank.API.Migrations;
 using Owin;
 using Unity;
 using Nanobank.API.DAL.Repositories.Interfaces;

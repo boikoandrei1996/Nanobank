@@ -8,11 +8,12 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Nanobank.API.DAL;
 using Nanobank.API.DAL.Managers;
 using Nanobank.API.DAL.Models;
 using Newtonsoft.Json;
 
-namespace Nanobank.API.DAL.Migrations
+namespace Nanobank.API.Migrations
 {
   internal sealed class Configuration : DbMigrationsConfiguration<ApplicationContext>
   {

@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
 using Nanobank.API.DAL.Repositories.Interfaces;
 
-namespace Nanobank.API.Infrastructure.Providers
+namespace Nanobank.API.Providers
 {
   public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider, IDisposable
   {

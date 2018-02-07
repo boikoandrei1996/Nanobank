@@ -222,7 +222,7 @@
     <Compile Include="DAL\Models\ApplicationUser.cs" />
     <Compile Include="DAL\Managers\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
-    <Compile Include="Infrastructure\Formatters\PdfMediaTypeFormatter.cs" />
+    <Compile Include="App_Start\Formatters\PdfMediaTypeFormatter.cs" />
     <Compile Include="Infrastructure\ReportGenerators\HtmlGenerator.cs" />
     <Compile Include="DAL\Notifications\AndroidPushNotificationService.cs" />
     <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
@@ -269,7 +269,7 @@
     <Compile Include="Models\RequestViewModels\UserRequestViewModel.cs" />
     <Compile Include="Models\ResponseViewModels\ReportResponseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="App_Start\Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ResponseViewModels\UserResponseViewModel.cs" />
   </ItemGroup>

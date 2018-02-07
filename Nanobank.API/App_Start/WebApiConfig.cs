@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Nanobank.API.Infrastructure.Formatters;
+using Nanobank.API.Formatters;
 using Nanobank.API.Models.ResponseViewModels;
 using Newtonsoft.Json.Serialization;
 

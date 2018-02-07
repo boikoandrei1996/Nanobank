@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Nanobank.API.Infrastructure.ReportGenerators;
 
-namespace Nanobank.API.Infrastructure.Formatters
+namespace Nanobank.API.Formatters
 {
   public class PdfMediaTypeFormatter<T> : MediaTypeFormatter
     where T : class

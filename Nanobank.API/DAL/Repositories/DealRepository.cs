@@ -10,16 +10,21 @@ using Nanobank.API.DAL.Extensions;
 using Nanobank.API.Models.RequestViewModels;
 using Nanobank.API.Models.ResponseViewModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
+using Nanobank.API.DAL.Loggers;
 
 namespace Nanobank.API.DAL.Repositories
 {
   public class DealRepository : IDealRepository
   {
     private readonly ApplicationContext _context;
+    private readonly ILogger _logger;
 
-    public DealRepository(ApplicationContext context)
+    public DealRepository(
+      ApplicationContext context,
+      ILogger logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public async Task<IList<DealResponseViewModel>> GetDeals(Func<Deal, bool> predicate = null)
@@ -62,12 +67,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch(DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.CreateDeal", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch(Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not add deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.CreateDeal", ex);
         return null;
       }
     }
@@ -114,12 +119,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.UpdateDeal", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.UpdateDeal", ex);
         return null;
       }
     }
@@ -171,12 +176,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.RespondOnDeal", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.RespondOnDeal", ex);
         return null;
       }
     }
@@ -214,12 +219,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.CloseDeal", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.CloseDeal", ex);
         return null;
       }
     }
@@ -293,12 +298,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.SetRating", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not update deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.SetRating", ex);
         return null;
       }
     }
@@ -333,6 +338,7 @@ namespace Nanobank.API.DAL.Repositories
     public void Dispose()
     {
       _context.Dispose();
+      _logger.Dispose();
     }
 
     private DealResponseViewModel MapDeal(Deal deal)
@@ -385,12 +391,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("DealRepository.DeleteDeal", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("DealRepository.DeleteDeal", ex);
         return null;
       }
     }

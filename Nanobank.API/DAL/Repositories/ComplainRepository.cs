@@ -10,16 +10,21 @@ using Nanobank.API.DAL.Extensions;
 using Nanobank.API.Models.RequestViewModels;
 using Nanobank.API.Models.ResponseViewModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
+using Nanobank.API.DAL.Loggers;
 
 namespace Nanobank.API.DAL.Repositories
 {
   public class ComplainRepository : IComplainRepository
   {
     private readonly ApplicationContext _context;
+    private readonly ILogger _logger;
 
-    public ComplainRepository(ApplicationContext context)
+    public ComplainRepository(
+      ApplicationContext context,
+      ILogger logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public async Task<IList<ComplainResponseViewModel>> GetComplains(Func<Complain, bool> predicate = null)
@@ -78,12 +83,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("ComplainRepository.CreateComplain", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not add deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("ComplainRepository.CreateComplain", ex);
         return null;
       }
     }
@@ -99,7 +104,6 @@ namespace Nanobank.API.DAL.Repositories
       // TODO: The hook should be deleted.
       // The hook for load lazy property UserInfo.
       complain.Deal.ToString();
-
       _context.Complains.Remove(complain);
 
       try
@@ -109,12 +113,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbEntityValidationException ex)
       {
+        _logger.Error("ComplainRepository.DeleteComplain", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch (Exception ex)
       {
-        // TODO: setting Logger
-        // Logger.Error($"Can not remove deal: exception {ex.GetType()} with message: {ex.Message}");
+        _logger.Error("ComplainRepository.DeleteComplain", ex);
         return null;
       }
     }
@@ -122,6 +126,7 @@ namespace Nanobank.API.DAL.Repositories
     public void Dispose()
     {
       _context.Dispose();
+      _logger.Dispose();
     }
 
     private ComplainResponseViewModel MapComplain(Complain complain)

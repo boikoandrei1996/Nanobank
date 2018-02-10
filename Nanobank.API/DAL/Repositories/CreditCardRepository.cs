@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL.Extensions;
+using Nanobank.API.DAL.Loggers;
 using Nanobank.API.DAL.Repositories.Interfaces;
 using Nanobank.API.Models.RequestViewModels;
 using Nanobank.API.Models.ResponseViewModels;
@@ -15,10 +16,14 @@ namespace Nanobank.API.DAL.Repositories
   public class CreditCardRepository : ICreditCardRepository
   {
     private readonly ApplicationContext _context;
+    private readonly ILogger _logger;
 
-    public CreditCardRepository(ApplicationContext context)
+    public CreditCardRepository(
+      ApplicationContext context,
+      ILogger logger)
     {
       _context = context;
+      _logger = logger;
     }
 
     public Task<List<CreditCardResponseViewModel>> GetCreditCards()
@@ -77,10 +82,12 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch(DbEntityValidationException ex)
       {
+        _logger.Error("CreditCardRepository.Transit", ex);
         return IdentityResult.Failed(ex.GetValidationErrors());
       }
       catch(Exception ex)
       {
+        _logger.Error("CreditCardRepository.Transit", ex);
         return null;
       }
     }
@@ -88,6 +95,7 @@ namespace Nanobank.API.DAL.Repositories
     public void Dispose()
     {
       _context.Dispose();
+      _logger.Dispose();
     }
   }
 }

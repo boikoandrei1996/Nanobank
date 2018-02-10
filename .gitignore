@@ -247,3 +247,4 @@ ModelManifest.xml
 /Nanobank.API/App_Data/Nanobank
 /Nanobank.API/Properties/PublishProfiles/Nanobank - Web Deploy.pubxml
 /Nanobank.API/App_Data
+/Nanobank.API/logs

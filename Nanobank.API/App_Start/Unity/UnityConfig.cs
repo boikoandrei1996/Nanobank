@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
+using System.Web.Configuration;
 using Microsoft.AspNet.Identity;
 using Nanobank.API.DAL;
+using Nanobank.API.DAL.Loggers;
 using Nanobank.API.DAL.Managers;
 using Nanobank.API.DAL.Notifications;
 using Nanobank.API.DAL.Repositories;
@@ -45,10 +48,11 @@ namespace Nanobank.API
       // Make sure to add a Unity.Configuration to the using statements.
       // container.LoadConfiguration();
 
-      // TODO: Register your type's mappings here.
+      RegisterLoggerType(container);
+
       container.RegisterType<ApplicationContext>();
       container.RegisterType<IIdentityMessageService, SendGridEmailService>();
-      
+
       container.RegisterType<ApplicationUserManager>(
         new InjectionFactory(
           c => ApplicationUserManager.Create(
@@ -71,6 +75,20 @@ namespace Nanobank.API
       container.RegisterType<IPushNotificationService, AndroidPushNotificationService>();
 
       //container.RegisterType<OrdersController>(new InjectionConstructor());
+    }
+
+    private static void RegisterLoggerType(IUnityContainer container)
+    {
+      bool isDebugLevel = false;
+      if (WebConfigurationManager.AppSettings.AllKeys.Contains("DebugLevel"))
+      {
+        isDebugLevel = bool.Parse(WebConfigurationManager.AppSettings["DebugLevel"]);
+      }
+
+      container.RegisterType<NLogLogger>(
+        new InjectionFactory(c => NLogLogger.Create(isDebugLevel))
+      );
+      container.RegisterType<ILogger, NLogLogger>();
     }
   }
 }

@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Nanobank.API.DAL.Loggers;
 using Nanobank.API.DAL.Managers;
 using Nanobank.API.DAL.Models;
 using Nanobank.API.DAL.Notifications;
@@ -21,24 +22,21 @@ namespace Nanobank.API.DAL.Repositories
     private readonly ApplicationUserManager _userManager;
     private readonly ApplicationRoleManager _roleManager;
     private readonly IPushNotificationService _pushService;
+    private readonly ILogger _logger;
 
     public UserRepository(
       ApplicationContext context,
       ApplicationUserManager userManager,
       ApplicationRoleManager roleManager,
-      IPushNotificationService pushService)
+      IPushNotificationService pushService,
+      ILogger logger)
     {
       _context = context;
       _userManager = userManager;
       _roleManager = roleManager;
       _pushService = pushService;
+      _logger = logger;
     }
-
-    /*public UserRepository(
-      ApplicationUserManager userManager,
-      ApplicationRoleManager roleManager) : this(userManager, roleManager, null)
-    {
-    }*/
 
     public async Task<IList<UserResponseViewModel>> GetUsers(Func<ApplicationUser, bool> predicate = null)
     {
@@ -90,6 +88,7 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbUpdateException ex)
       {
+        _logger.Error("UserRepository.RegisterUser", ex.InnerException.InnerException);
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
 
@@ -101,14 +100,9 @@ namespace Nanobank.API.DAL.Repositories
       result = await _userManager.AddToRoleAsync(user.Id, RoleTypes.User);
       if (!result.Succeeded)
       {
-        // TODO: setting Logger
-        /*Logger.Error($"Can not add role: {role} for userId: {user.Id}");
-        IdentityResult tempResult = await UserManager.DeleteAsync(user);
-        if (!tempResult.Succeeded)
-        {
-          Logger.Error($"Can not delete user with Id: {user.Id}, we have extra users, that should be deleted");
-        }*/
-        throw new InvalidOperationException($"Can not add role '{RoleTypes.User}' for user '{user.UserName}'");
+        var exception = new InvalidOperationException($"Can not add role '{RoleTypes.User}' for user '{user.UserName}'");
+        _logger.Fatal("UserRepository.RegisterUser", exception);
+        throw exception;
       }
 
       return result;
@@ -150,6 +144,7 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbUpdateException ex)
       {
+        _logger.Error("UserRepository.ApproveUser", ex.InnerException.InnerException);
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
     }
@@ -177,6 +172,7 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbUpdateException ex)
       {
+        _logger.Error("UserRepository.ApproveUser", ex.InnerException.InnerException);
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
     }
@@ -209,6 +205,7 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbUpdateException ex)
       {
+        _logger.Error("UserRepository.UpdateUserCard", ex.InnerException.InnerException);
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
     }
@@ -231,6 +228,7 @@ namespace Nanobank.API.DAL.Repositories
       }
       catch (DbUpdateException ex)
       {
+        _logger.Error("UserRepository.DeleteUser", ex.InnerException.InnerException);
         return IdentityResult.Failed(ex.InnerException.InnerException.Message);
       }
     }
@@ -239,6 +237,7 @@ namespace Nanobank.API.DAL.Repositories
     {
       _userManager.Dispose();
       _roleManager.Dispose();
+      _logger.Dispose();
     }
 
     private async Task<UserResponseViewModel> MapUserAsync(ApplicationUser user)

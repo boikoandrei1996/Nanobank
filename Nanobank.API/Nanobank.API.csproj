@@ -199,40 +199,12 @@
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAL\ApplicationContext.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IReportRepository.cs" />
-    <Compile Include="DAL\Repositories\AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
-    <Compile Include="DAL\Repositories\ComplainRepository.cs" />
-    <Compile Include="DAL\Repositories\CreditCardRepository.cs" />
-    <Compile Include="DAL\Repositories\DealRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IAuthRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IComplainRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\ICreditCardRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IDealRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IPhotoRepository.cs" />
-    <Compile Include="DAL\Repositories\Interfaces\IUserRepository.cs" />
-    <Compile Include="DAL\Models\EFModels\Complain.cs" />
-    <Compile Include="DAL\Models\EFModels\CreditCard.cs" />
-    <Compile Include="DAL\Models\EFModels\Deal.cs" />
-    <Compile Include="DAL\Models\EFModels\RoleTypes.cs" />
-    <Compile Include="DAL\Models\EFModels\UserInfo.cs" />
-    <Compile Include="DAL\Repositories\ReportRepository.cs" />
-    <Compile Include="DAL\Repositories\PhotoRepository.cs" />
-    <Compile Include="DAL\Repositories\UserRepository.cs" />
-    <Compile Include="DAL\Extensions\ExceptionExtensions.cs" />
-    <Compile Include="DAL\Managers\ApplicationRoleManager.cs" />
-    <Compile Include="DAL\Models\EFModels\ApplicationUser.cs" />
-    <Compile Include="DAL\Managers\ApplicationUserManager.cs" />
     <Compile Include="App_Start\Unity\UnityResolver.cs" />
     <Compile Include="App_Start\Formatters\PdfMediaTypeFormatter.cs" />
-    <Compile Include="DAL\Loggers\ILogger.cs" />
-    <Compile Include="DAL\Loggers\NLogLogger.cs" />
     <Compile Include="Infrastructure\ReportGenerators\HtmlGenerator.cs" />
-    <Compile Include="DAL\Notifications\AndroidPushNotificationService.cs" />
     <Compile Include="Infrastructure\Notifications\SendGridEmailService.cs" />
-    <Compile Include="DAL\Notifications\IPushNotificationService.cs" />
     <Compile Include="Infrastructure\ReportGenerators\PdfGenerator.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.cs" />
     <Compile Include="Migrations\201712082010334_InitialCreate.Designer.cs">
@@ -263,21 +235,9 @@
       <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\ComplainRequestViewModel.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\UserCardRequestViewModel.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\ComplainResponseViewModel.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\CreditCardResponseViewModel.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\CreditCardTransitRequestViewModel.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\DealRequestViewModel.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\DealResponseViewModel.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\PhotoResponseViewModel.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\RatingRequestViewModel.cs" />
-    <Compile Include="DAL\Models\RequestViewModels\UserRequestViewModel.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\ReportResponseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="DAL\Models\ResponseViewModels\UserResponseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -323,6 +283,12 @@
     <EmbeddedResource Include="Migrations\201712301928413_Add_PushNotificationToken_Column.resx">
       <DependentUpon>201712301928413_Add_PushNotificationToken_Column.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nanobank.API.DAL\Nanobank.API.DAL.csproj">
+      <Project>{af69b911-6777-4c72-ab5c-92d6070b5a70}</Project>
+      <Name>Nanobank.API.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

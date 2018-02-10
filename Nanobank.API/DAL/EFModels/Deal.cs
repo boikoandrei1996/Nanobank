@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nanobank.API.DAL.Models
+namespace Nanobank.API.DAL.EFModels
 {
   public class Deal
   {

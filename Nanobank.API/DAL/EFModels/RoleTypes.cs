@@ -1,4 +1,4 @@
-﻿namespace Nanobank.API.DAL.Models
+﻿namespace Nanobank.API.DAL.EFModels
 {
   public static class RoleTypes
   {

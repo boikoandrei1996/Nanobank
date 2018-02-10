@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Nanobank.API.DAL.Models;
+using Nanobank.API.DAL.EFModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
 using Nanobank.API.Models.ResponseViewModels;
 

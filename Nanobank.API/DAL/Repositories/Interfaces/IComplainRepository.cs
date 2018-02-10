@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.DAL.Models;
+using Nanobank.API.DAL.EFModels;
 using Nanobank.API.Models.RequestViewModels;
 using Nanobank.API.Models.ResponseViewModels;
 

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Nanobank.API.DAL.Models
+namespace Nanobank.API.DAL.EFModels
 {
   public class ApplicationUser : IdentityUser
   {

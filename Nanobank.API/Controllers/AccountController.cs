@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.DAL.Models;
+using Nanobank.API.DAL.EFModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
 using Nanobank.API.Models.RequestViewModels;
 

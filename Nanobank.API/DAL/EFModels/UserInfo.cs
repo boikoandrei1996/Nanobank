@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Nanobank.API.DAL.Models
+namespace Nanobank.API.DAL.EFModels
 {
   public class UserInfo
   {

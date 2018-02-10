@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Nanobank.API.DAL.EFModels;
+using Nanobank.API.DAL.Models.EFModels;
 
 namespace Nanobank.API.DAL
 {

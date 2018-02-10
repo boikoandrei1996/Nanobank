@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Nanobank.API.DAL.EFModels;
+using Nanobank.API.DAL.Models.EFModels;
 
 namespace Nanobank.API.DAL.Repositories.Interfaces
 {

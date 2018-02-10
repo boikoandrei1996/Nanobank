@@ -1,6 +1,6 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
-using Nanobank.API.Models.ResponseViewModels;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 using PdfSharp.Pdf;
 
 namespace Nanobank.API.Infrastructure.ReportGenerators

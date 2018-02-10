@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nanobank.API.DAL.EFModels
+namespace Nanobank.API.DAL.Models.EFModels
 {
   public class Complain
   {

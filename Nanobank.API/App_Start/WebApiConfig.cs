@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 using Nanobank.API.Formatters;
-using Nanobank.API.Models.ResponseViewModels;
 using Newtonsoft.Json.Serialization;
 
 namespace Nanobank.API

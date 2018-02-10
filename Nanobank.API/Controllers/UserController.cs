@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Nanobank.API.DAL.EFModels;
+using Nanobank.API.DAL.Models.EFModels;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
-using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.Controllers
 {

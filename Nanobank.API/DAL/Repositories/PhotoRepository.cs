@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Nanobank.API.DAL.Managers;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
-using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.DAL.Repositories
 {

@@ -9,9 +9,9 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.DAL;
-using Nanobank.API.DAL.EFModels;
-using Nanobank.API.DAL.Managers;
 using Nanobank.API.DAL.Loggers;
+using Nanobank.API.DAL.Managers;
+using Nanobank.API.DAL.Models.EFModels;
 using Newtonsoft.Json;
 
 namespace Nanobank.API.Migrations

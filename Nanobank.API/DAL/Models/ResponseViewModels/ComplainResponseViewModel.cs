@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nanobank.API.Models.ResponseViewModels
+namespace Nanobank.API.DAL.Models.ResponseViewModels
 {
-  [Serializable]
-  public class ReportResponseViewModel
+  public class ComplainResponseViewModel
   {
     [Display(Name = "Complain Id")]
     public string ComplainId { get; set; }
@@ -14,12 +13,6 @@ namespace Nanobank.API.Models.ResponseViewModels
 
     [Display(Name = "Deal Id")]
     public string DealId { get; set; }
-
-    [Display(Name = "Deal Owner Username")]
-    public string DealOwnerUsername { get; set; }
-
-    [Display(Name = "Deal Creditor Username")]
-    public string DealCreditorUsername { get; set; }
 
     [Display(Name = "Date of creating")]
     public DateTime DateOfCreating { get; set; }

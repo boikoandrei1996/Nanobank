@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using Nanobank.API.DAL.EFModels;
+using Nanobank.API.DAL.Models.EFModels;
+using Nanobank.API.DAL.Models.RequestViewModels;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 using Nanobank.API.DAL.Repositories.Interfaces;
-using Nanobank.API.Models.RequestViewModels;
-using Nanobank.API.Models.ResponseViewModels;
 
 namespace Nanobank.API.Controllers
 {

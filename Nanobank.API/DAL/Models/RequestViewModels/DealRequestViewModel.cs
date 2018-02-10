@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nanobank.API.Models.RequestViewModels
+namespace Nanobank.API.DAL.Models.RequestViewModels
 {
   public class DealRequestViewModel
   {

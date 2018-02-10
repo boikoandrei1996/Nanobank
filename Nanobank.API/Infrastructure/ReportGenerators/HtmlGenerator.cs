@@ -3,7 +3,7 @@ using System.Web.Hosting;
 using System.Xml.Serialization;
 using System.Xml.XPath;
 using System.Xml.Xsl;
-using Nanobank.API.Models.ResponseViewModels;
+using Nanobank.API.DAL.Models.ResponseViewModels;
 
 namespace Nanobank.API.Infrastructure.ReportGenerators
 {

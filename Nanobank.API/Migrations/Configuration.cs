@@ -11,21 +11,27 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Nanobank.API.DAL;
 using Nanobank.API.DAL.EFModels;
 using Nanobank.API.DAL.Managers;
+using Nanobank.API.DAL.Loggers;
 using Newtonsoft.Json;
 
 namespace Nanobank.API.Migrations
 {
   internal sealed class Configuration : DbMigrationsConfiguration<ApplicationContext>
   {
+    private ILogger _looger;
+
     public Configuration()
     {
       AutomaticMigrationsEnabled = false;
       ContextKey = "Nanobank.API.DAL.ApplicationContext";
+      _looger = NLogLogger.Create(true);
     }
 
     protected override void Seed(ApplicationContext context)
     {
       base.Seed(context);
+
+      _looger.Info("DB Migrations configuration start.");
 
       var userManager = ApplicationUserManager.Create(context);
 
@@ -34,6 +40,8 @@ namespace Nanobank.API.Migrations
       CreateUsers(userManager);
       CreateDeals(context, userManager);
       CreateComplains(context);
+
+      _looger.Info("DB Migrations configuration end.");
     }
 
     private void CreateComplains(ApplicationContext context)
@@ -170,10 +178,12 @@ namespace Nanobank.API.Migrations
       }
       catch(DbEntityValidationException ex)
       {
+        _looger.Fatal("Configuration.CreateRoles", ex);
         throw;
       }
       catch (DbUpdateException ex)
       {
+        _looger.Fatal("Configuration.CreateRoles", ex.InnerException.InnerException);
         throw;
       }
     }
@@ -188,7 +198,9 @@ namespace Nanobank.API.Migrations
 
           if (!result.Succeeded)
           {
-            throw new InvalidOperationException($"Can not create role: '{roleName}'");
+            var exception = new InvalidOperationException($"Can not create role: '{roleName}'");
+            _looger.Fatal("Configuration.CreateRoles", exception);
+            throw exception;
           }
         }
       }
@@ -281,13 +293,17 @@ namespace Nanobank.API.Migrations
         IdentityResult result = manager.Create(newUser, user.Password);
         if (!result.Succeeded)
         {
-          throw new InvalidOperationException($"Can not create user: {user.UserName}");
+          var exception = new InvalidOperationException($"Can not create user: {user.UserName}");
+          _looger.Fatal("Configuration.CreateRoles", exception);
+          throw exception;
         }
 
         result = manager.AddToRoles(newUser.Id, user.Roles);
         if (!result.Succeeded)
         {
-          throw new InvalidOperationException($"Can not add roles '{string.Join("; ", user.Roles)}' for user '{user.UserName}'");
+          var exception = new InvalidOperationException($"Can not add roles '{string.Join("; ", user.Roles)}' for user '{user.UserName}'");
+          _looger.Fatal("Configuration.CreateRoles", exception);
+          throw exception;
         }
       }
     }
